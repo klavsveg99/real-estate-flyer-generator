@@ -25,11 +25,11 @@ function PreviewSection({ formState }: { formState: FormState }) {
       <div style={{ height: '11px', background: 'linear-gradient(90deg, #8B5CF6 0%, #7C3AED 100%)', borderRadius: '2px', marginBottom: '45px' }} />
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '45px', paddingBottom: '45px', borderBottom: '1px solid #e5e7eb' }}>
-        <div style={{ width: '180px', height: '50px' }}>
+        <div style={{ width: '180px', height: '50px', minWidth: '180px', minHeight: '50px' }}>
           {logo?.preview ? (
-            <img src={logo.preview} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <img src={logo.preview} alt="Logo" style={{ width: '180px', height: '50px', objectFit: 'contain' }} />
           ) : (
-            <div className="bg-gray-200 rounded flex items-center justify-center text-gray-400" style={{ width: '100%', height: '100%', fontSize: '12px' }}>Logo</div>
+            <div className="bg-gray-200 rounded flex items-center justify-center text-gray-400" style={{ width: '180px', height: '50px', fontSize: '12px' }}>Logo</div>
           )}
         </div>
         <span className="bg-purple-600 text-white rounded font-semibold" style={{ padding: '8px 16px', fontSize: '12px' }}>{listing.listingId}</span>
@@ -62,9 +62,9 @@ function PreviewSection({ formState }: { formState: FormState }) {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div className="bg-gray-200 rounded-lg overflow-hidden border border-gray-200" style={{ width: '100%', height: '120px', marginBottom: '12px' }}>
+          <div style={{ width: '100%', height: '120px', minWidth: '100%', minHeight: '120px', backgroundColor: '#e5e7eb', borderRadius: '8px', overflow: 'hidden', marginBottom: '12px' }}>
             {mapImage?.preview ? (
-              <img src={mapImage.preview} alt="Map" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={mapImage.preview} alt="Map" style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-gray-400" style={{ fontSize: '14px' }}>Map Image</div>
             )}
@@ -77,18 +77,18 @@ function PreviewSection({ formState }: { formState: FormState }) {
               return (
                 <div key={`row-${rowIndex}`} style={{ display: 'flex', marginBottom: rowIndex < 2 ? '6px' : '0' }}>
                   {rowImages.map((img, colIndex) => (
-                    <div key={img?.id || `empty-${rowIndex}-${colIndex}`} className="bg-gray-200 rounded-lg overflow-hidden border border-gray-200" style={{ width: hasTwo ? '50%' : '100%', aspectRatio: hasTwo ? '1' : '2', marginRight: hasTwo && colIndex === 0 ? '6px' : '0' }}>
+                    <div key={img?.id || `empty-${rowIndex}-${colIndex}`} style={{ width: hasTwo ? '50%' : '100%', minWidth: hasTwo ? '0' : '100%', aspectRatio: hasTwo ? '1' : '2', marginRight: hasTwo && colIndex === 0 ? '6px' : '0' }}>
                       {img?.preview ? (
-                        <img src={img.preview} alt={`Gallery ${rowIndex * 2 + colIndex + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <img src={img.preview} alt={`Gallery ${rowIndex * 2 + colIndex + 1}`} style={{ width: '100%', height: hasTwo ? '100%' : 'auto', minHeight: '80px', objectFit: 'cover', borderRadius: '8px' }} />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center">
+                        <div className="bg-gray-200 rounded-lg flex items-center justify-center" style={{ width: '100%', height: hasTwo ? '100%' : '80px' }}>
                           <span className="text-gray-400" style={{ fontSize: '12px' }}>Image</span>
                         </div>
                       )}
                     </div>
                   ))}
                   {!hasTwo && (
-                    <div className="bg-gray-200 rounded-lg border border-gray-200" style={{ width: '0', visibility: 'hidden' }} />
+                    <div style={{ width: '0', visibility: 'hidden' }} />
                   )}
                 </div>
               );
