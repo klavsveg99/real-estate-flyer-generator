@@ -20,7 +20,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
     <div
       id="flyer-template"
       className="bg-white shadow-lg"
-      style={{ width: '595px', height: '842px', padding: '45px', fontFamily: 'Inter, system-ui, sans-serif', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}
+      style={{ padding: '45px', fontFamily: 'Inter, system-ui, sans-serif', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}
     >
       <div style={{ height: '11px', background: 'linear-gradient(90deg, #8B5CF6 0%, #7C3AED 100%)', borderRadius: '2px', marginBottom: '45px' }} />
 
