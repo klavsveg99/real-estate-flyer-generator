@@ -51,7 +51,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
           </div>
           <a
             href={`mailto:info@pardodlaimigs.lv?subject=${encodeURIComponent('Par īpašumu: ' + listing.title)}&body=${encodeURIComponent('Sveicināti,\\n\\nEs iepazinos ar Jūsu sludinājumu par īpašumu "' + listing.title + '" (' + listing.listingId + ').\\n\\nĪpašuma adrese: ' + listing.address + '\\nCena: ' + listing.price + ' EUR' + (listing.areaSize ? '\\nPlatība: ' + listing.areaSize + ' m²' : '') + '\\n\\nLūdzu, sazinieties ar mani, lai uzzinātu vairāk.\\n\\nAr cieņu,\\n' + listing.agentName)}`}
-            className="text-white rounded font-semibold uppercase text-center cursor-pointer no-underline" style={{ background: '#285854' }}
+            className="text-white font-semibold uppercase text-center cursor-pointer no-underline" style={{ background: '#285854', borderRadius: '6px' }}
             style={{ padding: '16px 32px', fontSize: '16px', display: 'inline-block', letterSpacing: '0.5px', width: 'fit-content' }}
           >
             {listing.ctaText || 'Contact Agent'}
@@ -59,7 +59,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ width: '100%', height: '150px', backgroundColor: '#e5e7eb', borderRadius: '8px', overflow: 'hidden', marginBottom: '12px' }}>
+          <div style={{ width: '100%', height: '150px', backgroundColor: '#e5e7eb', borderRadius: '6px', overflow: 'hidden', marginBottom: '12px' }}>
             {mapImage?.preview ? (
               <img src={mapImage.preview} alt="Map" style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
             ) : (
@@ -75,7 +75,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
                 <div key={`row-${rowIndex}`} style={{ display: 'flex', marginBottom: rowIndex < 2 ? '6px' : '0' }}>
                   {rowImages.map((img, colIndex) => (
                     <div key={img?.id || `empty-${rowIndex}-${colIndex}`} style={{ width: hasTwo ? '50%' : '100%', marginRight: hasTwo && colIndex === 0 ? '6px' : '0' }}>
-                      <img src={img.preview} alt={`Gallery ${rowIndex * 2 + colIndex + 1}`} style={{ width: '100%', height: hasTwo ? '100%' : '150px', objectFit: 'cover', borderRadius: '8px' }} />
+                      <img src={img.preview} alt={`Gallery ${rowIndex * 2 + colIndex + 1}`} style={{ width: '100%', height: hasTwo ? '100%' : '150px', objectFit: 'cover', borderRadius: '6px' }} />
                     </div>
                   ))}
                 </div>
@@ -86,7 +86,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
       </div>
 
         <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '15px', marginTop: 'auto' }}>
-        <div style={{ backgroundColor: '#285854', padding: '15px', borderRadius: '8px', display: 'flex' }}>
+        <div style={{ backgroundColor: '#285854', padding: '15px', borderRadius: '6px', display: 'flex' }}>
           <div style={{ flex: 1, marginRight: '20px' }}>
             <p className="font-semibold text-white">{listing.agentName || 'Agent Name'}</p>
             <p className="text-white text-sm">{listing.agentTitle}</p>
@@ -260,7 +260,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
             <button
               onClick={fetchMapImage}
               disabled={isLoadingMap || !mapAddress.trim()}
-              style={{ background: '#285854', color: 'white', padding: '8px 16px', borderRadius: '8px', fontSize: '14px', fontWeight: 500 }}
+              style={{ background: '#285854', color: 'white', padding: '8px 16px', borderRadius: '6px', fontSize: '14px', fontWeight: 500 }}
             >
               {isLoadingMap ? 'Loading...' : 'Iegūt karti'}
             </button>
