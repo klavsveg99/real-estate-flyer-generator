@@ -76,10 +76,10 @@ function PreviewSection({ formState }: { formState: FormState }) {
                 const rowImages = galleryImages.slice(rowIndex * 2, rowIndex * 2 + 2);
                 const hasTwo = rowImages.length === 2;
                 return (
-                  <div key={`row-${rowIndex}`} style={{ display: 'flex', marginBottom: rowIndex < 2 ? '6px' : '0' }}>
+                  <div key={`row-${rowIndex}`} style={{ display: 'flex', marginBottom: rowIndex < 2 ? '6px' : '0', height: '75px' }}>
                     {rowImages.map((img, colIndex) => (
-                      <div key={img?.id || `empty-${rowIndex}-${colIndex}`} style={{ width: hasTwo ? '50%' : '100%', marginRight: hasTwo && colIndex === 0 ? '6px' : '0' }}>
-                        <img src={img.preview} alt={`Gallery ${rowIndex * 2 + colIndex + 1}`} style={{ width: '100%', height: hasTwo ? '100%' : '150px', objectFit: 'cover', borderRadius: '6px' }} />
+                      <div key={img?.id || `empty-${rowIndex}-${colIndex}`} style={{ width: hasTwo ? '50%' : '100%', marginRight: hasTwo && colIndex === 0 ? '6px' : '0', height: '100%' }}>
+                        <img src={img.preview} alt={`Gallery ${rowIndex * 2 + colIndex + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '6px' }} />
                       </div>
                     ))}
                   </div>
