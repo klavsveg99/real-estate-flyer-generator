@@ -28,6 +28,7 @@ export interface FormState {
   listing: ListingData;
   mapImage: ImageFile | null;
   galleryImages: ImageFile[];
+  agentImage: ImageFile | null;
 }
 
 export const defaultListing: ListingData = {

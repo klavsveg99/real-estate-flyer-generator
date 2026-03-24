@@ -49,6 +49,7 @@ interface FlyerPdfProps {
   listing: ListingData;
   mapImage: ImageFile | null;
   galleryImages: ImageFile[];
+  agentImage: ImageFile | null;
 }
 
 const formatPrice = (value: string) => {
@@ -57,7 +58,7 @@ const formatPrice = (value: string) => {
   return '€' + num.toLocaleString();
 };
 
-export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfProps) {
+export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage }: FlyerPdfProps) {
   const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
   const priceSubtext = [
     listing.areaSize && `${parseFloat(listing.areaSize).toLocaleString()} m²`,
@@ -137,10 +138,13 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
         </View>
 
         <View style={styles.footer}>
-          <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between' }]}>
-            <View>
-              <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
-              {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
+          <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image src={agentImage?.preview || '/images/roberts.jpg'} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
+              <View>
+                <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
+                {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
+              </View>
             </View>
             <View>
               {listing.mobile && <Text style={styles.agentPhone}>{listing.mobile}</Text>}

@@ -7,7 +7,7 @@ import { pdf } from '@react-pdf/renderer';
 import { FlyerPdfDocument } from './components/FlyerPdf';
 
 function PreviewSection({ formState }: { formState: FormState }) {
-  const { listing, mapImage, galleryImages } = formState;
+  const { listing, mapImage, galleryImages, agentImage } = formState;
   const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
 
   const formatPrice = (value: string) => {
@@ -88,10 +88,13 @@ function PreviewSection({ formState }: { formState: FormState }) {
       </div>
 
         <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '15px', marginTop: 'auto' }}>
-        <div style={{ backgroundColor: '#285854', padding: '15px', borderRadius: '6px', display: 'flex', gap: '40px' }}>
-          <div style={{ flex: 1 }}>
-            <p className="font-semibold text-white">{listing.agentName || 'Agent Name'}</p>
-            <p className="text-white text-sm">{listing.agentTitle}</p>
+        <div style={{ backgroundColor: '#285854', padding: '16px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '40px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <img src={agentImage?.preview || '/images/roberts.jpg'} alt="Agent" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
+            <div>
+              <p className="font-semibold text-white">{listing.agentName || 'Agent Name'}</p>
+              <p className="text-white text-sm">{listing.agentTitle}</p>
+            </div>
           </div>
           <div style={{ flex: 1 }}>
             <p className="text-white font-medium">{listing.mobile}</p>
@@ -130,12 +133,35 @@ function PropertyForm({ data, onChange }: { data: ListingData; onChange: (d: Lis
   );
 }
 
-function AgentForm({ data, onChange }: { data: ListingData; onChange: (d: ListingData) => void }) {
+function AgentForm({ data, onChange, agentImage, updateAgentImage }: { data: ListingData; onChange: (d: ListingData) => void; agentImage: ImageFile | null; updateAgentImage: (img: ImageFile | null) => void }) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ ...data, [e.target.name]: e.target.value });
   };
   return (
     <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Aģenta foto</label>
+        {agentImage ? (
+          <div className="relative inline-block">
+            <img src={agentImage.preview} alt="Agent" className="w-16 h-16 rounded-full object-cover" />
+            <button onClick={() => updateAgentImage(null)} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs">×</button>
+          </div>
+        ) : (
+          <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+            <span className="text-gray-400 text-xs">Nav foto</span>
+          </div>
+        )}
+        <input type="file" accept="image/*" className="mt-2 w-full text-sm" onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+              updateAgentImage({ id: 'agent', file, preview: reader.result as string, name: file.name });
+            };
+            reader.readAsDataURL(file);
+          }
+        }} />
+      </div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Aģenta vārds *</label><input type="text" name="agentName" value={data.agentName} onChange={handleChange} placeholder="Piemēram: Roberts Evarsons" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Aģenta amats</label><input type="text" name="agentTitle" value={data.agentTitle} onChange={handleChange} placeholder="Piemēram: Nekustamo īpašumu konsultants" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Tālrunis</label><input type="text" name="mobile" value={data.mobile} onChange={handleChange} placeholder="Piemēram: +371 2492 2942" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
@@ -320,19 +346,20 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
 }
 
 export default function Home() {
-  const [formState, setFormState] = useState<FormState>({ listing: defaultListing, mapImage: null, galleryImages: [] });
+  const [formState, setFormState] = useState<FormState>({ listing: defaultListing, mapImage: null, galleryImages: [], agentImage: null });
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<'property' | 'images' | 'agent'>('property');
 
   const updateListing = useCallback((listing: ListingData) => setFormState(prev => ({ ...prev, listing })), []);
   const updateMapImage = useCallback((mapImage: ImageFile | null) => setFormState(prev => ({ ...prev, mapImage })), []);
   const updateGalleryImages = useCallback((galleryImages: ImageFile[]) => setFormState(prev => ({ ...prev, galleryImages })), []);
+  const updateAgentImage = useCallback((agentImage: ImageFile | null) => setFormState(prev => ({ ...prev, agentImage })), []);
 
   const handleGeneratePdf = async () => {
     if (!isFormValid(formState.listing)) { alert('Lūdzu, aizpildiet visus obligātos laukus.'); return; }
     setIsGenerating(true);
     try {
-      const doc = <FlyerPdfDocument listing={formState.listing} mapImage={formState.mapImage} galleryImages={formState.galleryImages} />;
+      const doc = <FlyerPdfDocument listing={formState.listing} mapImage={formState.mapImage} galleryImages={formState.galleryImages} agentImage={formState.agentImage} />;
       const blob = await pdf(doc).toBlob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -379,7 +406,7 @@ export default function Home() {
               <div className="p-6">
                 {activeTab === 'property' && <PropertyForm data={formState.listing} onChange={updateListing} />}
                 {activeTab === 'images' && <ImageSection formState={formState} updateMapImage={updateMapImage} updateGalleryImages={updateGalleryImages} />}
-                {activeTab === 'agent' && <AgentForm data={formState.listing} onChange={updateListing} />}
+                {activeTab === 'agent' && <AgentForm data={formState.listing} onChange={updateListing} agentImage={formState.agentImage} updateAgentImage={updateAgentImage} />}
               </div>
             </div>
           </div>
