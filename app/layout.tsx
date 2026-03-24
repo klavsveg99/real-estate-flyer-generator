@@ -4,6 +4,9 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Real Estate Flyer Generator',
   description: 'Generate professional property listing flyers in seconds',
+  icons: {
+    icon: '/images/favicon.jpg',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

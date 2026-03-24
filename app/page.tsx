@@ -7,7 +7,7 @@ import { pdf } from '@react-pdf/renderer';
 import { FlyerPdfDocument } from './components/FlyerPdf';
 
 function PreviewSection({ formState }: { formState: FormState }) {
-  const { listing, logo, mapImage, galleryImages } = formState;
+  const { listing, mapImage, galleryImages } = formState;
   const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
 
   const formatPrice = (value: string) => {
@@ -25,13 +25,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
       <div style={{ height: '11px', background: 'linear-gradient(90deg, #2d6b66 0%, #285854 100%)', borderRadius: '2px', marginBottom: '45px' }} />
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '45px', paddingBottom: '45px', borderBottom: '1px solid #e5e7eb' }}>
-        <div style={{ width: '180px', height: '50px', minWidth: '180px', minHeight: '50px' }}>
-          {logo?.preview ? (
-            <img src={logo.preview} alt="Logo" style={{ width: '180px', height: '50px', objectFit: 'contain' }} />
-          ) : (
-            <div className="bg-gray-200 rounded flex items-center justify-center text-gray-400" style={{ width: '180px', height: '50px', fontSize: '12px' }}>Logo</div>
-          )}
-        </div>
+        <img src="/images/favicon.jpg" alt="Logo" style={{ width: '180px', height: '50px', objectFit: 'contain' }} />
         <span style={{ backgroundColor: '#285854', color: 'white', borderRadius: '4px', padding: '8px 16px', fontSize: '12px', fontWeight: 600 }}>{listing.listingId}</span>
       </div>
 
@@ -162,8 +156,10 @@ function AgentForm({ data, onChange }: { data: ListingData; onChange: (d: Listin
   );
 }
 
-function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImages }: { formState: FormState; updateLogo: (img: ImageFile | null) => void; updateMapImage: (img: ImageFile | null) => void; updateGalleryImages: (imgs: ImageFile[]) => void }) {
+function ImageSection({ formState, updateMapImage, updateGalleryImages }: { formState: FormState; updateMapImage: (img: ImageFile | null) => void; updateGalleryImages: (imgs: ImageFile[]) => void }) {
   const [dragIndex, setDragIndex] = React.useState<number | null>(null);
+  const [mapAddress, setMapAddress] = React.useState(formState.listing.address);
+  const [isLoadingMap, setIsLoadingMap] = React.useState(false);
 
   const convertToPng = (file: File): Promise<string> => {
     return new Promise((resolve) => {
@@ -192,18 +188,41 @@ function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImag
     });
   };
 
-  const handleLogoFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const preview = await convertToPng(file);
-    updateLogo({ id: '1', file, preview, name: file.name });
-  };
-
-  const handleMapFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const preview = await convertToPng(file);
-    updateMapImage({ id: '2', file, preview, name: file.name });
+  const fetchMapImage = async () => {
+    if (!mapAddress.trim()) return;
+    setIsLoadingMap(true);
+    try {
+      const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
+      if (!apiKey) {
+        alert('Please set NEXT_PUBLIC_GOOGLE_MAPS_API_KEY in your environment variables');
+        return;
+      }
+      const encodedAddress = encodeURIComponent(mapAddress);
+      const mapUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${apiKey}`;
+      
+      const response = await fetch(mapUrl);
+      const data = await response.json();
+      
+      if (data.results && data.results.length > 0) {
+        const { lat, lng } = data.results[0].geometry.location;
+        const staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=15&size=600x300&scale=2&markers=color:red%7C${lat},${lng}&key=${apiKey}`;
+        
+        const mapResponse = await fetch(staticMapUrl);
+        const blob = await mapResponse.blob();
+        const reader = new FileReader();
+        reader.onload = () => {
+          updateMapImage({ id: '2', file: null, preview: reader.result as string, name: 'map' });
+        };
+        reader.readAsDataURL(blob);
+      } else {
+        alert('Address not found. Please try a different address.');
+      }
+    } catch (error) {
+      console.error('Error fetching map:', error);
+      alert('Failed to fetch map image. Please check your API key and try again.');
+    } finally {
+      setIsLoadingMap(false);
+    }
   };
 
   const handleGalleryFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -241,44 +260,41 @@ function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImag
   return (
     <div className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Company Logo</label>
-        <label className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-teal-400 hover:bg-teal-50 transition-colors min-h-32">
-          <input type="file" accept="image/*" className="hidden" onChange={handleLogoFile} />
-          {formState.logo ? (
-            <div className="relative w-full">
-              <img src={formState.logo.preview} alt="Logo" className="h-20 mx-auto object-contain" />
-              <button onClick={(e) => { e.preventDefault(); updateLogo(null); }} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs hover:bg-red-600">×</button>
-            </div>
-          ) : (
-            <div className="text-center">
-              <div className="text-teal-600 mb-2">
-                <svg className="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-              </div>
-              <div className="text-gray-500 text-sm">Click to upload logo</div>
-              <div className="text-gray-400 text-xs mt-1">PNG, JPG up to 5MB</div>
-            </div>
-          )}
-        </label>
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Location Map</label>
-        <label className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-teal-400 hover:bg-teal-50 transition-colors min-h-32">
-          <input type="file" accept="image/*" className="hidden" onChange={handleMapFile} />
-          {formState.mapImage ? (
-            <div className="relative w-full">
-              <img src={formState.mapImage.preview} alt="Map" className="h-20 mx-auto object-cover" />
-              <button onClick={(e) => { e.preventDefault(); updateMapImage(null); }} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs hover:bg-red-600">×</button>
-            </div>
-          ) : (
-            <div className="text-center">
-              <div className="text-teal-600 mb-2">
-                <svg className="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
-              </div>
-              <div className="text-gray-500 text-sm">Click to upload map</div>
-              <div className="text-gray-400 text-xs mt-1">PNG, JPG up to 5MB</div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Location Map (Google Maps)</label>
+        <div className="border border-gray-300 rounded-lg p-4">
+          <div className="flex gap-2 mb-3">
+            <input
+              type="text"
+              value={mapAddress}
+              onChange={(e) => setMapAddress(e.target.value)}
+              placeholder="Enter property address"
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+            />
+            <button
+              onClick={fetchMapImage}
+              disabled={isLoadingMap || !mapAddress.trim()}
+              className="px-4 py-2 bg-teal-600 text-white rounded-lg text-sm font-medium hover:bg-teal-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            >
+              {isLoadingMap ? 'Loading...' : 'Get Map'}
+            </button>
+          </div>
+          {formState.mapImage && (
+            <div className="relative">
+              <img src={formState.mapImage.preview} alt="Map" className="w-full h-40 object-cover rounded-lg" />
+              <button
+                onClick={() => updateMapImage(null)}
+                className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs hover:bg-red-600"
+              >
+                ×
+              </button>
             </div>
           )}
-        </label>
+          {!formState.mapImage && (
+            <div className="w-full h-40 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-sm">
+              Enter address and click "Get Map"
+            </div>
+          )}
+        </div>
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Gallery Images (up to 6) - Drag to reorder</label>
@@ -291,7 +307,7 @@ function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImag
               onDragOver={(e) => e.preventDefault()}
               onDrop={() => handleSortDrop(i)}
               onDragEnd={() => setDragIndex(null)}
-              className={`relative border-2 border-dashed rounded-lg aspect-square flex items-center justify-center cursor-move bg-gray-50 hover:bg-gray-100 ${dragIndex === i ? 'border-purple-500 bg-purple-50' : 'border-gray-300'}`}
+              className={`relative border-2 border-dashed rounded-lg aspect-square flex items-center justify-center cursor-move bg-gray-50 hover:bg-gray-100 ${dragIndex === i ? 'border-teal-500 bg-teal-50' : 'border-gray-300'}`}
             >
               <img src={img.preview} alt={`Gallery ${i + 1}`} className="w-full h-full object-cover rounded" />
               <button onClick={() => updateGalleryImages(formState.galleryImages.filter((_, idx) => idx !== i))} className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs hover:bg-red-600">×</button>
@@ -301,7 +317,7 @@ function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImag
           {formState.galleryImages.length < 6 && (
             <label className="border-2 border-dashed border-gray-300 rounded-lg aspect-square flex flex-col items-center justify-center cursor-pointer hover:border-teal-400 hover:bg-teal-50 transition-colors">
               <input type="file" accept="image/*" multiple className="hidden" onChange={handleGalleryFiles} />
-              <div className="text-purple-600">
+              <div className="text-teal-600">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
               </div>
               <span className="text-gray-400 text-xs mt-1">{formState.galleryImages.length + 1}</span>
@@ -315,12 +331,11 @@ function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImag
 }
 
 export default function Home() {
-  const [formState, setFormState] = useState<FormState>({ listing: defaultListing, logo: null, mapImage: null, galleryImages: [] });
+  const [formState, setFormState] = useState<FormState>({ listing: defaultListing, mapImage: null, galleryImages: [] });
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<'property' | 'images' | 'agent'>('property');
 
   const updateListing = useCallback((listing: ListingData) => setFormState(prev => ({ ...prev, listing })), []);
-  const updateLogo = useCallback((logo: ImageFile | null) => setFormState(prev => ({ ...prev, logo })), []);
   const updateMapImage = useCallback((mapImage: ImageFile | null) => setFormState(prev => ({ ...prev, mapImage })), []);
   const updateGalleryImages = useCallback((galleryImages: ImageFile[]) => setFormState(prev => ({ ...prev, galleryImages })), []);
 
@@ -328,7 +343,7 @@ export default function Home() {
     if (!isFormValid(formState.listing)) { alert('Please fill in all required fields.'); return; }
     setIsGenerating(true);
     try {
-      const doc = <FlyerPdfDocument listing={formState.listing} logo={formState.logo} mapImage={formState.mapImage} galleryImages={formState.galleryImages} />;
+      const doc = <FlyerPdfDocument listing={formState.listing} mapImage={formState.mapImage} galleryImages={formState.galleryImages} />;
       const blob = await pdf(doc).toBlob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -376,7 +391,7 @@ export default function Home() {
               </div>
               <div className="p-6">
                 {activeTab === 'property' && <PropertyForm data={formState.listing} onChange={updateListing} />}
-                {activeTab === 'images' && <ImageSection formState={formState} updateLogo={updateLogo} updateMapImage={updateMapImage} updateGalleryImages={updateGalleryImages} />}
+                {activeTab === 'images' && <ImageSection formState={formState} updateMapImage={updateMapImage} updateGalleryImages={updateGalleryImages} />}
                 {activeTab === 'agent' && <AgentForm data={formState.listing} onChange={updateListing} />}
               </div>
             </div>

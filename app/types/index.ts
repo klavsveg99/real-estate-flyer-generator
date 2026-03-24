@@ -26,7 +26,6 @@ export interface ImageFile {
 
 export interface FormState {
   listing: ListingData;
-  logo: ImageFile | null;
   mapImage: ImageFile | null;
   galleryImages: ImageFile[];
 }

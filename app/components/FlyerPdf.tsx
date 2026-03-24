@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
 
 interface FlyerPdfProps {
   listing: ListingData;
-  logo: ImageFile | null;
   mapImage: ImageFile | null;
   galleryImages: ImageFile[];
 }
@@ -51,7 +50,7 @@ const formatPrice = (value: string) => {
   return '$' + num.toLocaleString();
 };
 
-export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: FlyerPdfProps) {
+export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfProps) {
   const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
   const priceSubtext = [
     listing.areaSize && `${parseFloat(listing.areaSize).toLocaleString()} m²`,
@@ -67,7 +66,7 @@ export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: Fly
 
         <View style={styles.header}>
           <View style={styles.logoWrapper}>
-            {logo?.preview && <Image src={logo.preview} style={{ width: 160, height: 45 }} />}
+            <Image src="/images/favicon.jpg" style={{ width: 160, height: 45 }} />
           </View>
           <Text style={styles.listingId}>{listing.listingId}</Text>
         </View>
