@@ -86,17 +86,13 @@ function PreviewSection({ formState }: { formState: FormState }) {
       </div>
 
         <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '15px', marginTop: 'auto' }}>
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <div style={{ backgroundColor: '#285854', padding: '15px', borderRadius: '8px', flex: 1 }}>
+        <div style={{ backgroundColor: '#285854', padding: '15px', borderRadius: '8px', display: 'flex' }}>
+          <div style={{ flex: 1 }}>
             <p className="font-semibold text-white">{listing.agentName || 'Agent Name'}</p>
             <p className="text-white text-sm">{listing.agentTitle}</p>
-            <p className="text-white font-medium mt-1">{listing.mobile}</p>
-            <p className="text-white text-sm">{listing.email}</p>
           </div>
-          <div style={{ backgroundColor: '#285854', padding: '15px', borderRadius: '8px', flex: 1 }}>
-            <p className="font-semibold text-white">{listing.agentName || 'Agent Name'}</p>
-            <p className="text-white text-sm">{listing.agentTitle}</p>
-            <p className="text-white font-medium mt-1">{listing.mobile}</p>
+          <div style={{ flex: 1 }}>
+            <p className="text-white font-medium">{listing.mobile}</p>
             <p className="text-white text-sm">{listing.email}</p>
           </div>
         </div>
