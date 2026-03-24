@@ -24,7 +24,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
     >
       <div style={{ height: '11px', background: 'linear-gradient(90deg, #2d6b66 0%, #285854 100%)', borderRadius: '2px', marginBottom: '45px' }} />
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '45px', paddingBottom: '45px', borderBottom: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #e5e7eb' }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <img src="/images/favicon.jpg" alt="Logo" style={{ width: '50px', height: '50px', objectFit: 'contain', objectPosition: 'left center' }} />
           <span style={{ marginLeft: '10px', fontSize: '16px', fontWeight: 700, color: '#000000' }}>Pardodlaimigs.lv</span>
@@ -60,26 +60,32 @@ function PreviewSection({ formState }: { formState: FormState }) {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ width: '100%', height: '150px', backgroundColor: '#e5e7eb', borderRadius: '6px', overflow: 'hidden', marginBottom: '12px' }}>
             {mapImage?.preview ? (
-              <img src={mapImage.preview} alt="Map" style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
+              <img src={mapImage.preview} alt="Map" style={{ width: '100%', height: '150px', objectFit: 'cover', maxWidth: '100%' }} />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-gray-400" style={{ fontSize: '14px' }}>Map Image</div>
             )}
           </div>
 
           <div>
-            {[...Array(3)].map((_, rowIndex) => {
-              const rowImages = galleryImages.slice(rowIndex * 2, rowIndex * 2 + 2);
-              const hasTwo = rowImages.length === 2;
-              return (
-                <div key={`row-${rowIndex}`} style={{ display: 'flex', marginBottom: rowIndex < 2 ? '6px' : '0' }}>
-                  {rowImages.map((img, colIndex) => (
-                    <div key={img?.id || `empty-${rowIndex}-${colIndex}`} style={{ width: hasTwo ? '50%' : '100%', marginRight: hasTwo && colIndex === 0 ? '6px' : '0' }}>
-                      <img src={img.preview} alt={`Gallery ${rowIndex * 2 + colIndex + 1}`} style={{ width: '100%', height: hasTwo ? '100%' : '150px', objectFit: 'cover', borderRadius: '6px' }} />
-                    </div>
-                  ))}
-                </div>
-              );
-            })}
+            {galleryImages.length === 0 ? (
+              [...Array(4)].map((_, i) => (
+                <div key={`placeholder-${i}`} style={{ width: '50%', height: '75px', marginRight: i % 2 === 0 ? '6px' : '0', marginBottom: '6px', display: 'inline-block', backgroundColor: '#e5e7eb', borderRadius: '6px' }} />
+              ))
+            ) : (
+              [...Array(3)].map((_, rowIndex) => {
+                const rowImages = galleryImages.slice(rowIndex * 2, rowIndex * 2 + 2);
+                const hasTwo = rowImages.length === 2;
+                return (
+                  <div key={`row-${rowIndex}`} style={{ display: 'flex', marginBottom: rowIndex < 2 ? '6px' : '0' }}>
+                    {rowImages.map((img, colIndex) => (
+                      <div key={img?.id || `empty-${rowIndex}-${colIndex}`} style={{ width: hasTwo ? '50%' : '100%', marginRight: hasTwo && colIndex === 0 ? '6px' : '0' }}>
+                        <img src={img.preview} alt={`Gallery ${rowIndex * 2 + colIndex + 1}`} style={{ width: '100%', height: hasTwo ? '100%' : '150px', objectFit: 'cover', borderRadius: '6px' }} />
+                      </div>
+                    ))}
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
       </div>
@@ -122,7 +128,7 @@ function PropertyForm({ data, onChange }: { data: ListingData; onChange: (d: Lis
       </div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Datums</label><input type="text" name="listingDate" value={data.listingDate} onChange={handleChange} placeholder="Piemēram: Marts 2026" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Apraksts</label><textarea name="description" value={data.description} onChange={handleChange} rows={6} placeholder="Ievadiet īpašuma aprakstu..." className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none" /></div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Poga "Sazinieties"</label><input type="text" name="ctaText" value={data.ctaText} onChange={handleChange} placeholder="Piemēram: Sazināties ar aģentu" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">CTA Poga</label><input type="text" name="ctaText" value={data.ctaText} onChange={handleChange} placeholder="Sazināties" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
     </div>
   );
 }

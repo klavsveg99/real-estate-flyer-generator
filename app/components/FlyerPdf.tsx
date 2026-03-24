@@ -118,9 +118,9 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
           <View style={styles.rightCol}>
             <View style={styles.mapWrapper}>
               {mapImage?.preview ? (
-                <Image src={mapImage.preview} style={{ width: '100%', height: 150 }} />
+                <Image src={mapImage.preview} style={{ width: 202, height: 150, objectFit: 'cover' }} />
               ) : (
-                <View style={{ width: '100%', height: 150, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ width: 202, height: 150, justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={styles.mapText}>Karte</Text>
                 </View>
               )}
@@ -135,8 +135,8 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
         </View>
 
         <View style={styles.footer}>
-          <View style={[styles.agentBox, { width: '100%', flexDirection: 'row' }]}>
-            <View style={{ flex: 1, marginRight: 20 }}>
+          <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', gap: 40 }]}>
+            <View style={{ flex: 1 }}>
               <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
               {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
             </View>
