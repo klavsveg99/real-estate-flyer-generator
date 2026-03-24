@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
   purpleBar: { height: 6, backgroundColor: '#285854', borderRadius: 6, marginBottom: 15 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
   listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 4, paddingHorizontal: 8, fontSize: 9, fontWeight: 'bold', borderRadius: 6 },
-  contentRow: { flexDirection: 'row', marginBottom: 15 },
-  leftCol: { width: '50%', marginRight: 20 },
+  contentRow: { flexDirection: 'row', marginBottom: 15, gap: 20 },
+  leftCol: { width: '50%' },
   title: { fontSize: 20, fontWeight: 'bold', color: '#111827', marginBottom: 4 },
   address: { fontSize: 12, color: '#6b7280', marginBottom: 10 },
   priceBox: { backgroundColor: '#f9fafb', borderWidth: 1, borderColor: '#e5e7eb', borderRadius: 6, padding: 10, marginBottom: 10 },
@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
   mapText: { fontSize: 12, color: '#9ca3af' },
   galleryRow: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 4 },
   galleryItemHalf: { width: '48%', height: 62, marginRight: '4%', borderRadius: 4, overflow: 'hidden' },
+  galleryItemHalfLast: { width: '48%', height: 62, borderRadius: 4, overflow: 'hidden' },
   galleryItemFull: { width: '100%', height: 70, borderRadius: 4, overflow: 'hidden' },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 10, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
@@ -114,16 +115,19 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
               {galleryItems.length === 0 ? (
                 <>
                   <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 1</Text></View>
-                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 2</Text></View>
+                  <View style={styles.galleryItemHalfLast}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 2</Text></View>
                   <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 3</Text></View>
-                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 4</Text></View>
+                  <View style={styles.galleryItemHalfLast}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 4</Text></View>
                 </>
               ) : (
                 galleryItems.map((img, i) => {
                   const hasPair = i + 1 < galleryItems.length;
+                  const isFullWidth = !hasPair;
+                  const isSecondInPair = i % 2 === 1;
+                  const itemStyle = isFullWidth ? styles.galleryItemFull : (isSecondInPair ? styles.galleryItemHalfLast : styles.galleryItemHalf);
                   return (
-                    <View key={img.id} style={hasPair ? styles.galleryItemHalf : styles.galleryItemFull}>
-                      <Image src={img.preview} style={[hasPair ? styles.galleryItemHalf : styles.galleryItemFull, { objectFit: 'cover' }]} />
+                    <View key={img.id} style={[itemStyle, isFullWidth ? { marginTop: 6 } : {}]}>
+                      <Image src={img.preview} style={[itemStyle, { objectFit: 'cover' }]} />
                     </View>
                   );
                 })
