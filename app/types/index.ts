@@ -31,22 +31,22 @@ export interface FormState {
 }
 
 export const defaultListing: ListingData = {
-  title: 'Luxurious Waterfront Villa',
-  address: '123 Oceanview Drive, Malibu, CA 90265',
-  description: `Experience unparalleled luxury in this stunning contemporary villa overlooking the Pacific Ocean. This architectural masterpiece features floor-to-ceiling windows that frame breathtaking ocean views from every room.\n\nThe open-concept living space flows seamlessly to a resort-style infinity pool and outdoor entertaining area, perfect for hosting memorable gatherings. The gourmet kitchen is equipped with top-of-the-line appliances and a massive island perfect for casual dining.\n\nThe primary suite is a true retreat with its own private balcony, spa-like bathroom with a soaking tub, and custom walk-in closets. Additional bedrooms each have en-suite bathrooms and stunning views.`,
-  price: '4,250,000',
-  pricePerSqm: '1,850',
-  areaSize: '2,297',
-  listingId: 'ML-2847',
-  listingDate: 'March 2026',
-  agentName: 'Sarah Mitchell',
-  agentTitle: 'Senior Real Estate Consultant',
-  mobile: '+1 (310) 555-0147',
-  phone: '+1 (310) 555-0100',
-  email: 'sarah.mitchell@luxuryrealty.com',
-  agentAddress: '400 Pacific Coast Highway, Malibu, CA 90265',
-  websiteText: 'www.luxuryrealty.com',
-  ctaText: 'Schedule a Private Viewing',
+  title: 'Ekskluzīvs公寓 ar skatu uz jūru',
+  address: 'Jūras iela 15, Jūrmala, LV-2011',
+  description: `Piedāvājam Jums ekskluzīvu dzīvokli modernā jaunbūvē ar brīnišķīgu skatu uz Rīgas līci. Šis apraksts aizstājiet ar sava īpašuma detalizētu aprakstu.\n\nDzīvoklis atrodas topošā projektā ar augstas kvalitātes apdari un mūsdienīgiem risinājumiem. Visi materiāli ir rūpīgi izvēlēti, lai radītu komfortablu un elegantu dzīves telpu.\n\nĪpašums ir piemērots gan ģimenei, gan investoriem, kas meklē kvalitatīvu īpašumu ar labu atdevi.`,
+  price: '295,000',
+  pricePerSqm: '2,450',
+  areaSize: '120',
+  listingId: 'JR-4521',
+  listingDate: 'Marts 2026',
+  agentName: 'Jānis Bērziņš',
+  agentTitle: 'Nekustamo īpašumu konsultants',
+  mobile: '+371 20000000',
+  phone: '+371 67890000',
+  email: 'janis@pardodlaimigs.lv',
+  agentAddress: 'Brīvības iela 100, Rīga, LV-1234',
+  websiteText: 'www.pardodlaimigs.lv',
+  ctaText: 'Sazināties ar aģentu',
 };
 
 export function parseDescription(description: string): string[] {
