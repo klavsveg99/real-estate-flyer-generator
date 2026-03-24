@@ -6,8 +6,7 @@ const styles = StyleSheet.create({
   page: { padding: 40, fontFamily: 'Helvetica', backgroundColor: '#ffffff' },
   purpleBar: { height: 10, backgroundColor: '#285854', borderRadius: 2, marginBottom: 30 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 25, paddingBottom: 20, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
-  logoWrapper: { width: 160, height: 45 },
-  logoImage: { width: 160, height: 45 },
+  logoWrapper: { width: 160, height: 45, backgroundColor: '#f3f4f6', borderRadius: 4 },
   logoPlaceholder: { width: 160, height: 45, backgroundColor: '#f3f4f6', borderRadius: 4 },
   listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 6, paddingHorizontal: 12, fontSize: 11, fontWeight: 'bold', borderRadius: 4 },
   contentRow: { flexDirection: 'row', marginBottom: 20 },
@@ -21,12 +20,12 @@ const styles = StyleSheet.create({
   descriptionText: { fontSize: 11, color: '#4b5563', lineHeight: 1.5, marginBottom: 8 },
   cta: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 12, paddingHorizontal: 24, fontSize: 13, fontWeight: 'bold', textAlign: 'center', borderRadius: 6, textTransform: 'uppercase', letterSpacing: 0.5 },
   rightCol: { width: 200 },
-  mapWrapper: { width: '100%', height: 100, marginBottom: 12 },
-  mapImage: { width: '100%', height: 100 },
+  mapWrapper: { width: '100%', height: 100, backgroundColor: '#f3f4f6', borderRadius: 6, marginBottom: 12 },
   mapPlaceholder: { width: '100%', height: 100, backgroundColor: '#f3f4f6', borderRadius: 6, marginBottom: 12, justifyContent: 'center', alignItems: 'center' },
   mapText: { fontSize: 12, color: '#9ca3af' },
   galleryRow: { flexDirection: 'row', marginBottom: 6 },
-  galleryItemHalf: { width: 95, height: 62, marginRight: 6 },
+  galleryItemWrapper: { backgroundColor: '#f3f4f6', borderRadius: 4 },
+  galleryItemHalf: { width: 95, height: 62 },
   galleryItemFull: { width: 196, height: 62 },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 15, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
@@ -52,10 +51,6 @@ const formatPrice = (value: string) => {
   return '$' + num.toLocaleString();
 };
 
-function GalleryImage({ src, style }: { src: string; style: any }) {
-  return <Image src={src} style={style} />;
-}
-
 export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: FlyerPdfProps) {
   const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
   const priceSubtext = [
@@ -72,11 +67,7 @@ export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: Fly
 
         <View style={styles.header}>
           <View style={styles.logoWrapper}>
-            {logo?.preview ? (
-              <Image src={logo.preview} style={styles.logoImage} />
-            ) : (
-              <View style={styles.logoPlaceholder} />
-            )}
+            {logo?.preview && <Image src={logo.preview} style={{ width: 160, height: 45 }} />}
           </View>
           <Text style={styles.listingId}>{listing.listingId}</Text>
         </View>
@@ -103,27 +94,56 @@ export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: Fly
           <View style={styles.rightCol}>
             <View style={styles.mapWrapper}>
               {mapImage?.preview ? (
-                <Image src={mapImage.preview} style={styles.mapImage} />
+                <Image src={mapImage.preview} style={{ width: '100%', height: 100 }} />
               ) : (
-                <View style={styles.mapPlaceholder}>
+                <View style={{ width: '100%', height: 100, justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={styles.mapText}>Map Image</Text>
                 </View>
               )}
             </View>
 
             <View>
-              {[...Array(3)].map((_, rowIndex) => {
-                const rowImages = galleryItems.slice(rowIndex * 2, rowIndex * 2 + 2);
-                const hasTwo = rowImages.length === 2;
-                return (
-                  <View key={`row-${rowIndex}`} style={[styles.galleryRow, rowIndex === 2 ? { marginBottom: 0 } : {}]}>
-                    {rowImages.map((img, colIndex) => (
-                      <GalleryImage key={img.id} src={img.preview} style={hasTwo ? styles.galleryItemHalf : styles.galleryItemFull} />
-                    ))}
-                    {!hasTwo && <View style={styles.galleryItemFull} />}
+              {galleryItems[0] && (
+                <View style={[styles.galleryRow, {}]}>
+                  <View style={[styles.galleryItemWrapper, styles.galleryItemHalf, { marginRight: 6 }]}>
+                    <Image src={galleryItems[0].preview} style={styles.galleryItemHalf} />
                   </View>
-                );
-              })}
+                  {galleryItems[1] && (
+                    <View style={[styles.galleryItemWrapper, styles.galleryItemHalf]}>
+                      <Image src={galleryItems[1].preview} style={styles.galleryItemHalf} />
+                    </View>
+                  )}
+                </View>
+              )}
+              {galleryItems[2] && (
+                <View style={[styles.galleryRow, {}]}>
+                  <View style={[styles.galleryItemWrapper, styles.galleryItemHalf, { marginRight: 6 }]}>
+                    <Image src={galleryItems[2].preview} style={styles.galleryItemHalf} />
+                  </View>
+                  {galleryItems[3] && (
+                    <View style={[styles.galleryItemWrapper, styles.galleryItemHalf]}>
+                      <Image src={galleryItems[3].preview} style={styles.galleryItemHalf} />
+                    </View>
+                  )}
+                </View>
+              )}
+              {galleryItems[4] && (
+                <View style={[styles.galleryRow, { marginBottom: 0 }]}>
+                  <View style={[styles.galleryItemWrapper, styles.galleryItemHalf, { marginRight: 6 }]}>
+                    <Image src={galleryItems[4].preview} style={styles.galleryItemHalf} />
+                  </View>
+                  {galleryItems[5] && (
+                    <View style={[styles.galleryItemWrapper, styles.galleryItemHalf]}>
+                      <Image src={galleryItems[5].preview} style={styles.galleryItemHalf} />
+                    </View>
+                  )}
+                  {!galleryItems[5] && (
+                    <View style={[styles.galleryItemWrapper, styles.galleryItemHalf]}>
+                      <Text style={{ fontSize: 8, color: '#9ca3af', textAlign: 'center' }}>{galleryItems.length + 1}</Text>
+                    </View>
+                  )}
+                </View>
+              )}
             </View>
           </View>
         </View>
