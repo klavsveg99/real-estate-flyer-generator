@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
   descriptionText: { fontSize: 11, color: '#4b5563', lineHeight: 1.5, marginBottom: 8 },
   cta: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 12, paddingHorizontal: 24, fontSize: 13, fontWeight: 'bold', textAlign: 'center', borderRadius: 6, textTransform: 'uppercase', letterSpacing: 0.5 },
   rightCol: { width: 202 },
-  mapWrapper: { width: '100%', height: 100, backgroundColor: '#f3f4f6', borderRadius: 6, marginBottom: 12, overflow: 'hidden' },
+  mapWrapper: { width: '100%', height: 150, backgroundColor: '#f3f4f6', borderRadius: 6, marginBottom: 12, overflow: 'hidden' },
   mapText: { fontSize: 12, color: '#9ca3af' },
   galleryRow: { flexDirection: 'row', marginBottom: 6 },
   galleryItemHalf: { width: 95, height: 62, marginRight: 6, borderRadius: 6, overflow: 'hidden' },
-  galleryItemFull: { width: 196, height: 80, borderRadius: 6, overflow: 'hidden' },
+  galleryItemFull: { width: 196, height: 70, borderRadius: 6, overflow: 'hidden' },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 15, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
   agentInfo: { fontSize: 11 },
@@ -114,9 +114,9 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
           <View style={styles.rightCol}>
             <View style={styles.mapWrapper}>
               {mapImage?.preview ? (
-                <Image src={mapImage.preview} style={{ width: '100%', height: 100 }} />
+                <Image src={mapImage.preview} style={{ width: '100%', height: 150 }} />
               ) : (
-                <View style={{ width: '100%', height: 100, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ width: '100%', height: 150, justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={styles.mapText}>Karte</Text>
                 </View>
               )}

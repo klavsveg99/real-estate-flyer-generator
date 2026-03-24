@@ -59,9 +59,9 @@ function PreviewSection({ formState }: { formState: FormState }) {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ width: '100%', height: '120px', minWidth: '100%', minHeight: '120px', backgroundColor: '#e5e7eb', borderRadius: '8px', overflow: 'hidden', marginBottom: '12px' }}>
+          <div style={{ width: '100%', height: '150px', backgroundColor: '#e5e7eb', borderRadius: '8px', overflow: 'hidden', marginBottom: '12px' }}>
             {mapImage?.preview ? (
-              <img src={mapImage.preview} alt="Map" style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
+              <img src={mapImage.preview} alt="Map" style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-gray-400" style={{ fontSize: '14px' }}>Map Image</div>
             )}
@@ -74,19 +74,10 @@ function PreviewSection({ formState }: { formState: FormState }) {
               return (
                 <div key={`row-${rowIndex}`} style={{ display: 'flex', marginBottom: rowIndex < 2 ? '6px' : '0' }}>
                   {rowImages.map((img, colIndex) => (
-                    <div key={img?.id || `empty-${rowIndex}-${colIndex}`} style={{ width: hasTwo ? '50%' : '100%', minWidth: hasTwo ? '0' : '100%', aspectRatio: hasTwo ? '1' : '2', marginRight: hasTwo && colIndex === 0 ? '6px' : '0' }}>
-                      {img?.preview ? (
-                        <img src={img.preview} alt={`Gallery ${rowIndex * 2 + colIndex + 1}`} style={{ width: '100%', height: hasTwo ? '100%' : 'auto', minHeight: '80px', objectFit: 'cover', borderRadius: '8px' }} />
-                      ) : (
-                        <div className="bg-gray-200 rounded-lg flex items-center justify-center" style={{ width: '100%', height: hasTwo ? '100%' : '80px' }}>
-                          <span className="text-gray-400" style={{ fontSize: '12px' }}>Image</span>
-                        </div>
-                      )}
+                    <div key={img?.id || `empty-${rowIndex}-${colIndex}`} style={{ width: hasTwo ? '50%' : '100%', marginRight: hasTwo && colIndex === 0 ? '6px' : '0' }}>
+                      <img src={img.preview} alt={`Gallery ${rowIndex * 2 + colIndex + 1}`} style={{ width: '100%', height: hasTwo ? '100%' : '150px', objectFit: 'cover', borderRadius: '8px' }} />
                     </div>
                   ))}
-                  {!hasTwo && (
-                    <div style={{ width: '0', visibility: 'hidden' }} />
-                  )}
                 </div>
               );
             })}
