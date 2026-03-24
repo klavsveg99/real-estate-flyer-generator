@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 4, paddingHorizontal: 8, fontSize: 9, fontWeight: 'bold', borderRadius: 6 },
   contentRow: { flexDirection: 'row', marginBottom: 15, gap: 18 },
   leftCol: { width: 248 },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#111827', marginBottom: 6 },
+  title: { fontSize: 20, fontWeight: 'bold', color: '#111827', marginBottom: 6 },
   address: { fontSize: 14, color: '#6b7280', marginBottom: 14 },
   priceBox: { backgroundColor: '#f9fafb', borderWidth: 1, borderColor: '#e5e7eb', borderRadius: 6, padding: 14, marginBottom: 14 },
   price: { fontSize: 30, fontWeight: 'bold', color: '#111827' },
@@ -142,9 +142,11 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
         <View style={styles.footer}>
           <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              {agentImage ? (
+              {agentImage && agentImage.preview && agentImage.preview !== '/images/roberts.jpg' ? (
+                <Image src={agentImage.preview} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
+              ) : (
                 <Image src="/images/favicon.jpg" style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
-              ) : null}
+              )}
               <View>
                 <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
                 {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
