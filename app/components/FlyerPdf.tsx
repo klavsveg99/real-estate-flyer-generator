@@ -80,7 +80,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
         </View>
 
         <View style={styles.contentRow}>
-          <View style={styles.leftCol}>
+          <View style={styles.leftCol} wrap={false}>
             <Text style={styles.title}>{listing.title || 'Īpašuma nosaukums'}</Text>
             <Text style={styles.address}>{listing.address || 'Īpašuma adrese'}</Text>
 
@@ -137,12 +137,12 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
         </View>
 
         <View style={styles.footer}>
-          <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', gap: 40, alignItems: 'flex-start' }]}>
-            <View style={{ flex: 1 }}>
+          <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between' }]}>
+            <View>
               <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
               {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
             </View>
-            <View style={{ flex: 1 }}>
+            <View>
               {listing.mobile && <Text style={styles.agentPhone}>{listing.mobile}</Text>}
               {listing.email && <Text style={styles.agentEmail}>{listing.email}</Text>}
             </View>
