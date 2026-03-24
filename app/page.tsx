@@ -102,15 +102,6 @@ function PreviewSection({ formState }: { formState: FormState }) {
           <span className="text-gray-400" style={{ fontSize: '11px' }}>© pardodlaimigs.lv</span>
         </div>
       </div>
-          <div className="text-right text-gray-500" style={{ fontSize: '12px' }}>
-            {listing.websiteText && <p style={{ color: '#285854', fontWeight: 500 }}>{listing.websiteText}</p>}
-          </div>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #f3f4f6' }}>
-          <span className="text-gray-400" style={{ fontSize: '11px' }}>{listing.listingDate}</span>
-          <span className="text-gray-400" style={{ fontSize: '11px' }}>© pardodlaimigs.lv</span>
-        </div>
-      </div>
     </div>
   );
 }
