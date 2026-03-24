@@ -4,12 +4,12 @@ import { ListingData, ImageFile } from '@/app/types';
 
 const styles = StyleSheet.create({
   page: { padding: 40, fontFamily: 'Helvetica', backgroundColor: '#ffffff' },
-  purpleBar: { height: 10, backgroundColor: '#7C3AED', borderRadius: 2, marginBottom: 30 },
+  purpleBar: { height: 10, backgroundColor: '#285854', borderRadius: 2, marginBottom: 30 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 25, paddingBottom: 20, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
   logoWrapper: { width: 160, height: 45 },
   logoImage: { width: 160, height: 45 },
   logoPlaceholder: { width: 160, height: 45, backgroundColor: '#f3f4f6', borderRadius: 4 },
-  listingId: { backgroundColor: '#7C3AED', color: '#ffffff', paddingVertical: 6, paddingHorizontal: 12, fontSize: 11, fontWeight: 'bold', borderRadius: 4 },
+  listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 6, paddingHorizontal: 12, fontSize: 11, fontWeight: 'bold', borderRadius: 4 },
   contentRow: { flexDirection: 'row', marginBottom: 20 },
   leftCol: { flex: 1, marginRight: 30 },
   title: { fontSize: 28, fontWeight: 'bold', color: '#111827', marginBottom: 6 },
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   priceSubtext: { fontSize: 13, color: '#6b7280', marginTop: 4 },
   description: { marginBottom: 15 },
   descriptionText: { fontSize: 11, color: '#4b5563', lineHeight: 1.5, marginBottom: 8 },
-  cta: { backgroundColor: '#7C3AED', color: '#ffffff', paddingVertical: 12, paddingHorizontal: 24, fontSize: 13, fontWeight: 'bold', textAlign: 'center', borderRadius: 6, textTransform: 'uppercase', letterSpacing: 0.5 },
+  cta: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 12, paddingHorizontal: 24, fontSize: 13, fontWeight: 'bold', textAlign: 'center', borderRadius: 6, textTransform: 'uppercase', letterSpacing: 0.5 },
   rightCol: { width: 200 },
   mapWrapper: { width: '100%', height: 100, marginBottom: 12 },
   mapImage: { width: '100%', height: 100 },
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   agentName: { fontWeight: 'bold', color: '#111827' },
   agentDetail: { color: '#6b7280', marginTop: 1 },
   rightInfo: { textAlign: 'right', fontSize: 10, color: '#6b7280' },
-  website: { color: '#7C3AED', fontWeight: 'bold' },
+  website: { color: '#285854', fontWeight: 'bold' },
   footerBar: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, paddingTop: 8, borderTopWidth: 1, borderTopColor: '#f3f4f6' },
   footerText: { fontSize: 10, color: '#9ca3af' },
 });
@@ -144,7 +144,7 @@ export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: Fly
           </View>
           <View style={styles.footerBar}>
             <Text style={styles.footerText}>{listing.listingDate}</Text>
-            <Text style={styles.footerText}>copyright pardodlaimigs.lv</Text>
+            <Text style={styles.footerText}>© pardodlaimigs.lv</Text>
           </View>
         </View>
       </Page>
