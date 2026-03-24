@@ -82,7 +82,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
 
         <View style={styles.contentRow}>
           <View style={styles.leftCol}>
-            <Text style={styles.title} breakable>{listing.title || 'Īpašuma nosaukums'}</Text>
+            <Text style={styles.title}>{listing.title || 'Īpašuma nosaukums'}</Text>
             <Text style={styles.address}>{listing.address || 'Īpašuma adrese'}</Text>
 
             <View style={styles.priceBox}>
