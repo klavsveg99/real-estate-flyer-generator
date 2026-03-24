@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   purpleBar: { height: 6, backgroundColor: '#285854', borderRadius: 6, marginBottom: 15 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
   listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 4, paddingHorizontal: 8, fontSize: 9, fontWeight: 'bold', borderRadius: 6 },
-  contentRow: { flexDirection: 'row', marginBottom: 15, gap: 19 },
+  contentRow: { flexDirection: 'row', marginBottom: 15, gap: 18 },
   leftCol: { width: 248 },
   title: { fontSize: 24, fontWeight: 'bold', color: '#111827', marginBottom: 6 },
   address: { fontSize: 14, color: '#6b7280', marginBottom: 14 },
@@ -23,15 +23,15 @@ const styles = StyleSheet.create({
   price: { fontSize: 30, fontWeight: 'bold', color: '#111827' },
   priceSubtext: { fontSize: 12, color: '#6b7280', marginTop: 3 },
   description: { marginBottom: 14 },
-  descriptionText: { fontSize: 11, color: '#4b5563', lineHeight: 1.5, marginBottom: 8 },
+  descriptionText: { fontSize: 12, color: '#4b5563', lineHeight: 1.5, marginBottom: 8 },
   cta: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 14, paddingHorizontal: 24, fontSize: 14, fontWeight: 'bold', textAlign: 'center', borderRadius: 6, textTransform: 'uppercase', letterSpacing: 0.5, textDecoration: 'none' },
-  rightCol: { width: 257 },
+  rightCol: { width: 249 },
   mapWrapper: { width: '100%', height: 150, backgroundColor: '#f3f4f6', borderRadius: 4, marginBottom: 12, overflow: 'hidden' },
   mapText: { fontSize: 12, color: '#9ca3af' },
   galleryRow: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 4 },
-  galleryItemHalf: { width: 125, height: 62, marginRight: 6, borderRadius: 4, overflow: 'hidden' },
-  galleryItemHalfLast: { width: 125, height: 62, borderRadius: 4, overflow: 'hidden' },
-  galleryItemFull: { width: 257, height: 70, borderRadius: 4, overflow: 'hidden' },
+  galleryItemHalf: { width: 121, height: 62, marginRight: 6, borderRadius: 4, overflow: 'hidden' },
+  galleryItemHalfLast: { width: 121, height: 62, borderRadius: 4, overflow: 'hidden' },
+  galleryItemFull: { width: 249, height: 70, borderRadius: 4, overflow: 'hidden' },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 10, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
   agentBox: { backgroundColor: '#285854', padding: 16, borderRadius: 6 },
@@ -103,9 +103,9 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
           <View style={styles.rightCol}>
             <View style={styles.mapWrapper}>
               {mapImage?.preview ? (
-                <Image src={mapImage.preview} style={{ width: 257, height: 150, objectFit: 'cover' }} />
+                <Image src={mapImage.preview} style={{ width: 249, height: 150, objectFit: 'cover' }} />
               ) : (
-                <View style={{ width: 257, height: 150, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ width: 249, height: 150, justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={styles.mapText}>Karte</Text>
                 </View>
               )}
