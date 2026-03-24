@@ -51,7 +51,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
           </div>
           <a
             href={`mailto:info@pardodlaimigs.lv?subject=${encodeURIComponent('Par īpašumu: ' + listing.title)}&body=${encodeURIComponent('Sveicināti,\\n\\nEs iepazinos ar Jūsu sludinājumu par īpašumu "' + listing.title + '" (' + listing.listingId + ').\\n\\nĪpašuma adrese: ' + listing.address + '\\nCena: ' + listing.price + ' EUR' + (listing.areaSize ? '\\nPlatība: ' + listing.areaSize + ' m²' : '') + '\\n\\nLūdzu, sazinieties ar mani, lai uzzinātu vairāk.\\n\\nAr cieņu,\\n' + listing.agentName)}`}
-            className="bg-gradient-to-r from-teal-700 to-teal-800 text-white rounded font-semibold uppercase text-center cursor-pointer no-underline"
+            className="text-white rounded font-semibold uppercase text-center cursor-pointer no-underline" style={{ background: '#285854' }}
             style={{ padding: '16px 32px', fontSize: '16px', display: 'inline-block', letterSpacing: '0.5px', width: 'fit-content' }}
           >
             {listing.ctaText || 'Contact Agent'}
@@ -260,7 +260,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
             <button
               onClick={fetchMapImage}
               disabled={isLoadingMap || !mapAddress.trim()}
-              className="px-4 py-2 bg-teal-600 text-white rounded-lg text-sm font-medium hover:bg-teal-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+              style={{ background: '#285854', color: 'white', padding: '8px 16px', borderRadius: '8px', fontSize: '14px', fontWeight: 500 }}
             >
               {isLoadingMap ? 'Loading...' : 'Iegūt karti'}
             </button>
@@ -294,7 +294,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
               onDragOver={(e) => e.preventDefault()}
               onDrop={() => handleSortDrop(i)}
               onDragEnd={() => setDragIndex(null)}
-              className={`relative border-2 border-dashed rounded-lg aspect-square flex items-center justify-center cursor-move bg-gray-50 hover:bg-gray-100 ${dragIndex === i ? 'border-teal-500 bg-teal-50' : 'border-gray-300'}`}
+              className={`relative border-2 border-dashed rounded-lg aspect-square flex items-center justify-center cursor-move bg-gray-50 hover:bg-gray-100 ${dragIndex === i ? 'border-[#285854] bg-[#285854]/10' : 'border-gray-300'}`}
             >
               <img src={img.preview} alt={`Gallery ${i + 1}`} className="w-full h-full object-cover rounded" />
               <button onClick={() => updateGalleryImages(formState.galleryImages.filter((_, idx) => idx !== i))} className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs hover:bg-red-600">×</button>
@@ -302,9 +302,9 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
             </div>
           ))}
           {formState.galleryImages.length < 6 && (
-            <label className="border-2 border-dashed border-gray-300 rounded-lg aspect-square flex flex-col items-center justify-center cursor-pointer hover:border-teal-400 hover:bg-teal-50 transition-colors">
+            <label className="border-2 border-dashed border-gray-300 rounded-lg aspect-square flex flex-col items-center justify-center cursor-pointer hover:border-[#285854] hover:bg-[#285854]/10 transition-colors"
               <input type="file" accept="image/*" multiple className="hidden" onChange={handleGalleryFiles} />
-              <div className="text-teal-600">
+              <div style={{ color: '#285854' }}>
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
               </div>
               <span className="text-gray-400 text-xs mt-1">{formState.galleryImages.length + 1}</span>
@@ -354,7 +354,7 @@ export default function Home() {
             <img src="/images/favicon.jpg" alt="Logo" className="w-8 h-8 rounded-lg" />
             <h1 className="text-xl font-bold text-gray-900">PDF mārketinga ģenerators</h1>
           </div>
-          <button onClick={handleGeneratePdf} disabled={!isFormValid(formState.listing) || isGenerating} className={`px-5 py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 ${isFormValid(formState.listing) && !isGenerating ? 'bg-teal-600 text-white' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`}>
+          <button onClick={handleGeneratePdf} disabled={!isFormValid(formState.listing) || isGenerating} className={`px-5 py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 ${isFormValid(formState.listing) && !isGenerating ? '' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`} style={isFormValid(formState.listing) && !isGenerating ? { background: '#285854', color: 'white' } : {}}>
             {isGenerating ? 'Veidojas...' : 'Lejupielādēt PDF'}
           </button>
         </div>
@@ -366,7 +366,7 @@ export default function Home() {
               <div className="border-b border-gray-200">
                 <nav className="flex">
                   {(['property', 'images', 'agent'] as const).map(tab => (
-                    <button key={tab} onClick={() => setActiveTab(tab)} className={`px-6 py-4 text-sm font-medium border-b-2 ${activeTab === tab ? 'border-teal-600 text-teal-600' : 'border-transparent text-gray-500'}`}>
+                    <button key={tab} onClick={() => setActiveTab(tab)} className={`px-6 py-4 text-sm font-medium border-b-2 ${activeTab === tab ? 'border-[#285854] text-[#285854]' : 'border-transparent text-gray-500'}`}>
                       {tab === 'property' && 'Īpašums'}
                       {tab === 'images' && 'Attēli'}
                       {tab === 'agent' && 'Aģents'}
