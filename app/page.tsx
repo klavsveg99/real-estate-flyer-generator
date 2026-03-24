@@ -11,7 +11,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
   const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
 
   const formatPrice = (value: string) => {
-    const num = parseFloat(value.replace(/[^0-9.]/g, '');
+    const num = parseFloat(value.replace(/[^0-9.]/g, ''));
     if (isNaN(num)) return '€' + value;
     return '€' + num.toLocaleString();
   };
