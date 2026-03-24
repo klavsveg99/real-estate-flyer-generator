@@ -220,7 +220,7 @@ function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImag
     <div className="space-y-6">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Company Logo</label>
-        <label className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-teal-400 hover:bg-teal-50 transition-colors min-h-32"
+        <label className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-teal-400 hover:bg-teal-50 transition-colors min-h-32">
           <input type="file" accept="image/*" className="hidden" onChange={handleLogoFile} />
           {formState.logo ? (
             <div className="relative w-full">
