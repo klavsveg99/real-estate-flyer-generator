@@ -36,9 +36,9 @@ function PreviewSection({ formState }: { formState: FormState }) {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <h1 className="font-bold text-gray-900" style={{ fontSize: '32px', marginBottom: '8px', lineHeight: 1.2 }}>{listing.title || 'Īpašuma nosaukums'}</h1>
           <p className="text-gray-500" style={{ fontSize: '18px', marginBottom: '20px' }}>{listing.address || 'Īpašuma adrese'}</p>
-          <div className="bg-gray-50 rounded-lg border border-gray-200" style={{ padding: '20px', marginBottom: '20px' }}>
-            <div className="font-bold text-gray-900" style={{ fontSize: '42px' }}>{formatPrice(listing.price) || '€0'}</div>
-            <div className="text-gray-500" style={{ fontSize: '16px', marginTop: '8px' }}>
+          <div className="bg-gray-50 rounded-lg border border-gray-200" style={{ padding: '12px', marginBottom: '15px' }}>
+            <div className="font-bold text-gray-900" style={{ fontSize: '32px' }}>{formatPrice(listing.price) || '€0'}</div>
+            <div className="text-gray-500" style={{ fontSize: '14px', marginTop: '4px' }}>
               {listing.areaSize && `${parseFloat(listing.areaSize).toLocaleString()} m²`}
               {listing.areaSize && listing.pricePerSqm && ' • '}
               {listing.pricePerSqm && `${formatPrice(listing.pricePerSqm)}/m²`}

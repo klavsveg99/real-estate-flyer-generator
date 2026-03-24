@@ -12,36 +12,36 @@ Font.register({
 
 const styles = StyleSheet.create({
   page: { padding: 40, fontFamily: 'DejaVuSans', backgroundColor: '#ffffff' },
-  purpleBar: { height: 8, backgroundColor: '#285854', borderRadius: 2, marginBottom: 20 },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, paddingBottom: 15, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
-  listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 5, paddingHorizontal: 10, fontSize: 10, fontWeight: 'bold', borderRadius: 4 },
-  contentRow: { flexDirection: 'row', marginBottom: 20 },
+  purpleBar: { height: 6, backgroundColor: '#285854', borderRadius: 2, marginBottom: 15 },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
+  listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 4, paddingHorizontal: 8, fontSize: 9, fontWeight: 'bold', borderRadius: 3 },
+  contentRow: { flexDirection: 'row', marginBottom: 15 },
   leftCol: { width: 283, marginRight: 30 },
-  title: { fontSize: 22, fontWeight: 'bold', color: '#111827', marginBottom: 6 },
-  address: { fontSize: 14, color: '#6b7280', marginBottom: 15 },
-  priceBox: { backgroundColor: '#f9fafb', borderWidth: 1, borderColor: '#e5e7eb', borderRadius: 6, padding: 15, marginBottom: 15 },
-  price: { fontSize: 32, fontWeight: 'bold', color: '#111827' },
-  priceSubtext: { fontSize: 13, color: '#6b7280', marginTop: 4 },
-  description: { marginBottom: 15 },
-  descriptionText: { fontSize: 11, color: '#4b5563', lineHeight: 1.5, marginBottom: 8 },
-  cta: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 12, paddingHorizontal: 24, fontSize: 13, fontWeight: 'bold', textAlign: 'center', borderRadius: 6, textTransform: 'uppercase', letterSpacing: 0.5 },
+  title: { fontSize: 20, fontWeight: 'bold', color: '#111827', marginBottom: 4 },
+  address: { fontSize: 12, color: '#6b7280', marginBottom: 10 },
+  priceBox: { backgroundColor: '#f9fafb', borderWidth: 1, borderColor: '#e5e7eb', borderRadius: 4, padding: 10, marginBottom: 10 },
+  price: { fontSize: 26, fontWeight: 'bold', color: '#111827' },
+  priceSubtext: { fontSize: 11, color: '#6b7280', marginTop: 2 },
+  description: { marginBottom: 10 },
+  descriptionText: { fontSize: 10, color: '#4b5563', lineHeight: 1.4, marginBottom: 6 },
+  cta: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 10, paddingHorizontal: 20, fontSize: 12, fontWeight: 'bold', textAlign: 'center', borderRadius: 4, textTransform: 'uppercase', letterSpacing: 0.5 },
   rightCol: { width: 202 },
   mapWrapper: { width: '100%', height: 150, backgroundColor: '#f3f4f6', borderRadius: 6, marginBottom: 12, overflow: 'hidden' },
   mapText: { fontSize: 12, color: '#9ca3af' },
   galleryRow: { flexDirection: 'row', marginBottom: 6 },
   galleryItemHalf: { width: 95, height: 62, marginRight: 6, borderRadius: 6, overflow: 'hidden' },
   galleryItemFull: { width: 196, height: 70, borderRadius: 6, overflow: 'hidden' },
-  footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 15, marginTop: 'auto' },
+  footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 10, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
-  agentBox: { backgroundColor: '#285854', padding: 12, borderRadius: 6 },
-  agentName: { fontWeight: 'bold', color: '#ffffff', fontSize: 12 },
-  agentTitle: { color: '#ffffff', fontSize: 10, marginTop: 2 },
-  agentPhone: { color: '#ffffff', fontSize: 11, fontWeight: 'bold', marginTop: 4 },
-  agentEmail: { color: '#ffffff', fontSize: 10, marginTop: 2 },
+  agentBox: { backgroundColor: '#285854', padding: 10, borderRadius: 4 },
+  agentName: { fontWeight: 'bold', color: '#ffffff', fontSize: 11 },
+  agentTitle: { color: '#ffffff', fontSize: 9, marginTop: 1 },
+  agentPhone: { color: '#ffffff', fontSize: 10, fontWeight: 'bold', marginTop: 3 },
+  agentEmail: { color: '#ffffff', fontSize: 9, marginTop: 1 },
   rightInfo: { textAlign: 'right', fontSize: 10 },
   website: { color: '#285854', fontWeight: 'bold' },
-  footerBar: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, paddingTop: 8, borderTopWidth: 1, borderTopColor: '#f3f4f6' },
-  footerText: { fontSize: 10, color: '#9ca3af' },
+  footerBar: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 8, paddingTop: 6, borderTopWidth: 1, borderTopColor: '#f3f4f6' },
+  footerText: { fontSize: 9, color: '#9ca3af' },
 });
 
 interface FlyerPdfProps {
@@ -88,8 +88,8 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
 
         <View style={styles.header}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image src="/images/favicon.jpg" style={{ width: 50, height: 50, objectFit: 'contain', objectPosition: 'left center' }} />
-            <Text style={{ marginLeft: 8, fontSize: 14, fontWeight: 'bold', color: '#000000' }}>Pardodlaimigs.lv</Text>
+            <Image src="/images/favicon.jpg" style={{ width: 40, height: 40 }} />
+            <Text style={{ marginLeft: 8, fontSize: 12, fontWeight: 'bold', color: '#000000' }}>Pardodlaimigs.lv</Text>
           </View>
           <Text style={styles.listingId}>{listing.listingId}</Text>
         </View>
