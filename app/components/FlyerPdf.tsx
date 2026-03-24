@@ -13,7 +13,7 @@ Font.register({
 const styles = StyleSheet.create({
   page: { padding: 40, fontFamily: 'DejaVuSans', backgroundColor: '#ffffff' },
   purpleBar: { height: 6, backgroundColor: '#285854', borderRadius: 2, marginBottom: 15 },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', alignItems: 'center', marginBottom: 15, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
   listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 4, paddingHorizontal: 8, fontSize: 9, fontWeight: 'bold', borderRadius: 3 },
   contentRow: { flexDirection: 'row', marginBottom: 15 },
   leftCol: { width: 283, marginRight: 30 },
@@ -136,7 +136,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
 
         <View style={styles.footer}>
           <View style={[styles.agentBox, { width: '100%', flexDirection: 'row' }]}>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, marginRight: 20 }}>
               <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
               {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
             </View>
