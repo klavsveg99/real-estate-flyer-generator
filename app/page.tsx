@@ -307,7 +307,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
             </div>
           ))}
           {formState.galleryImages.length < 6 && (
-            <label className="border-2 border-dashed border-gray-300 rounded-lg aspect-square flex flex-col items-center justify-center cursor-pointer hover:border-[#285854] hover:bg-[#285854]/10 transition-colors"
+            <label className="border-2 border-dashed border-gray-300 rounded-lg aspect-square flex flex-col items-center justify-center cursor-pointer hover:border-[#285854] hover:bg-[#285854]/10 transition-colors">
               <input type="file" accept="image/*" multiple className="hidden" onChange={handleGalleryFiles} />
               <div style={{ color: '#285854' }}>
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
