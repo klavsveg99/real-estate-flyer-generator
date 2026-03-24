@@ -135,7 +135,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
         </View>
 
         <View style={styles.footer}>
-          <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', gap: 40 }]}>
+          <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', gap: 40, alignItems: 'flex-start' }]}>
             <View style={{ flex: 1 }}>
               <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
               {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}

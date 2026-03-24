@@ -66,7 +66,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
             )}
           </div>
 
-          <div>
+          <div style={{ width: '100%' }}>
             {galleryImages.length === 0 ? (
               [...Array(4)].map((_, i) => (
                 <div key={`placeholder-${i}`} style={{ width: '50%', height: '75px', marginRight: i % 2 === 0 ? '6px' : '0', marginBottom: '6px', display: 'inline-block', backgroundColor: '#e5e7eb', borderRadius: '6px' }} />
