@@ -65,8 +65,9 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
         <View style={styles.purpleBar} />
 
         <View style={styles.header}>
-          <View style={styles.logoWrapper}>
-            <Image src="/images/favicon.jpg" style={{ width: 160, height: 45 }} />
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Image src="/images/favicon.jpg" style={{ width: 50, height: 50 }} />
+            <Text style={{ marginLeft: 10, fontSize: 16, fontWeight: 'bold', color: '#000000' }}>Pardodlaimigs.lv</Text>
           </View>
           <Text style={styles.listingId}>{listing.listingId}</Text>
         </View>

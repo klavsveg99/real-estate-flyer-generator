@@ -120,19 +120,19 @@ function PropertyForm({ data, onChange }: { data: ListingData; onChange: (d: Lis
   };
   return (
     <div className="space-y-4">
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Property Title *</label><input type="text" name="title" value={data.title} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Address *</label><input type="text" name="address" value={data.address} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Nosaukums *</label><input type="text" name="title" value={data.title} onChange={handleChange} placeholder="Piemēram: Moderns dzīvoklis Centrā" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Adrese *</label><input type="text" name="address" value={data.address} onChange={handleChange} placeholder="Piemēram: Brīvības iela 15, Rīga" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div className="grid grid-cols-2 gap-4">
-        <div><label className="block text-sm font-medium text-gray-700 mb-1">Price *</label><input type="text" name="price" value={data.price} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-        <div><label className="block text-sm font-medium text-gray-700 mb-1">Price per m²</label><input type="text" name="pricePerSqm" value={data.pricePerSqm} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+        <div><label className="block text-sm font-medium text-gray-700 mb-1">Cena *</label><input type="text" name="price" value={data.price} onChange={handleChange} placeholder="Piemēram: 150,000" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+        <div><label className="block text-sm font-medium text-gray-700 mb-1">Cena par m²</label><input type="text" name="pricePerSqm" value={data.pricePerSqm} onChange={handleChange} placeholder="Piemēram: 1,500" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <div><label className="block text-sm font-medium text-gray-700 mb-1">Area Size (m²)</label><input type="text" name="areaSize" value={data.areaSize} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-        <div><label className="block text-sm font-medium text-gray-700 mb-1">Listing ID *</label><input type="text" name="listingId" value={data.listingId} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+        <div><label className="block text-sm font-medium text-gray-700 mb-1">Platība (m²)</label><input type="text" name="areaSize" value={data.areaSize} onChange={handleChange} placeholder="Piemēram: 85" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+        <div><label className="block text-sm font-medium text-gray-700 mb-1">Sludinājuma ID *</label><input type="text" name="listingId" value={data.listingId} onChange={handleChange} placeholder="Piemēram: ML-2847" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       </div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Listing Date</label><input type="text" name="listingDate" value={data.listingDate} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Description</label><textarea name="description" value={data.description} onChange={handleChange} rows={6} className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none" /></div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">CTA Button Text</label><input type="text" name="ctaText" value={data.ctaText} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Datums</label><input type="text" name="listingDate" value={data.listingDate} onChange={handleChange} placeholder="Piemēram: Marts 2026" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Apraksts</label><textarea name="description" value={data.description} onChange={handleChange} rows={6} placeholder="Ievadiet īpašuma aprakstu..." className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Poga "Sazinieties"</label><input type="text" name="ctaText" value={data.ctaText} onChange={handleChange} placeholder="Piemēram: Sazināties ar aģentu" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
     </div>
   );
 }
@@ -143,15 +143,15 @@ function AgentForm({ data, onChange }: { data: ListingData; onChange: (d: Listin
   };
   return (
     <div className="space-y-4">
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Agent Name *</label><input type="text" name="agentName" value={data.agentName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Agent Title</label><input type="text" name="agentTitle" value={data.agentTitle} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Aģenta vārds *</label><input type="text" name="agentName" value={data.agentName} onChange={handleChange} placeholder="Piemēram: Jānis Bērziņš" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Aģenta amats</label><input type="text" name="agentTitle" value={data.agentTitle} onChange={handleChange} placeholder="Piemēram: Nekustamo īpašumu konsultants" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div className="grid grid-cols-2 gap-4">
-        <div><label className="block text-sm font-medium text-gray-700 mb-1">Mobile</label><input type="text" name="mobile" value={data.mobile} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-        <div><label className="block text-sm font-medium text-gray-700 mb-1">Phone</label><input type="text" name="phone" value={data.phone} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+        <div><label className="block text-sm font-medium text-gray-700 mb-1">Mobilais tālrunis</label><input type="text" name="mobile" value={data.mobile} onChange={handleChange} placeholder="Piemēram: +371 20000000" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+        <div><label className="block text-sm font-medium text-gray-700 mb-1">Telefons</label><input type="text" name="phone" value={data.phone} onChange={handleChange} placeholder="Piemēram: +371 67890000" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       </div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Email</label><input type="email" name="email" value={data.email} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Office Address</label><input type="text" name="agentAddress" value={data.agentAddress} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Website</label><input type="text" name="websiteText" value={data.websiteText} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">E-pasts</label><input type="email" name="email" value={data.email} onChange={handleChange} placeholder="Piemēram: janis@pardodlaimigs.lv" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Biroja adrese</label><input type="text" name="agentAddress" value={data.agentAddress} onChange={handleChange} placeholder="Piemēram: Brīvības iela 100, Rīga" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Mājaslapa</label><input type="text" name="websiteText" value={data.websiteText} onChange={handleChange} placeholder="Piemēram: www.pardodlaimigs.lv" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
     </div>
   );
 }
@@ -194,7 +194,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
     try {
       const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
       if (!apiKey) {
-        alert('Please set NEXT_PUBLIC_GOOGLE_MAPS_API_KEY in your environment variables');
+        alert('Lūdzu, iestatiet NEXT_PUBLIC_GOOGLE_MAPS_API_KEY vides mainīgajos.');
         return;
       }
       const encodedAddress = encodeURIComponent(mapAddress);
@@ -215,11 +215,11 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
         };
         reader.readAsDataURL(blob);
       } else {
-        alert('Address not found. Please try a different address.');
+        alert('Adrese nav atrasta. Lūdzu, mēģiniet citu adresi.');
       }
     } catch (error) {
       console.error('Error fetching map:', error);
-      alert('Failed to fetch map image. Please check your API key and try again.');
+      alert('Neizdevās iegūt karti. Lūdzu, pārbaudiet API atslēgu un mēģiniet vēlreiz.');
     } finally {
       setIsLoadingMap(false);
     }
@@ -260,14 +260,14 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
   return (
     <div className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Location Map (Google Maps)</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Karte (Google Maps)</label>
         <div className="border border-gray-300 rounded-lg p-4">
           <div className="flex gap-2 mb-3">
             <input
               type="text"
               value={mapAddress}
               onChange={(e) => setMapAddress(e.target.value)}
-              placeholder="Enter property address"
+              placeholder="Ievadiet īpašuma adresi"
               className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
             />
             <button
@@ -275,7 +275,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
               disabled={isLoadingMap || !mapAddress.trim()}
               className="px-4 py-2 bg-teal-600 text-white rounded-lg text-sm font-medium hover:bg-teal-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
             >
-              {isLoadingMap ? 'Loading...' : 'Get Map'}
+              {isLoadingMap ? 'Loading...' : 'Iegūt karti'}
             </button>
           </div>
           {formState.mapImage && (
@@ -291,13 +291,13 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
           )}
           {!formState.mapImage && (
             <div className="w-full h-40 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-sm">
-              Enter address and click "Get Map"
+              Ievadiet adresi un klikšķiniet "Iegūt karti"
             </div>
           )}
         </div>
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Gallery Images (up to 6) - Drag to reorder</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Attēli (līdz 6) - Velciet, lai mainītu kārtību</label>
         <div className="grid grid-cols-3 gap-3">
           {formState.galleryImages.map((img, i) => (
             <div
@@ -324,7 +324,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
             </label>
           )}
         </div>
-        <div className="mt-2 text-xs text-gray-400">{formState.galleryImages.length}/6 images uploaded</div>
+        <div className="mt-2 text-xs text-gray-400">{formState.galleryImages.length}/6 attēlu augšupielādēts</div>
       </div>
     </div>
   );
@@ -340,7 +340,7 @@ export default function Home() {
   const updateGalleryImages = useCallback((galleryImages: ImageFile[]) => setFormState(prev => ({ ...prev, galleryImages })), []);
 
   const handleGeneratePdf = async () => {
-    if (!isFormValid(formState.listing)) { alert('Please fill in all required fields.'); return; }
+    if (!isFormValid(formState.listing)) { alert('Lūdzu, aizpildiet visus obligātos laukus.'); return; }
     setIsGenerating(true);
     try {
       const doc = <FlyerPdfDocument listing={formState.listing} mapImage={formState.mapImage} galleryImages={formState.galleryImages} />;
@@ -353,7 +353,7 @@ export default function Home() {
       URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error:', error);
-      alert('Failed to generate PDF: ' + (error as Error).message);
+      alert('Neizdevās izveidot PDF: ' + (error as Error).message);
     } finally {
       setIsGenerating(false);
     }
@@ -364,13 +364,11 @@ export default function Home() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-teal-600 to-teal-800 rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">Real Estate Flyer Generator</h1>
+            <img src="/images/favicon.jpg" alt="Logo" className="w-8 h-8 rounded-lg" />
+            <h1 className="text-xl font-bold text-gray-900">Pardodlaimigs.lv</h1>
           </div>
           <button onClick={handleGeneratePdf} disabled={!isFormValid(formState.listing) || isGenerating} className={`px-5 py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 ${isFormValid(formState.listing) && !isGenerating ? 'bg-teal-600 text-white' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`}>
-            {isGenerating ? 'Generating...' : 'Generate PDF'}
+            {isGenerating ? 'Veidojas...' : 'Lejupielādēt PDF'}
           </button>
         </div>
       </header>
@@ -382,9 +380,9 @@ export default function Home() {
                 <nav className="flex">
                   {(['property', 'images', 'agent'] as const).map(tab => (
                     <button key={tab} onClick={() => setActiveTab(tab)} className={`px-6 py-4 text-sm font-medium border-b-2 ${activeTab === tab ? 'border-teal-600 text-teal-600' : 'border-transparent text-gray-500'}`}>
-                      {tab === 'property' && 'Property Details'}
-                      {tab === 'images' && 'Images'}
-                      {tab === 'agent' && 'Agent Info'}
+                      {tab === 'property' && 'Īpašums'}
+                      {tab === 'images' && 'Attēli'}
+                      {tab === 'agent' && 'Aģents'}
                     </button>
                   ))}
                 </nav>
@@ -399,7 +397,7 @@ export default function Home() {
           <div className="lg:sticky lg:top-24">
             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
               <div className="p-3 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
-                <span className="text-sm font-medium text-gray-700">Flyer Preview</span>
+                <span className="text-sm font-medium text-gray-700">Priekšskats</span>
                 <span className="text-xs text-gray-400">A4</span>
               </div>
               <div className="p-4 bg-gray-100 overflow-auto" style={{ maxHeight: 'calc(100vh - 180px)' }}>
