@@ -25,8 +25,11 @@ function PreviewSection({ formState }: { formState: FormState }) {
       <div style={{ height: '11px', background: 'linear-gradient(90deg, #2d6b66 0%, #285854 100%)', borderRadius: '2px', marginBottom: '45px' }} />
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '45px', paddingBottom: '45px', borderBottom: '1px solid #e5e7eb' }}>
-        <img src="/images/favicon.jpg" alt="Logo" style={{ width: '180px', height: '50px', objectFit: 'contain' }} />
-        <span style={{ backgroundColor: '#285854', color: 'white', borderRadius: '4px', padding: '8px 16px', fontSize: '12px', fontWeight: 600 }}>{listing.listingId}</span>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <img src="/images/favicon.jpg" alt="Logo" style={{ width: '80px', height: '50px', objectFit: 'contain', objectPosition: 'left center' }} />
+          <span style={{ marginLeft: '10px', fontSize: '16px', fontWeight: 700, color: '#000000' }}>Pardodlaimigs.lv</span>
+        </div>
+        <span style={{ backgroundColor: '#285854', color: 'white', padding: '8px 16px', fontSize: '12px', fontWeight: 600 }}>{listing.listingId}</span>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '45px', marginBottom: '45px', flex: 1 }}>
