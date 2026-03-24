@@ -142,9 +142,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
         <View style={styles.footer}>
           <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              {agentImage && agentImage.preview && agentImage.preview !== '/images/roberts.jpg' ? (
-                <Image src={agentImage.preview} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
-              ) : agentImage ? (
+              {agentImage ? (
                 <Image src="/images/favicon.jpg" style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
               ) : null}
               <View>
