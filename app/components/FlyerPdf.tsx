@@ -139,21 +139,16 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
 
         <View style={styles.footer}>
           <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }]}>
-            {agentImage ? (
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              {agentImage && agentImage.preview && (
                 <Image src={agentImage.preview} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
-                <View>
-                  <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
-                  {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
-                </View>
-              </View>
-            ) : (
+              )}
               <View>
                 <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
                 {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
               </View>
-            )}
-            <View style={{ alignItems: 'flex-end' }}>
+            </View>
+            <View style={{ alignItems: 'flex-end', paddingTop: 2 }}>
               {listing.mobile && <Text style={styles.agentPhone}>{listing.mobile}</Text>}
               {listing.email && <Text style={styles.agentEmail}>{listing.email}</Text>}
             </View>
