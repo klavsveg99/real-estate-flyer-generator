@@ -81,8 +81,8 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
         </View>
 
         <View style={styles.contentRow}>
-          <View style={styles.leftCol} wrap={false}>
-            <Text style={styles.title}>{listing.title || 'Īpašuma nosaukums'}</Text>
+          <View style={styles.leftCol}>
+            <Text style={styles.title} breakable>{listing.title || 'Īpašuma nosaukums'}</Text>
             <Text style={styles.address}>{listing.address || 'Īpašuma adrese'}</Text>
 
             <View style={styles.priceBox}>
@@ -139,14 +139,21 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
 
         <View style={styles.footer}>
           <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Image src={agentImage?.preview || '/images/roberts.jpg'} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
+            {agentImage ? (
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Image src={agentImage.preview} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
+                <View>
+                  <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
+                  {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
+                </View>
+              </View>
+            ) : (
               <View>
                 <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
                 {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
               </View>
-            </View>
-            <View>
+            )}
+            <View style={{ alignItems: 'flex-end' }}>
               {listing.mobile && <Text style={styles.agentPhone}>{listing.mobile}</Text>}
               {listing.email && <Text style={styles.agentEmail}>{listing.email}</Text>}
             </View>
