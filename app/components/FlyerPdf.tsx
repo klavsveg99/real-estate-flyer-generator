@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, paddingBottom: 15, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
   listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 5, paddingHorizontal: 10, fontSize: 10, fontWeight: 'bold', borderRadius: 4 },
   contentRow: { flexDirection: 'row', marginBottom: 20 },
-  leftCol: { width: 283 },
+  leftCol: { width: 283, marginRight: 30 },
   title: { fontSize: 22, fontWeight: 'bold', color: '#111827', marginBottom: 6 },
   address: { fontSize: 14, color: '#6b7280', marginBottom: 15 },
   priceBox: { backgroundColor: '#f9fafb', borderWidth: 1, borderColor: '#e5e7eb', borderRadius: 6, padding: 15, marginBottom: 15 },
@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
   mapWrapper: { width: '100%', height: 100, backgroundColor: '#f3f4f6', borderRadius: 6, marginBottom: 12, overflow: 'hidden' },
   mapText: { fontSize: 12, color: '#9ca3af' },
   galleryRow: { flexDirection: 'row', marginBottom: 6 },
-  galleryItemHalf: { width: 95, height: 62, marginRight: 6, overflow: 'hidden' },
-  galleryItemFull: { width: 196, height: 80, overflow: 'hidden' },
+  galleryItemHalf: { width: 95, height: 62, marginRight: 6, borderRadius: 6, overflow: 'hidden' },
+  galleryItemFull: { width: 196, height: 80, borderRadius: 6, overflow: 'hidden' },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 15, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
   agentInfo: { fontSize: 11 },
@@ -92,7 +92,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
           <Text style={styles.listingId}>{listing.listingId}</Text>
         </View>
 
-        <View style={[styles.contentRow, { marginRight: 30 }]}>
+        <View style={styles.contentRow}>
           <View style={styles.leftCol}>
             <Text style={styles.title}>{listing.title || 'Īpašuma nosaukums'}</Text>
             <Text style={styles.address}>{listing.address || 'Īpašuma adrese'}</Text>
