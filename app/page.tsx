@@ -141,26 +141,31 @@ function AgentForm({ data, onChange, agentImage, updateAgentImage }: { data: Lis
     <div className="space-y-4">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Aģenta foto</label>
-        {agentImage ? (
-          <div className="relative inline-block">
-            <img src={agentImage.preview} alt="Agent" className="w-16 h-16 rounded-full object-cover" />
-            <button onClick={() => updateAgentImage(null)} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs">×</button>
-          </div>
-        ) : (
-          <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-            <span className="text-gray-400 text-xs">Nav foto</span>
-          </div>
-        )}
-        <input type="file" accept="image/*" className="mt-2 w-full text-sm" onChange={(e) => {
-          const file = e.target.files?.[0];
-          if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
-              updateAgentImage({ id: 'agent', file, preview: reader.result as string, name: file.name });
-            };
-            reader.readAsDataURL(file);
-          }
-        }} />
+        <div className="flex gap-3">
+          <label className="border-2 border-dashed border-gray-300 rounded-lg w-20 h-20 flex flex-col items-center justify-center cursor-pointer hover:border-[#285854] hover:bg-[#285854]/10 transition-colors overflow-hidden">
+            <input type="file" accept="image/*" className="hidden" onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                  updateAgentImage({ id: 'agent', file, preview: reader.result as string, name: file.name });
+                };
+                reader.readAsDataURL(file);
+              }
+            }} />
+            {agentImage ? (
+              <>
+                <img src={agentImage.preview} alt="Agent" className="w-full h-full object-cover" />
+                <button onClick={(e) => { e.preventDefault(); updateAgentImage(null); }} className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center">×</button>
+              </>
+            ) : (
+              <>
+                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+                <span className="text-gray-400 text-xs mt-1">Foto</span>
+              </>
+            )}
+          </label>
+        </div>
       </div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Aģenta vārds *</label><input type="text" name="agentName" value={data.agentName} onChange={handleChange} placeholder="Piemēram: Roberts Evarsons" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Aģenta amats</label><input type="text" name="agentTitle" value={data.agentTitle} onChange={handleChange} placeholder="Piemēram: Nekustamo īpašumu konsultants" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
@@ -346,7 +351,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
 }
 
 export default function Home() {
-  const [formState, setFormState] = useState<FormState>({ listing: defaultListing, mapImage: null, galleryImages: [], agentImage: null });
+  const [formState, setFormState] = useState<FormState>({ listing: defaultListing, mapImage: null, galleryImages: [], agentImage: { id: 'agent', file: null, preview: '/images/roberts.jpg', name: 'roberts.jpg' } });
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<'property' | 'images' | 'agent'>('property');
 
