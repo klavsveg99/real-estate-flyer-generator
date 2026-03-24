@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
   mapWrapper: { width: '100%', height: 150, backgroundColor: '#f3f4f6', borderRadius: 4, marginBottom: 12, overflow: 'hidden' },
   mapText: { fontSize: 12, color: '#9ca3af' },
   galleryRow: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 4 },
-  galleryItemHalf: { width: '48%', height: 62, marginRight: '4%', borderRadius: 4, overflow: 'hidden' },
-  galleryItemHalfLast: { width: '48%', height: 62, borderRadius: 4, overflow: 'hidden' },
+  galleryItemHalf: { width: '50%', height: 62, marginRight: '0%', borderRadius: 4, overflow: 'hidden' },
+  galleryItemHalfLast: { width: '50%', height: 62, borderRadius: 4, overflow: 'hidden' },
   galleryItemFull: { width: '100%', height: 70, borderRadius: 4, overflow: 'hidden' },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 10, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
@@ -95,8 +95,8 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
               ))}
             </View>
 
-            <Link src={`mailto:info@pardodlaimigs.lv?subject=${encodeURIComponent('Par īpašumu: ' + listing.title)}`}>
-              <Text style={styles.cta}>{listing.ctaText || 'Sazināties ar aģentu'}</Text>
+            <Link src={`mailto:info@pardodlaimigs.lv?subject=${encodeURIComponent('Par īpašumu: ' + listing.title)}`} style={{ textDecoration: 'none' }}>
+              <Text style={styles.cta}>{listing.ctaText || 'Sazināties'}</Text>
             </Link>
           </View>
 
