@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   priceSubtext: { fontSize: 11, color: '#6b7280', marginTop: 2 },
   description: { marginBottom: 10 },
   descriptionText: { fontSize: 10, color: '#4b5563', lineHeight: 1.4, marginBottom: 6 },
-  cta: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 10, paddingHorizontal: 20, fontSize: 12, fontWeight: 'bold', textAlign: 'center', borderRadius: 6, textTransform: 'uppercase', letterSpacing: 0.5 },
+  cta: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 10, paddingHorizontal: 20, fontSize: 12, fontWeight: 'bold', textAlign: 'center', borderRadius: 6, textTransform: 'uppercase', letterSpacing: 0.5, textDecoration: 'none' },
   rightCol: { width: 202 },
   mapWrapper: { width: '100%', height: 150, backgroundColor: '#f3f4f6', borderRadius: 6, marginBottom: 12, overflow: 'hidden' },
   mapText: { fontSize: 12, color: '#9ca3af' },
@@ -89,7 +89,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
         <View style={styles.header}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image src="/images/favicon.jpg" style={{ width: 40, height: 40 }} />
-            <Text style={{ marginLeft: 8, fontSize: 12, fontWeight: 'bold', color: '#000000' }}>Pardodlaimigs.lv</Text>
+            <Text style={{ marginLeft: 8, fontSize: 12, fontWeight: 'bold', color: '#000000' }}>PardodLaimigs.lv</Text>
           </View>
           <Text style={styles.listingId}>{listing.listingId}</Text>
         </View>
