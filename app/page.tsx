@@ -100,12 +100,10 @@ function PreviewSection({ formState }: { formState: FormState }) {
             <p className="font-semibold text-gray-900">{listing.agentName || 'Agent Name'}</p>
             <p className="text-gray-500">{listing.agentTitle}</p>
             <p className="text-gray-500">{listing.mobile}</p>
-            <p className="text-gray-500">{listing.phone}</p>
             <p className="text-gray-500">{listing.email}</p>
           </div>
           <div className="text-right text-gray-500" style={{ fontSize: '12px' }}>
             {listing.websiteText && <p style={{ color: '#285854', fontWeight: 500 }}>{listing.websiteText}</p>}
-            <p>{listing.agentAddress}</p>
           </div>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #f3f4f6' }}>
@@ -146,15 +144,11 @@ function AgentForm({ data, onChange }: { data: ListingData; onChange: (d: Listin
   };
   return (
     <div className="space-y-4">
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Aģenta vārds *</label><input type="text" name="agentName" value={data.agentName} onChange={handleChange} placeholder="Piemēram: Jānis Bērziņš" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Aģenta amats</label><input type="text" name="agentTitle" value={data.agentTitle} onChange={handleChange} placeholder="Piemēram: Nekustamo īpašumu konsultants" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-      <div className="grid grid-cols-2 gap-4">
-        <div><label className="block text-sm font-medium text-gray-700 mb-1">Mobilais tālrunis</label><input type="text" name="mobile" value={data.mobile} onChange={handleChange} placeholder="Piemēram: +371 20000000" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-        <div><label className="block text-sm font-medium text-gray-700 mb-1">Telefons</label><input type="text" name="phone" value={data.phone} onChange={handleChange} placeholder="Piemēram: +371 67890000" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-      </div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">E-pasts</label><input type="email" name="email" value={data.email} onChange={handleChange} placeholder="Piemēram: janis@pardodlaimigs.lv" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Biroja adrese</label><input type="text" name="agentAddress" value={data.agentAddress} onChange={handleChange} placeholder="Piemēram: Brīvības iela 100, Rīga" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Mājaslapa</label><input type="text" name="websiteText" value={data.websiteText} onChange={handleChange} placeholder="Piemēram: www.pardodlaimigs.lv" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Agent a vards *</label><input type="text" name="agentName" value={data.agentName} onChange={handleChange} placeholder="Piemeram: Roberts Evarsons" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Agent a amats</label><input type="text" name="agentTitle" value={data.agentTitle} onChange={handleChange} placeholder="Piemeram: Nekustamo ipashumu konsultants" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Talrunis</label><input type="text" name="mobile" value={data.mobile} onChange={handleChange} placeholder="Piemeram: +371 2492 2942" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">E-pasts</label><input type="email" name="email" value={data.email} onChange={handleChange} placeholder="Piemeram: info@pardodlaimigs.lv" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">Majslapa</label><input type="text" name="websiteText" value={data.websiteText} onChange={handleChange} placeholder="Piemeram: www.pardodlaimigs.lv" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
     </div>
   );
 }

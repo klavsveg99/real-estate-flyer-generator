@@ -31,22 +31,22 @@ export interface FormState {
 }
 
 export const defaultListing: ListingData = {
-  title: 'Ekskluzīvs公寓 ar skatu uz jūru',
-  address: 'Jūras iela 15, Jūrmala, LV-2011',
-  description: `Piedāvājam Jums ekskluzīvu dzīvokli modernā jaunbūvē ar brīnišķīgu skatu uz Rīgas līci. Šis apraksts aizstājiet ar sava īpašuma detalizētu aprakstu.\n\nDzīvoklis atrodas topošā projektā ar augstas kvalitātes apdari un mūsdienīgiem risinājumiem. Visi materiāli ir rūpīgi izvēlēti, lai radītu komfortablu un elegantu dzīves telpu.\n\nĪpašums ir piemērots gan ģimenei, gan investoriem, kas meklē kvalitatīvu īpašumu ar labu atdevi.`,
+  title: 'Ekskluzivs dzivoklis ar skatu uz juru',
+  address: '',
+  description: `Piedavatam Jums ekskluzivu dzivokli moderna jaunbuve ar brinishku skatu uz Rigas lici. Shis apraksts aizstaves ar savu ipashuma detalizetu aprakstu.\n\nDzivoklis atrodas toposha projektā ar augstas kvalitates apdari un muzdienigiem risinajumiem. Visi materiali ir rupegi izveleti, lai raditu komfortablu un elegantu dzives telpu.\n\nIpushums ir piemerots gan gimeinei, gan investoriem, kas mekle kvalitativu ipashumu ar labu atdevi.`,
   price: '295,000',
   pricePerSqm: '2,450',
   areaSize: '120',
   listingId: 'JR-4521',
   listingDate: 'Marts 2026',
-  agentName: 'Jānis Bērziņš',
-  agentTitle: 'Nekustamo īpašumu konsultants',
-  mobile: '+371 20000000',
-  phone: '+371 67890000',
-  email: 'janis@pardodlaimigs.lv',
-  agentAddress: 'Brīvības iela 100, Rīga, LV-1234',
+  agentName: 'Roberts Evarsons',
+  agentTitle: 'Nekustamo ipashumu konsultants',
+  mobile: '+371 2492 2942',
+  phone: '',
+  email: 'info@pardodlaimigs.lv',
+  agentAddress: '',
   websiteText: 'www.pardodlaimigs.lv',
-  ctaText: 'Sazināties ar aģentu',
+  ctaText: 'Sazinaties ar agentu',
 };
 
 export function parseDescription(description: string): string[] {

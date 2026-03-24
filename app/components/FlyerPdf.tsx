@@ -4,11 +4,11 @@ import { ListingData, ImageFile } from '@/app/types';
 
 const styles = StyleSheet.create({
   page: { padding: 40, fontFamily: 'Helvetica', backgroundColor: '#ffffff' },
-  purpleBar: { height: 10, backgroundColor: '#285854', borderRadius: 2, marginBottom: 30 },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 25, paddingBottom: 20, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
+  purpleBar: { height: 8, backgroundColor: '#285854', borderRadius: 2, marginBottom: 20 },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, paddingBottom: 15, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
   logoWrapper: { width: 160, height: 45, backgroundColor: '#f3f4f6', borderRadius: 4 },
   logoPlaceholder: { width: 160, height: 45, backgroundColor: '#f3f4f6', borderRadius: 4 },
-  listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 6, paddingHorizontal: 12, fontSize: 11, fontWeight: 'bold', borderRadius: 4 },
+  listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 5, paddingHorizontal: 10, fontSize: 10, fontWeight: 'bold', borderRadius: 4 },
   contentRow: { flexDirection: 'row', marginBottom: 20 },
   leftCol: { flex: 1, marginRight: 30 },
   title: { fontSize: 28, fontWeight: 'bold', color: '#111827', marginBottom: 6 },
@@ -66,10 +66,8 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
 
         <View style={styles.header}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View style={{ width: 80, height: 50, overflow: 'hidden' }}>
-              <Image src="/images/favicon.jpg" style={{ width: 80, height: 50, objectFit: 'contain', objectPosition: 'left center' }} />
-            </View>
-            <Text style={{ marginLeft: 10, fontSize: 16, fontWeight: 'bold', color: '#000000' }}>Pardodlaimigs.lv</Text>
+            <Image src="/images/favicon.jpg" style={{ width: 50, height: 50, objectFit: 'contain', objectPosition: 'left center' }} />
+            <Text style={{ marginLeft: 8, fontSize: 14, fontWeight: 'bold', color: '#000000' }}>Pardodlaimigs.lv</Text>
           </View>
           <Text style={styles.listingId}>{listing.listingId}</Text>
         </View>
@@ -156,12 +154,10 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
               <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
               {listing.agentTitle && <Text style={styles.agentDetail}>{listing.agentTitle}</Text>}
               {listing.mobile && <Text style={styles.agentDetail}>{listing.mobile}</Text>}
-              {listing.phone && <Text style={styles.agentDetail}>{listing.phone}</Text>}
               {listing.email && <Text style={styles.agentDetail}>{listing.email}</Text>}
             </View>
             <View style={styles.rightInfo}>
               {listing.websiteText && <Text style={styles.website}>{listing.websiteText}</Text>}
-              {listing.agentAddress && <Text>{listing.agentAddress}</Text>}
             </View>
           </View>
           <View style={styles.footerBar}>
