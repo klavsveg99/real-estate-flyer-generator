@@ -50,7 +50,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
             ))}
           </div>
           <a
-            href={`mailto:info@pardodlaimigs.lv?subject=${encodeURIComponent('Par īpašumu: ' + listing.title)}&body=${encodeURIComponent('Sveicināti,\n\nEs iepazinos ar Jūsu sludinājumu par īpašumu "' + listing.title + '" (' + listing.listingId + ').\n\nĪpašuma adrese: ' + listing.address + '\nCena: ' + listing.price + ' EUR' + (listing.areaSize ? '\nPlatība: ' + listing.areaSize + ' m²' : '') + '\n\nLūdzu, sazinieties ar mani, lai uzzinātu vairāk.\n\nAr cieņu,\n' + listing.agentName)}`}
+            href={`mailto:info@pardodlaimigs.lv?subject=${encodeURIComponent('Par īpašumu: ' + listing.title)}&body=${encodeURIComponent('Sveicināti,\\n\\nEs iepazinos ar Jūsu sludinājumu par īpašumu "' + listing.title + '" (' + listing.listingId + ').\\n\\nĪpašuma adrese: ' + listing.address + '\\nCena: ' + listing.price + ' EUR' + (listing.areaSize ? '\\nPlatība: ' + listing.areaSize + ' m²' : '') + '\\n\\nLūdzu, sazinieties ar mani, lai uzzinātu vairāk.\\n\\nAr cieņu,\\n' + listing.agentName)}`}
             className="bg-gradient-to-r from-teal-700 to-teal-800 text-white rounded font-semibold uppercase text-center cursor-pointer no-underline"
             style={{ padding: '16px 32px', fontSize: '16px', display: 'inline-block', letterSpacing: '0.5px', width: 'fit-content' }}
           >
@@ -85,14 +85,23 @@ function PreviewSection({ formState }: { formState: FormState }) {
         </div>
       </div>
 
-      <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '20px', marginTop: 'auto' }}>
+        <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '20px', marginTop: 'auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <div style={{ fontSize: '14px' }}>
-            <p className="font-semibold text-gray-900">{listing.agentName || 'Agent Name'}</p>
-            <p className="text-gray-500">{listing.agentTitle}</p>
-            <p className="text-gray-500">{listing.mobile}</p>
-            <p className="text-gray-500">{listing.email}</p>
+          <div style={{ backgroundColor: '#285854', padding: '15px', borderRadius: '8px' }}>
+            <p className="font-semibold text-white">{listing.agentName || 'Agent Name'}</p>
+            <p className="text-white text-opacity-80 text-sm">{listing.agentTitle}</p>
+            <p className="text-white font-medium mt-1">{listing.mobile}</p>
+            <p className="text-white text-opacity-80 text-sm">{listing.email}</p>
           </div>
+          <div className="text-right" style={{ fontSize: '12px' }}>
+            {listing.websiteText && <p style={{ color: '#285854', fontWeight: 600 }}>{listing.websiteText}</p>}
+          </div>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #f3f4f6' }}>
+          <span className="text-gray-400" style={{ fontSize: '11px' }}>{listing.listingDate}</span>
+          <span className="text-gray-400" style={{ fontSize: '11px' }}>© pardodlaimigs.lv</span>
+        </div>
+      </div>
           <div className="text-right text-gray-500" style={{ fontSize: '12px' }}>
             {listing.websiteText && <p style={{ color: '#285854', fontWeight: 500 }}>{listing.websiteText}</p>}
           </div>

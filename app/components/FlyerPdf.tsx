@@ -1,5 +1,5 @@
 import React from 'react';
-import { Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
+import { Document, Page, Text, View, Image, StyleSheet, Font, Link } from '@react-pdf/renderer';
 import { ListingData, ImageFile } from '@/app/types';
 
 Font.register({
@@ -33,10 +33,12 @@ const styles = StyleSheet.create({
   galleryItemFull: { width: 196, height: 70, borderRadius: 6, overflow: 'hidden' },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 15, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
-  agentInfo: { fontSize: 11 },
-  agentName: { fontWeight: 'bold', color: '#111827' },
-  agentDetail: { color: '#6b7280', marginTop: 1 },
-  rightInfo: { textAlign: 'right', fontSize: 10, color: '#6b7280' },
+  agentBox: { backgroundColor: '#285854', padding: 12, borderRadius: 6 },
+  agentName: { fontWeight: 'bold', color: '#ffffff', fontSize: 12 },
+  agentTitle: { color: '#ffffff', fontSize: 10, marginTop: 2 },
+  agentPhone: { color: '#ffffff', fontSize: 11, fontWeight: 'bold', marginTop: 4 },
+  agentEmail: { color: '#ffffff', fontSize: 10, marginTop: 2 },
+  rightInfo: { textAlign: 'right', fontSize: 10 },
   website: { color: '#285854', fontWeight: 'bold' },
   footerBar: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, paddingTop: 8, borderTopWidth: 1, borderTopColor: '#f3f4f6' },
   footerText: { fontSize: 10, color: '#9ca3af' },
@@ -108,7 +110,9 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
               ))}
             </View>
 
-            <Text style={styles.cta}>{listing.ctaText || 'Sazināties ar aģentu'}</Text>
+            <Link src={`mailto:info@pardodlaimigs.lv?subject=${encodeURIComponent('Par īpašumu: ' + listing.title)}`}>
+              <Text style={styles.cta}>{listing.ctaText || 'Sazināties ar aģentu'}</Text>
+            </Link>
           </View>
 
           <View style={styles.rightCol}>
@@ -132,11 +136,11 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
 
         <View style={styles.footer}>
           <View style={styles.footerRow}>
-            <View style={styles.agentInfo}>
-              <Text style={styles.agentName}>{listing.agentName || 'Aģenta vārds'}</Text>
-              {listing.agentTitle && <Text style={styles.agentDetail}>{listing.agentTitle}</Text>}
-              {listing.mobile && <Text style={styles.agentDetail}>{listing.mobile}</Text>}
-              {listing.email && <Text style={styles.agentDetail}>{listing.email}</Text>}
+            <View style={styles.agentBox}>
+              <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
+              {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
+              {listing.mobile && <Text style={styles.agentPhone}>{listing.mobile}</Text>}
+              {listing.email && <Text style={styles.agentEmail}>{listing.email}</Text>}
             </View>
             <View style={styles.rightInfo}>
               {listing.websiteText && <Text style={styles.website}>{listing.websiteText}</Text>}
