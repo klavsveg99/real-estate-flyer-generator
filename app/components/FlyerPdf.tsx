@@ -46,8 +46,8 @@ interface FlyerPdfProps {
 
 const formatPrice = (value: string) => {
   const num = parseFloat(value.replace(/[^0-9.]/g, ''));
-  if (isNaN(num)) return '$' + value;
-  return '$' + num.toLocaleString();
+  if (isNaN(num)) return '€' + value;
+  return '€' + num.toLocaleString();
 };
 
 export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfProps) {

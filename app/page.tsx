@@ -11,9 +11,9 @@ function PreviewSection({ formState }: { formState: FormState }) {
   const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
 
   const formatPrice = (value: string) => {
-    const num = parseFloat(value.replace(/[^0-9.]/g, ''));
-    if (isNaN(num)) return '$' + value;
-    return '$' + num.toLocaleString();
+    const num = parseFloat(value.replace(/[^0-9.]/g, '');
+    if (isNaN(num)) return '€' + value;
+    return '€' + num.toLocaleString();
   };
 
   return (
@@ -24,9 +24,9 @@ function PreviewSection({ formState }: { formState: FormState }) {
     >
       <div style={{ height: '11px', background: 'linear-gradient(90deg, #2d6b66 0%, #285854 100%)', borderRadius: '2px', marginBottom: '45px' }} />
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '45px', paddingBottom: '45px', borderBottom: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '45px', paddingBottom: '45px', borderBottom: '1px solid #e5e7eb' }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <img src="/images/favicon.jpg" alt="Logo" style={{ width: '80px', height: '50px', objectFit: 'contain', objectPosition: 'left center' }} />
+          <img src="/images/favicon.jpg" alt="Logo" style={{ width: '50px', height: '50px', objectFit: 'contain', objectPosition: 'left center' }} />
           <span style={{ marginLeft: '10px', fontSize: '16px', fontWeight: 700, color: '#000000' }}>Pardodlaimigs.lv</span>
         </div>
         <span style={{ backgroundColor: '#285854', color: 'white', padding: '8px 16px', fontSize: '12px', fontWeight: 600 }}>{listing.listingId}</span>
@@ -34,10 +34,10 @@ function PreviewSection({ formState }: { formState: FormState }) {
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '45px', marginBottom: '45px', flex: 1 }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <h1 className="font-bold text-gray-900" style={{ fontSize: '32px', marginBottom: '8px', lineHeight: 1.2 }}>{listing.title || 'Property Title'}</h1>
-          <p className="text-gray-500" style={{ fontSize: '18px', marginBottom: '20px' }}>{listing.address || 'Property Address'}</p>
+          <h1 className="font-bold text-gray-900" style={{ fontSize: '32px', marginBottom: '8px', lineHeight: 1.2 }}>{listing.title || 'Īpašuma nosaukums'}</h1>
+          <p className="text-gray-500" style={{ fontSize: '18px', marginBottom: '20px' }}>{listing.address || 'Īpašuma adrese'}</p>
           <div className="bg-gray-50 rounded-lg border border-gray-200" style={{ padding: '20px', marginBottom: '20px' }}>
-            <div className="font-bold text-gray-900" style={{ fontSize: '42px' }}>{formatPrice(listing.price) || '$0'}</div>
+            <div className="font-bold text-gray-900" style={{ fontSize: '42px' }}>{formatPrice(listing.price) || '€0'}</div>
             <div className="text-gray-500" style={{ fontSize: '16px', marginTop: '8px' }}>
               {listing.areaSize && `${parseFloat(listing.areaSize).toLocaleString()} m²`}
               {listing.areaSize && listing.pricePerSqm && ' • '}
