@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 4, paddingHorizontal: 8, fontSize: 9, fontWeight: 'bold', borderRadius: 6 },
   contentRow: { flexDirection: 'row', marginBottom: 15, gap: 18 },
   leftCol: { width: 248 },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#111827', marginBottom: 6 },
+  title: { fontSize: 24, fontWeight: 'bold', color: '#111827', marginBottom: 6, flexWrap: 'wrap' },
   address: { fontSize: 14, color: '#6b7280', marginBottom: 14 },
   priceBox: { backgroundColor: '#f9fafb', borderWidth: 1, borderColor: '#e5e7eb', borderRadius: 6, padding: 14, marginBottom: 14 },
   price: { fontSize: 30, fontWeight: 'bold', color: '#111827' },
@@ -95,7 +95,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
               ))}
             </View>
 
-            <Link src={`mailto:info@pardodlaimigs.lv?subject=${encodeURIComponent('Par īpašumu: ' + listing.title)}`} style={{ textDecoration: 'none' }}>
+            <Link src="https://pardodlaimigs.lv" style={{ textDecoration: 'none' }}>
               <Text style={styles.cta}>{listing.ctaText || 'Sazināties'}</Text>
             </Link>
           </View>

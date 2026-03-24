@@ -50,7 +50,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
             ))}
           </div>
           <a
-            href={`mailto:info@pardodlaimigs.lv?subject=${encodeURIComponent('Par īpašumu: ' + listing.title)}&body=${encodeURIComponent('Sveicināti,\\n\\nEs iepazinos ar Jūsu sludinājumu par īpašumu "' + listing.title + '" (' + listing.listingId + ').\\n\\nĪpašuma adrese: ' + listing.address + '\\nCena: ' + listing.price + ' EUR' + (listing.areaSize ? '\\nPlatība: ' + listing.areaSize + ' m²' : '') + '\\n\\nLūdzu, sazinieties ar mani, lai uzzinātu vairāk.\\n\\nAr cieņu,\\n' + listing.agentName)}`}
+            href="https://pardodlaimigs.lv"
             style={{ background: '#285854', color: 'white', borderRadius: '6px', padding: '16px', fontSize: '16px', fontWeight: 600, textTransform: 'uppercase', textAlign: 'center', letterSpacing: '0.5px', display: 'block', textDecoration: 'none' }}
           >
             {listing.ctaText || 'Sazināties'}
