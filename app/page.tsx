@@ -51,10 +51,9 @@ function PreviewSection({ formState }: { formState: FormState }) {
           </div>
           <a
             href={`mailto:info@pardodlaimigs.lv?subject=${encodeURIComponent('Par īpašumu: ' + listing.title)}&body=${encodeURIComponent('Sveicināti,\\n\\nEs iepazinos ar Jūsu sludinājumu par īpašumu "' + listing.title + '" (' + listing.listingId + ').\\n\\nĪpašuma adrese: ' + listing.address + '\\nCena: ' + listing.price + ' EUR' + (listing.areaSize ? '\\nPlatība: ' + listing.areaSize + ' m²' : '') + '\\n\\nLūdzu, sazinieties ar mani, lai uzzinātu vairāk.\\n\\nAr cieņu,\\n' + listing.agentName)}`}
-            className="text-white font-semibold uppercase text-center cursor-pointer no-underline" style={{ background: '#285854', borderRadius: '6px' }}
-            style={{ padding: '16px 32px', fontSize: '16px', display: 'inline-block', letterSpacing: '0.5px', width: 'fit-content' }}
+            style={{ background: '#285854', color: 'white', borderRadius: '6px', padding: '16px', fontSize: '16px', fontWeight: 600, textTransform: 'uppercase', textAlign: 'center', letterSpacing: '0.5px', display: 'block', textDecoration: 'none' }}
           >
-            {listing.ctaText || 'Contact Agent'}
+            {listing.ctaText || 'Sazināties'}
           </a>
         </div>
 
@@ -96,7 +95,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
             <p className="text-white text-sm">{listing.email}</p>
           </div>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px', paddingTop: '10px', borderTop: '1px solid #f3f4f6' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #f3f4f6' }}>
           <span className="text-gray-400" style={{ fontSize: '11px' }}>{listing.listingDate}</span>
           <span className="text-gray-400" style={{ fontSize: '11px' }}>© pardodlaimigs.lv</span>
         </div>
