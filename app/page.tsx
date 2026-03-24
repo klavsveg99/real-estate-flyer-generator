@@ -66,22 +66,18 @@ function PreviewSection({ formState }: { formState: FormState }) {
             )}
           </div>
 
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '100%', display: 'flex', flexWrap: 'wrap' }}>
             {galleryImages.length === 0 ? (
               [...Array(4)].map((_, i) => (
-                <div key={`placeholder-${i}`} style={{ width: '50%', height: '75px', marginRight: i % 2 === 0 ? '6px' : '0', marginBottom: '6px', display: 'inline-block', backgroundColor: '#e5e7eb', borderRadius: '6px' }} />
+                <div key={`placeholder-${i}`} style={{ width: 'calc(50% - 3px)', height: '75px', marginRight: i % 2 === 0 ? '6px' : '0', marginBottom: '6px', backgroundColor: '#e5e7eb', borderRadius: '6px' }} />
               ))
             ) : (
-              [...Array(3)].map((_, rowIndex) => {
-                const rowImages = galleryImages.slice(rowIndex * 2, rowIndex * 2 + 2);
-                const hasTwo = rowImages.length === 2;
+              galleryImages.map((img, i) => {
+                const isFirstInPair = i % 2 === 0;
+                const hasPair = i + 1 < galleryImages.length;
                 return (
-                  <div key={`row-${rowIndex}`} style={{ display: 'flex', marginBottom: rowIndex < 2 ? '6px' : '0', height: '75px' }}>
-                    {rowImages.map((img, colIndex) => (
-                      <div key={img?.id || `empty-${rowIndex}-${colIndex}`} style={{ width: hasTwo ? '50%' : '100%', marginRight: hasTwo && colIndex === 0 ? '6px' : '0', height: '100%' }}>
-                        <img src={img.preview} alt={`Gallery ${rowIndex * 2 + colIndex + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '6px' }} />
-                      </div>
-                    ))}
+                  <div key={img.id} style={{ width: hasPair ? 'calc(50% - 3px)' : '100%', marginRight: isFirstInPair ? '6px' : '0', marginBottom: '6px', height: '75px' }}>
+                    <img src={img.preview} alt={`Gallery ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '6px' }} />
                   </div>
                 );
               })

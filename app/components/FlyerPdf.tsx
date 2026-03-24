@@ -65,22 +65,6 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
 
   const galleryItems = galleryImages.slice(0, 6);
 
-  const renderGalleryRow = (items: ImageFile[], startIndex: number) => {
-    if (items.length === 0) return null;
-    const isFullRow = items.length === 2;
-    
-    return (
-      <View key={`gallery-row-${startIndex}`} style={[styles.galleryRow, startIndex === 4 ? { marginBottom: 0 } : {}]}>
-        {items.map((img, idx) => (
-          <View key={img.id} style={isFullRow ? styles.galleryItemHalf : styles.galleryItemFull}>
-            <Image src={img.preview} style={[isFullRow ? styles.galleryItemHalf : styles.galleryItemFull, { objectFit: 'cover' }]} />
-          </View>
-        ))}
-        {!isFullRow && <View style={styles.galleryItemFull} />}
-      </View>
-    );
-  };
-
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -126,10 +110,15 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
               )}
             </View>
 
-            <View>
-              {renderGalleryRow(galleryItems.slice(0, 2), 0)}
-              {renderGalleryRow(galleryItems.slice(2, 4), 2)}
-              {renderGalleryRow(galleryItems.slice(4, 6), 4)}
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              {galleryItems.map((img, i) => {
+                const hasPair = i + 1 < galleryItems.length;
+                return (
+                  <View key={img.id} style={hasPair ? styles.galleryItemHalf : styles.galleryItemFull}>
+                    <Image src={img.preview} style={[hasPair ? styles.galleryItemHalf : styles.galleryItemFull, { objectFit: 'cover' }]} />
+                  </View>
+                );
+              })}
             </View>
           </View>
         </View>
