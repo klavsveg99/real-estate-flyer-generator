@@ -220,35 +220,46 @@ function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImag
     <div className="space-y-6">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Company Logo</label>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+        <label className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-colors min-h-32">
+          <input type="file" accept="image/*" className="hidden" onChange={handleLogoFile} />
           {formState.logo ? (
-            <div className="relative"><img src={formState.logo.preview} alt="Logo" className="h-20 mx-auto object-contain" /><button onClick={() => updateLogo(null)} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs">×</button></div>
+            <div className="relative w-full">
+              <img src={formState.logo.preview} alt="Logo" className="h-20 mx-auto object-contain" />
+              <button onClick={(e) => { e.preventDefault(); updateLogo(null); }} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs hover:bg-red-600">×</button>
+            </div>
           ) : (
-            <label className="cursor-pointer"><input type="file" accept="image/*" className="hidden" onChange={handleLogoFile} /><div className="text-gray-500">Click to upload logo</div></label>
+            <div className="text-center">
+              <div className="text-purple-600 mb-2">
+                <svg className="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+              </div>
+              <div className="text-gray-500 text-sm">Click to upload logo</div>
+              <div className="text-gray-400 text-xs mt-1">PNG, JPG up to 5MB</div>
+            </div>
           )}
-        </div>
+        </label>
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Location Map</label>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+        <label className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-colors min-h-32">
+          <input type="file" accept="image/*" className="hidden" onChange={handleMapFile} />
           {formState.mapImage ? (
-            <div className="relative"><img src={formState.mapImage.preview} alt="Map" className="h-20 mx-auto object-cover" /><button onClick={() => updateMapImage(null)} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs">×</button></div>
+            <div className="relative w-full">
+              <img src={formState.mapImage.preview} alt="Map" className="h-20 mx-auto object-cover" />
+              <button onClick={(e) => { e.preventDefault(); updateMapImage(null); }} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs hover:bg-red-600">×</button>
+            </div>
           ) : (
-            <label className="cursor-pointer"><input type="file" accept="image/*" className="hidden" onChange={handleMapFile} /><div className="text-gray-500">Click to upload map</div></label>
+            <div className="text-center">
+              <div className="text-purple-600 mb-2">
+                <svg className="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
+              </div>
+              <div className="text-gray-500 text-sm">Click to upload map</div>
+              <div className="text-gray-400 text-xs mt-1">PNG, JPG up to 5MB</div>
+            </div>
           )}
-        </div>
+        </label>
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Gallery Images (up to 6) - Drag to reorder</label>
-        {formState.galleryImages.length < 6 && (
-          <div className="mb-3">
-            <label className="cursor-pointer inline-block">
-              <input type="file" accept="image/*" multiple className="hidden" onChange={handleGalleryFiles} />
-              <span className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium hover:bg-purple-200">Upload Multiple Images</span>
-            </label>
-            <span className="ml-3 text-sm text-gray-500">{formState.galleryImages.length}/6</span>
-          </div>
-        )}
         <div className="grid grid-cols-3 gap-3">
           {formState.galleryImages.map((img, i) => (
             <div
@@ -258,19 +269,24 @@ function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImag
               onDragOver={(e) => e.preventDefault()}
               onDrop={() => handleSortDrop(i)}
               onDragEnd={() => setDragIndex(null)}
-              className={`relative border-2 border-dashed rounded-lg p-2 aspect-square flex items-center justify-center cursor-move bg-gray-50 hover:bg-gray-100 ${dragIndex === i ? 'border-purple-500 bg-purple-50' : 'border-gray-300'}`}
+              className={`relative border-2 border-dashed rounded-lg aspect-square flex items-center justify-center cursor-move bg-gray-50 hover:bg-gray-100 ${dragIndex === i ? 'border-purple-500 bg-purple-50' : 'border-gray-300'}`}
             >
               <img src={img.preview} alt={`Gallery ${i + 1}`} className="w-full h-full object-cover rounded" />
-              <button onClick={() => updateGalleryImages(formState.galleryImages.filter((_, idx) => idx !== i))} className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs">×</button>
+              <button onClick={() => updateGalleryImages(formState.galleryImages.filter((_, idx) => idx !== i))} className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs hover:bg-red-600">×</button>
               <span className="absolute bottom-1 left-1 bg-black bg-opacity-50 text-white text-xs px-1 rounded">{i + 1}</span>
             </div>
           ))}
-          {[...Array(Math.max(0, 6 - formState.galleryImages.length))].map((_, i) => (
-            <div key={`empty-${i}`} className="border-2 border-dashed border-gray-300 rounded-lg aspect-square flex items-center justify-center">
-              <span className="text-gray-400 text-xs">{formState.galleryImages.length + i + 1}</span>
-            </div>
-          ))}
+          {formState.galleryImages.length < 6 && (
+            <label className="border-2 border-dashed border-gray-300 rounded-lg aspect-square flex flex-col items-center justify-center cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-colors">
+              <input type="file" accept="image/*" multiple className="hidden" onChange={handleGalleryFiles} />
+              <div className="text-purple-600">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+              </div>
+              <span className="text-gray-400 text-xs mt-1">{formState.galleryImages.length + 1}</span>
+            </label>
+          )}
         </div>
+        <div className="mt-2 text-xs text-gray-400">{formState.galleryImages.length}/6 images uploaded</div>
       </div>
     </div>
   );
