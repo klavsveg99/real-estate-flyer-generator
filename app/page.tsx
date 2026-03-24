@@ -144,29 +144,31 @@ function AgentForm({ data, onChange, agentImage, updateAgentImage }: { data: Lis
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Aģenta foto</label>
         <div className="flex gap-3">
-          <label className="border-2 border-dashed border-gray-300 rounded-lg w-20 h-20 flex flex-col items-center justify-center cursor-pointer hover:border-[#285854] hover:bg-[#285854]/10 transition-colors overflow-hidden">
-            <input type="file" accept="image/*" className="hidden" onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                const reader = new FileReader();
-                reader.onload = () => {
-                  updateAgentImage({ id: 'agent', file, preview: reader.result as string, name: file.name });
-                };
-                reader.readAsDataURL(file);
-              }
-            }} />
-            {agentImage ? (
-              <>
+          <div className="relative">
+            <label className="border-2 border-dashed border-gray-300 rounded-lg w-20 h-20 flex flex-col items-center justify-center cursor-pointer hover:border-[#285854] hover:bg-[#285854]/10 transition-colors overflow-hidden">
+              <input type="file" accept="image/*" className="hidden" onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onload = () => {
+                    updateAgentImage({ id: 'agent', file, preview: reader.result as string, name: file.name });
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }} />
+              {agentImage ? (
                 <img src={agentImage.preview} alt="Agent" className="w-full h-full object-cover" />
-                <button onClick={(e) => { e.preventDefault(); updateAgentImage(null); }} className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center">×</button>
-              </>
-            ) : (
-              <>
-                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
-                <span className="text-gray-400 text-xs mt-1">Foto</span>
-              </>
+              ) : (
+                <>
+                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+                  <span className="text-gray-400 text-xs mt-1">Foto</span>
+                </>
+              )}
+            </label>
+            {agentImage && (
+              <button onClick={() => updateAgentImage(null)} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center hover:bg-red-600">×</button>
             )}
-          </label>
+          </div>
         </div>
       </div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Aģenta vārds *</label><input type="text" name="agentName" value={data.agentName} onChange={handleChange} placeholder="Piemēram: Roberts Evarsons" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
