@@ -165,23 +165,48 @@ function AgentForm({ data, onChange }: { data: ListingData; onChange: (d: Listin
 function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImages }: { formState: FormState; updateLogo: (img: ImageFile | null) => void; updateMapImage: (img: ImageFile | null) => void; updateGalleryImages: (imgs: ImageFile[]) => void }) {
   const [dragIndex, setDragIndex] = React.useState<number | null>(null);
 
-  const handleLogoFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => updateLogo({ id: '1', file, preview: reader.result as string, name: file.name });
-    reader.readAsDataURL(file);
+  const convertToPng = (file: File): Promise<string> => {
+    return new Promise((resolve) => {
+      if (!file.type.includes('webp')) {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.readAsDataURL(file);
+        return;
+      }
+      
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0);
+          resolve(canvas.toDataURL('image/png'));
+        } else {
+          resolve('');
+        }
+      };
+      img.onerror = () => resolve('');
+      img.src = URL.createObjectURL(file);
+    });
   };
 
-  const handleMapFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLogoFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => updateMapImage({ id: '2', file, preview: reader.result as string, name: file.name });
-    reader.readAsDataURL(file);
+    const preview = await convertToPng(file);
+    updateLogo({ id: '1', file, preview, name: file.name });
   };
 
-  const handleGalleryFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMapFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const preview = await convertToPng(file);
+    updateMapImage({ id: '2', file, preview, name: file.name });
+  };
+
+  const handleGalleryFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     const remaining = 6 - formState.galleryImages.length;
     const filesToAdd = files.slice(0, remaining);
@@ -189,17 +214,14 @@ function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImag
     let loadedCount = 0;
     const newImages: ImageFile[] = [];
     
-    filesToAdd.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        newImages.push({ id: Date.now() + Math.random().toString(), file, preview: reader.result as string, name: file.name });
-        loadedCount++;
-        if (loadedCount === filesToAdd.length) {
-          updateGalleryImages([...formState.galleryImages, ...newImages]);
-        }
-      };
-      reader.readAsDataURL(file);
-    });
+    for (const file of filesToAdd) {
+      const preview = await convertToPng(file);
+      newImages.push({ id: Date.now() + Math.random().toString(), file, preview, name: file.name });
+      loadedCount++;
+      if (loadedCount === filesToAdd.length) {
+        updateGalleryImages([...formState.galleryImages, ...newImages]);
+      }
+    }
   };
 
   const handleSortStart = (index: number) => {
