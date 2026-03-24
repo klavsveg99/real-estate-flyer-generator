@@ -85,19 +85,22 @@ function PreviewSection({ formState }: { formState: FormState }) {
         </div>
       </div>
 
-        <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '20px', marginTop: 'auto' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <div style={{ backgroundColor: '#285854', padding: '15px', borderRadius: '8px' }}>
+        <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '15px', marginTop: 'auto' }}>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <div style={{ backgroundColor: '#285854', padding: '15px', borderRadius: '8px', flex: 1 }}>
             <p className="font-semibold text-white">{listing.agentName || 'Agent Name'}</p>
-            <p className="text-white text-opacity-80 text-sm">{listing.agentTitle}</p>
+            <p className="text-white text-sm">{listing.agentTitle}</p>
             <p className="text-white font-medium mt-1">{listing.mobile}</p>
-            <p className="text-white text-opacity-80 text-sm">{listing.email}</p>
+            <p className="text-white text-sm">{listing.email}</p>
           </div>
-          <div className="text-right" style={{ fontSize: '12px' }}>
-            {listing.websiteText && <p style={{ color: '#285854', fontWeight: 600 }}>{listing.websiteText}</p>}
+          <div style={{ backgroundColor: '#285854', padding: '15px', borderRadius: '8px', flex: 1 }}>
+            <p className="font-semibold text-white">{listing.agentName || 'Agent Name'}</p>
+            <p className="text-white text-sm">{listing.agentTitle}</p>
+            <p className="text-white font-medium mt-1">{listing.mobile}</p>
+            <p className="text-white text-sm">{listing.email}</p>
           </div>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #f3f4f6' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px', paddingTop: '10px', borderTop: '1px solid #f3f4f6' }}>
           <span className="text-gray-400" style={{ fontSize: '11px' }}>{listing.listingDate}</span>
           <span className="text-gray-400" style={{ fontSize: '11px' }}>© pardodlaimigs.lv</span>
         </div>
