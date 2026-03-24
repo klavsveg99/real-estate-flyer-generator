@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
   listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 4, paddingHorizontal: 8, fontSize: 9, fontWeight: 'bold', borderRadius: 6 },
   contentRow: { flexDirection: 'row', marginBottom: 15 },
-  leftCol: { width: 283, marginRight: 30 },
+  leftCol: { width: '50%', marginRight: 20 },
   title: { fontSize: 20, fontWeight: 'bold', color: '#111827', marginBottom: 4 },
   address: { fontSize: 12, color: '#6b7280', marginBottom: 10 },
   priceBox: { backgroundColor: '#f9fafb', borderWidth: 1, borderColor: '#e5e7eb', borderRadius: 6, padding: 10, marginBottom: 10 },
@@ -25,12 +25,12 @@ const styles = StyleSheet.create({
   description: { marginBottom: 10 },
   descriptionText: { fontSize: 10, color: '#4b5563', lineHeight: 1.4, marginBottom: 6 },
   cta: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 10, paddingHorizontal: 20, fontSize: 12, fontWeight: 'bold', textAlign: 'center', borderRadius: 6, textTransform: 'uppercase', letterSpacing: 0.5, textDecoration: 'none' },
-  rightCol: { width: 202 },
-  mapWrapper: { width: '100%', height: 150, backgroundColor: '#f3f4f6', borderRadius: 6, marginBottom: 12, overflow: 'hidden' },
+  rightCol: { width: '50%' },
+  mapWrapper: { width: '100%', height: 150, backgroundColor: '#f3f4f6', borderRadius: 4, marginBottom: 12, overflow: 'hidden' },
   mapText: { fontSize: 12, color: '#9ca3af' },
-  galleryRow: { flexDirection: 'row', marginBottom: 6 },
-  galleryItemHalf: { width: 95, height: 62, marginRight: 6, borderRadius: 6, overflow: 'hidden' },
-  galleryItemFull: { width: 196, height: 70, borderRadius: 6, overflow: 'hidden' },
+  galleryRow: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 4 },
+  galleryItemHalf: { width: '48%', height: 62, marginRight: '4%', borderRadius: 4, overflow: 'hidden' },
+  galleryItemFull: { width: '100%', height: 70, borderRadius: 4, overflow: 'hidden' },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 10, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
   agentBox: { backgroundColor: '#285854', padding: 10, borderRadius: 6 },
@@ -102,23 +102,32 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages }: FlyerPdfP
           <View style={styles.rightCol}>
             <View style={styles.mapWrapper}>
               {mapImage?.preview ? (
-                <Image src={mapImage.preview} style={{ width: 202, height: 150, objectFit: 'cover' }} />
+                <Image src={mapImage.preview} style={{ width: '100%', height: 150, objectFit: 'cover' }} />
               ) : (
-                <View style={{ width: 202, height: 150, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ width: '100%', height: 150, justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={styles.mapText}>Karte</Text>
                 </View>
               )}
             </View>
 
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-              {galleryItems.map((img, i) => {
-                const hasPair = i + 1 < galleryItems.length;
-                return (
-                  <View key={img.id} style={hasPair ? styles.galleryItemHalf : styles.galleryItemFull}>
-                    <Image src={img.preview} style={[hasPair ? styles.galleryItemHalf : styles.galleryItemFull, { objectFit: 'cover' }]} />
-                  </View>
-                );
-              })}
+              {galleryItems.length === 0 ? (
+                <>
+                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 1</Text></View>
+                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 2</Text></View>
+                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 3</Text></View>
+                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 4</Text></View>
+                </>
+              ) : (
+                galleryItems.map((img, i) => {
+                  const hasPair = i + 1 < galleryItems.length;
+                  return (
+                    <View key={img.id} style={hasPair ? styles.galleryItemHalf : styles.galleryItemFull}>
+                      <Image src={img.preview} style={[hasPair ? styles.galleryItemHalf : styles.galleryItemFull, { objectFit: 'cover' }]} />
+                    </View>
+                  );
+                })
+              )}
             </View>
           </View>
         </View>

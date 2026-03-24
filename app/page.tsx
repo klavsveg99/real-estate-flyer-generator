@@ -32,7 +32,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
         <span style={{ backgroundColor: '#285854', color: 'white', padding: '8px 16px', fontSize: '12px', fontWeight: 600 }}>{listing.listingId}</span>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '55% 45%', gap: '30px', marginBottom: '45px', flex: 1 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '50% 50%', gap: '30px', marginBottom: '45px', flex: 1 }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <h1 className="font-bold text-gray-900" style={{ fontSize: '32px', marginBottom: '8px', lineHeight: 1.2 }}>{listing.title || 'Īpašuma nosaukums'}</h1>
           <p className="text-gray-500" style={{ fontSize: '18px', marginBottom: '20px' }}>{listing.address || 'Īpašuma adrese'}</p>
@@ -58,7 +58,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ width: '100%', height: '150px', backgroundColor: '#e5e7eb', borderRadius: '6px', overflow: 'hidden', marginBottom: '12px' }}>
+          <div style={{ width: '100%', height: '150px', backgroundColor: '#e5e7eb', borderRadius: '4px', overflow: 'hidden', marginBottom: '12px' }}>
             {mapImage?.preview ? (
               <img src={mapImage.preview} alt="Map" style={{ width: '100%', height: '150px', objectFit: 'cover', maxWidth: '100%' }} />
             ) : (
@@ -69,7 +69,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
           <div style={{ width: '100%', display: 'flex', flexWrap: 'wrap' }}>
             {galleryImages.length === 0 ? (
               [...Array(4)].map((_, i) => (
-                <div key={`placeholder-${i}`} style={{ width: 'calc(50% - 3px)', height: '75px', marginRight: i % 2 === 0 ? '6px' : '0', marginBottom: '6px', backgroundColor: '#e5e7eb', borderRadius: '6px' }} />
+                <div key={`placeholder-${i}`} style={{ width: 'calc(50% - 2px)', height: '75px', marginRight: i % 2 === 0 ? '4px' : '0', marginBottom: '4px', backgroundColor: '#e5e7eb', borderRadius: '4px' }} />
               ))
             ) : (
               galleryImages.map((img, i) => {
@@ -77,7 +77,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
                 const hasPair = i + 1 < galleryImages.length;
                 return (
                   <div key={img.id} style={{ width: hasPair ? 'calc(50% - 3px)' : '100%', marginRight: isFirstInPair ? '6px' : '0', marginBottom: '6px', height: '75px' }}>
-                    <img src={img.preview} alt={`Gallery ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '6px' }} />
+                    <img src={img.preview} alt={`Gallery ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
                   </div>
                 );
               })
