@@ -138,7 +138,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
         </View>
 
         <View style={styles.footer}>
-          <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+          <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }]}>
             {agentImage ? (
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Image src={agentImage.preview} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
