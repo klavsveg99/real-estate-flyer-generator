@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   page: { padding: 40, fontFamily: 'Helvetica', backgroundColor: '#ffffff' },
   purpleBar: { height: 10, backgroundColor: '#7C3AED', borderRadius: 2, marginBottom: 30 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 25, paddingBottom: 20, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
-  logo: { width: 160, height: 45 },
+  logo: { width: 160, height: 45, objectFit: 'contain' },
   logoPlaceholder: { width: 160, height: 45, backgroundColor: '#f3f4f6', borderRadius: 4 },
   listingId: { backgroundColor: '#7C3AED', color: '#ffffff', paddingVertical: 6, paddingHorizontal: 12, fontSize: 11, fontWeight: 'bold', borderRadius: 4 },
   contentRow: { flexDirection: 'row', marginBottom: 20 },
@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
   descriptionText: { fontSize: 11, color: '#4b5563', lineHeight: 1.5, marginBottom: 8 },
   cta: { backgroundColor: '#7C3AED', color: '#ffffff', paddingVertical: 12, paddingHorizontal: 24, fontSize: 13, fontWeight: 'bold', textAlign: 'center', borderRadius: 6, textTransform: 'uppercase', letterSpacing: 0.5 },
   rightCol: { width: 200 },
-  map: { width: '100%', height: 100, marginBottom: 12 },
+  map: { width: '100%', height: 100, objectFit: 'cover', marginBottom: 12 },
   mapPlaceholder: { width: '100%', height: 100, backgroundColor: '#f3f4f6', borderRadius: 6, marginBottom: 12, justifyContent: 'center', alignItems: 'center' },
   mapText: { fontSize: 12, color: '#9ca3af' },
   galleryRow: { flexDirection: 'row', marginBottom: 6 },
-  galleryItem: { height: 62, backgroundColor: '#f3f4f6', borderRadius: 4 },
+  galleryItem: { height: 62, backgroundColor: '#f3f4f6', borderRadius: 4, objectFit: 'cover' },
   galleryItemHalf: { width: 95, marginRight: 6 },
   galleryItemFull: { width: 196 },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 15, marginTop: 'auto' },
@@ -51,6 +51,11 @@ const formatPrice = (value: string) => {
   return '$' + num.toLocaleString();
 };
 
+function PdfImage({ src, style }: { src: string; style: any }) {
+  if (!src) return null;
+  return <Image src={{ uri: src, method: 'GET', body: '', headers: {} }} style={style} />;
+}
+
 export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: FlyerPdfProps) {
   const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
   const priceSubtext = [
@@ -67,7 +72,7 @@ export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: Fly
 
         <View style={styles.header}>
           {logo?.preview ? (
-            <Image src={logo.preview} style={styles.logo} />
+            <PdfImage src={logo.preview} style={styles.logo} />
           ) : (
             <View style={styles.logoPlaceholder} />
           )}
@@ -95,7 +100,7 @@ export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: Fly
 
           <View style={styles.rightCol}>
             {mapImage?.preview ? (
-              <Image src={mapImage.preview} style={styles.map} />
+              <PdfImage src={mapImage.preview} style={styles.map} />
             ) : (
               <View style={styles.mapPlaceholder}>
                 <Text style={styles.mapText}>Map Image</Text>
@@ -109,7 +114,7 @@ export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: Fly
                 return (
                   <View key={`row-${rowIndex}`} style={[styles.galleryRow, rowIndex === 2 ? { marginBottom: 0 } : {}]}>
                     {rowImages.map((img, colIndex) => (
-                      <Image key={img.id} src={img.preview} style={[styles.galleryItem, hasTwo ? styles.galleryItemHalf : styles.galleryItemFull, !hasTwo && colIndex === 0 ? { marginRight: 0 } : {}]} />
+                      <PdfImage key={img.id} src={img.preview} style={[styles.galleryItem, hasTwo ? styles.galleryItemHalf : styles.galleryItemFull, !hasTwo && colIndex === 0 ? { marginRight: 0 } : {}]} />
                     ))}
                     {!hasTwo && <View style={[styles.galleryItem, styles.galleryItemFull]} />}
                   </View>
