@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { FormState, defaultListing, ImageFile, ListingData } from '@/app/types';
 import { isFormValid, generatePdfFilename } from '@/app/lib/utils';
 import { pdf } from '@react-pdf/renderer';
