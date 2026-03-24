@@ -362,7 +362,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src="/images/favicon.jpg" alt="Logo" className="w-8 h-8 rounded-lg" />
-            <h1 className="text-xl font-bold text-gray-900">Pardodlaimigs.lv</h1>
+            <h1 className="text-xl font-bold text-gray-900">PDF mārketinga ģenerators</h1>
           </div>
           <button onClick={handleGeneratePdf} disabled={!isFormValid(formState.listing) || isGenerating} className={`px-5 py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 ${isFormValid(formState.listing) && !isGenerating ? 'bg-teal-600 text-white' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`}>
             {isGenerating ? 'Veidojas...' : 'Lejupielādēt PDF'}
