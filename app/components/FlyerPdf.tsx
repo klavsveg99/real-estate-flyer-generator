@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
   page: { padding: 40, fontFamily: 'Helvetica', backgroundColor: '#ffffff' },
   purpleBar: { height: 10, backgroundColor: '#7C3AED', borderRadius: 2, marginBottom: 30 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 25, paddingBottom: 20, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
-  logo: { width: 160, height: 45, objectFit: 'contain' },
+  logoWrapper: { width: 160, height: 45 },
+  logoImage: { width: 160, height: 45 },
   logoPlaceholder: { width: 160, height: 45, backgroundColor: '#f3f4f6', borderRadius: 4 },
   listingId: { backgroundColor: '#7C3AED', color: '#ffffff', paddingVertical: 6, paddingHorizontal: 12, fontSize: 11, fontWeight: 'bold', borderRadius: 4 },
   contentRow: { flexDirection: 'row', marginBottom: 20 },
@@ -20,13 +21,13 @@ const styles = StyleSheet.create({
   descriptionText: { fontSize: 11, color: '#4b5563', lineHeight: 1.5, marginBottom: 8 },
   cta: { backgroundColor: '#7C3AED', color: '#ffffff', paddingVertical: 12, paddingHorizontal: 24, fontSize: 13, fontWeight: 'bold', textAlign: 'center', borderRadius: 6, textTransform: 'uppercase', letterSpacing: 0.5 },
   rightCol: { width: 200 },
-  map: { width: '100%', height: 100, objectFit: 'cover', marginBottom: 12 },
+  mapWrapper: { width: '100%', height: 100, marginBottom: 12 },
+  mapImage: { width: '100%', height: 100 },
   mapPlaceholder: { width: '100%', height: 100, backgroundColor: '#f3f4f6', borderRadius: 6, marginBottom: 12, justifyContent: 'center', alignItems: 'center' },
   mapText: { fontSize: 12, color: '#9ca3af' },
   galleryRow: { flexDirection: 'row', marginBottom: 6 },
-  galleryItem: { height: 62, backgroundColor: '#f3f4f6', borderRadius: 4, objectFit: 'cover' },
-  galleryItemHalf: { width: 95, marginRight: 6 },
-  galleryItemFull: { width: 196 },
+  galleryItemHalf: { width: 95, height: 62, marginRight: 6 },
+  galleryItemFull: { width: 196, height: 62 },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 15, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
   agentInfo: { fontSize: 11 },
@@ -51,9 +52,8 @@ const formatPrice = (value: string) => {
   return '$' + num.toLocaleString();
 };
 
-function PdfImage({ src, style }: { src: string; style: any }) {
-  if (!src) return null;
-  return <Image src={{ uri: src, method: 'GET', body: '', headers: {} }} style={style} />;
+function GalleryImage({ src, style }: { src: string; style: any }) {
+  return <Image src={src} style={style} />;
 }
 
 export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: FlyerPdfProps) {
@@ -71,11 +71,13 @@ export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: Fly
         <View style={styles.purpleBar} />
 
         <View style={styles.header}>
-          {logo?.preview ? (
-            <PdfImage src={logo.preview} style={styles.logo} />
-          ) : (
-            <View style={styles.logoPlaceholder} />
-          )}
+          <View style={styles.logoWrapper}>
+            {logo?.preview ? (
+              <Image src={logo.preview} style={styles.logoImage} />
+            ) : (
+              <View style={styles.logoPlaceholder} />
+            )}
+          </View>
           <Text style={styles.listingId}>{listing.listingId}</Text>
         </View>
 
@@ -99,13 +101,15 @@ export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: Fly
           </View>
 
           <View style={styles.rightCol}>
-            {mapImage?.preview ? (
-              <PdfImage src={mapImage.preview} style={styles.map} />
-            ) : (
-              <View style={styles.mapPlaceholder}>
-                <Text style={styles.mapText}>Map Image</Text>
-              </View>
-            )}
+            <View style={styles.mapWrapper}>
+              {mapImage?.preview ? (
+                <Image src={mapImage.preview} style={styles.mapImage} />
+              ) : (
+                <View style={styles.mapPlaceholder}>
+                  <Text style={styles.mapText}>Map Image</Text>
+                </View>
+              )}
+            </View>
 
             <View>
               {[...Array(3)].map((_, rowIndex) => {
@@ -114,9 +118,9 @@ export function FlyerPdfDocument({ listing, logo, mapImage, galleryImages }: Fly
                 return (
                   <View key={`row-${rowIndex}`} style={[styles.galleryRow, rowIndex === 2 ? { marginBottom: 0 } : {}]}>
                     {rowImages.map((img, colIndex) => (
-                      <PdfImage key={img.id} src={img.preview} style={[styles.galleryItem, hasTwo ? styles.galleryItemHalf : styles.galleryItemFull, !hasTwo && colIndex === 0 ? { marginRight: 0 } : {}]} />
+                      <GalleryImage key={img.id} src={img.preview} style={hasTwo ? styles.galleryItemHalf : styles.galleryItemFull} />
                     ))}
-                    {!hasTwo && <View style={[styles.galleryItem, styles.galleryItemFull]} />}
+                    {!hasTwo && <View style={styles.galleryItemFull} />}
                   </View>
                 );
               })}
