@@ -240,7 +240,7 @@ function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImag
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Location Map</label>
-        <label className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-teal-400 hover:bg-teal-50 transition-colors min-h-32"
+        <label className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-teal-400 hover:bg-teal-50 transition-colors min-h-32">
           <input type="file" accept="image/*" className="hidden" onChange={handleMapFile} />
           {formState.mapImage ? (
             <div className="relative w-full">
@@ -277,7 +277,7 @@ function ImageSection({ formState, updateLogo, updateMapImage, updateGalleryImag
             </div>
           ))}
           {formState.galleryImages.length < 6 && (
-            <label className="border-2 border-dashed border-gray-300 rounded-lg aspect-square flex flex-col items-center justify-center cursor-pointer hover:border-teal-400 hover:bg-teal-50 transition-colors"
+            <label className="border-2 border-dashed border-gray-300 rounded-lg aspect-square flex flex-col items-center justify-center cursor-pointer hover:border-teal-400 hover:bg-teal-50 transition-colors">
               <input type="file" accept="image/*" multiple className="hidden" onChange={handleGalleryFiles} />
               <div className="text-purple-600">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
