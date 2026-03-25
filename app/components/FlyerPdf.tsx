@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   galleryRow: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 4 },
   galleryItemHalf: { width: 121, height: 62, borderRadius: 4, overflow: 'hidden' },
   galleryItemFull: { width: 249, height: 70, borderRadius: 4, overflow: 'hidden' },
-  galvenaisFotoWrapper: { width: '100%', height: 80, borderRadius: 4, overflow: 'hidden', marginTop: 10 },
+  galvenaisFotoWrapper: { width: '100%', height: 150, borderRadius: 4, overflow: 'hidden', marginTop: 10 },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 10, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
   agentBox: { backgroundColor: '#285854', padding: 16, borderRadius: 6 },
@@ -146,7 +146,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
 
             {galvenaisFoto && (
               <View style={styles.galvenaisFotoWrapper}>
-                <Image src={galvenaisFoto.preview} style={{ width: 249, height: 80, objectFit: 'cover' }} />
+                <Image src={galvenaisFoto.preview} style={{ width: 249, height: 150, objectFit: 'cover' }} />
               </View>
             )}
           </View>

@@ -92,7 +92,7 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
           </div>
 
           {galvenaisFoto && (
-            <div style={{ width: '100%', height: '100px', marginTop: '10px', borderRadius: '4px', overflow: 'hidden' }}>
+            <div style={{ width: '100%', height: '150px', marginTop: '10px', borderRadius: '4px', overflow: 'hidden' }}>
               <img src={galvenaisFoto.preview} alt="Galvenais foto" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           )}
