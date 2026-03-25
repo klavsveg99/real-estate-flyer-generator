@@ -5,9 +5,13 @@ import { FormState, defaultListing, ImageFile, ListingData } from '@/app/types';
 import { isFormValid, generatePdfFilename } from '@/app/lib/utils';
 import { pdf } from '@react-pdf/renderer';
 import { FlyerPdfDocument } from './components/FlyerPdf';
+import dynamic from 'next/dynamic';
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+import 'react-quill/dist/quill.snow.css';
 
 function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormState; windowWidth?: number }) {
-  const { listing, mapImage, galleryImages, agentImage } = formState;
+  const { listing, mapImage, galleryImages, galvenaisFoto, agentImage } = formState;
   const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
 
   const isMobile = windowWidth < 767;
@@ -86,6 +90,12 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
               })
             )}
           </div>
+
+          {galvenaisFoto && (
+            <div style={{ width: '100%', height: '100px', marginTop: '10px', borderRadius: '4px', overflow: 'hidden' }}>
+              <img src={galvenaisFoto.preview} alt="Galvenais foto" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          )}
         </div>
       </div>
 
@@ -116,6 +126,16 @@ function PropertyForm({ data, onChange }: { data: ListingData; onChange: (d: Lis
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     onChange({ ...data, [e.target.name]: e.target.value });
   };
+
+  const quillModules = {
+    toolbar: [
+      [{ 'header': [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      ['clean']
+    ],
+  };
+
   return (
     <div className="space-y-4">
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Nosaukums *</label><input type="text" name="title" value={data.title} onChange={handleChange} placeholder="Piemēram: Moderns dzīvoklis Centrā" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
@@ -129,7 +149,18 @@ function PropertyForm({ data, onChange }: { data: ListingData; onChange: (d: Lis
         <div><label className="block text-sm font-medium text-gray-700 mb-1">Sludinājuma ID *</label><input type="text" name="listingId" value={data.listingId} onChange={handleChange} placeholder="Piemēram: ML-2847" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       </div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Datums</label><input type="text" name="listingDate" value={data.listingDate} onChange={handleChange} placeholder="Piemēram: Marts 2026" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Apraksts</label><textarea name="description" value={data.description} onChange={handleChange} rows={6} placeholder="Ievadiet īpašuma aprakstu..." className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none" /></div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Apraksts</label>
+        <div className="bg-white">
+          <ReactQuill 
+            theme="snow" 
+            value={data.description} 
+            onChange={(value) => onChange({ ...data, description: value })} 
+            modules={quillModules}
+            className="h-40 mb-12"
+          />
+        </div>
+      </div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">CTA Poga</label><input type="text" name="ctaText" value={data.ctaText} onChange={handleChange} placeholder="Sazināties" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
     </div>
   );
@@ -180,7 +211,7 @@ function AgentForm({ data, onChange, agentImage, updateAgentImage }: { data: Lis
   );
 }
 
-function ImageSection({ formState, updateMapImage, updateGalleryImages }: { formState: FormState; updateMapImage: (img: ImageFile | null) => void; updateGalleryImages: (imgs: ImageFile[]) => void }) {
+function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGalvenaisFoto }: { formState: FormState; updateMapImage: (img: ImageFile | null) => void; updateGalleryImages: (imgs: ImageFile[]) => void; updateGalvenaisFoto: (img: ImageFile | null) => void }) {
   const [dragIndex, setDragIndex] = React.useState<number | null>(null);
   const [mapAddress, setMapAddress] = React.useState(formState.listing.address);
   const [isLoadingMap, setIsLoadingMap] = React.useState(false);
@@ -285,19 +316,20 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
     <div className="space-y-6">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Karte (Google Maps)</label>
-        <div className="border border-gray-300 rounded-lg p-4">
-          <div className="flex gap-2 mb-3">
+        <div className="border border-gray-300 rounded-lg p-4 overflow-x-auto">
+          <div className="flex gap-2 mb-3 min-w-0">
             <input
               type="text"
               value={mapAddress}
               onChange={(e) => setMapAddress(e.target.value)}
               placeholder="Ievadiet īpašuma adresi"
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="flex-1 min-w-0 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
             />
             <button
               onClick={fetchMapImage}
               disabled={isLoadingMap || !mapAddress.trim()}
-              style={{ background: '#285854', color: 'white', padding: '8px 16px', borderRadius: '6px', fontSize: '14px', fontWeight: 500 }}
+              style={{ background: '#285854', color: 'white', padding: '8px 16px', borderRadius: '6px', fontSize: '14px', fontWeight: 500, flexShrink: 0 }}
             >
               {isLoadingMap ? 'Loading...' : 'Iegūt karti'}
             </button>
@@ -350,12 +382,42 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages }: { form
         </div>
         <div className="mt-2 text-xs text-gray-400">{formState.galleryImages.length}/6 attēlu augšupielādēts</div>
       </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Galvenais foto</label>
+        <div className="flex gap-3">
+          <div className="relative">
+            <label className="border-2 border-dashed border-gray-300 rounded-lg w-24 h-24 flex flex-col items-center justify-center cursor-pointer hover:border-[#285854] hover:bg-[#285854]/10 transition-colors overflow-hidden">
+              <input type="file" accept="image/*" className="hidden" onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onload = () => {
+                    updateGalvenaisFoto({ id: 'galvenais', file, preview: reader.result as string, name: file.name });
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }} />
+              {formState.galvenaisFoto ? (
+                <img src={formState.galvenaisFoto.preview} alt="Galvenais" className="w-full h-full object-cover" />
+              ) : (
+                <>
+                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+                  <span className="text-gray-400 text-xs mt-1">Foto</span>
+                </>
+              )}
+            </label>
+            {formState.galvenaisFoto && (
+              <button onClick={() => updateGalvenaisFoto(null)} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center hover:bg-red-600">×</button>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default function Home() {
-  const [formState, setFormState] = useState<FormState>({ listing: defaultListing, mapImage: null, galleryImages: [], agentImage: { id: 'agent', file: null, preview: '/images/roberts-2.jpg', name: 'roberts-2.jpg' } });
+  const [formState, setFormState] = useState<FormState>({ listing: defaultListing, mapImage: null, galleryImages: [], galvenaisFoto: null, agentImage: { id: 'agent', file: null, preview: '/images/roberts-2.jpg', name: 'roberts-2.jpg' } });
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<'property' | 'images' | 'agent'>('property');
   const [windowWidth, setWindowWidth] = useState(1024);
@@ -370,13 +432,14 @@ export default function Home() {
   const updateListing = useCallback((listing: ListingData) => setFormState(prev => ({ ...prev, listing })), []);
   const updateMapImage = useCallback((mapImage: ImageFile | null) => setFormState(prev => ({ ...prev, mapImage })), []);
   const updateGalleryImages = useCallback((galleryImages: ImageFile[]) => setFormState(prev => ({ ...prev, galleryImages })), []);
+  const updateGalvenaisFoto = useCallback((galvenaisFoto: ImageFile | null) => setFormState(prev => ({ ...prev, galvenaisFoto })), []);
   const updateAgentImage = useCallback((agentImage: ImageFile | null) => setFormState(prev => ({ ...prev, agentImage })), []);
 
   const handleGeneratePdf = async () => {
     if (!isFormValid(formState.listing)) { alert('Lūdzu, aizpildiet visus obligātos laukus.'); return; }
     setIsGenerating(true);
     try {
-      const doc = <FlyerPdfDocument listing={formState.listing} mapImage={formState.mapImage} galleryImages={formState.galleryImages} agentImage={formState.agentImage} baseUrl={typeof window !== 'undefined' ? window.location.origin : ''} />;
+      const doc = <FlyerPdfDocument listing={formState.listing} mapImage={formState.mapImage} galleryImages={formState.galleryImages} galvenaisFoto={formState.galvenaisFoto} agentImage={formState.agentImage} baseUrl={typeof window !== 'undefined' ? window.location.origin : ''} />;
       const blob = await pdf(doc).toBlob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -422,7 +485,7 @@ export default function Home() {
               </div>
               <div className="p-4 md:p-6">
                 {activeTab === 'property' && <PropertyForm data={formState.listing} onChange={updateListing} />}
-                {activeTab === 'images' && <ImageSection formState={formState} updateMapImage={updateMapImage} updateGalleryImages={updateGalleryImages} />}
+                {activeTab === 'images' && <ImageSection formState={formState} updateMapImage={updateMapImage} updateGalleryImages={updateGalleryImages} updateGalvenaisFoto={updateGalvenaisFoto} />}
                 {activeTab === 'agent' && <AgentForm data={formState.listing} onChange={updateListing} agentImage={formState.agentImage} updateAgentImage={updateAgentImage} />}
               </div>
             </div>

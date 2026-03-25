@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   galleryRow: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 4 },
   galleryItemHalf: { width: 121, height: 62, borderRadius: 4, overflow: 'hidden' },
   galleryItemFull: { width: 249, height: 70, borderRadius: 4, overflow: 'hidden' },
+  galvenaisFotoWrapper: { width: '100%', height: 80, borderRadius: 4, overflow: 'hidden', marginTop: 10 },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 10, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
   agentBox: { backgroundColor: '#285854', padding: 16, borderRadius: 6 },
@@ -48,6 +49,7 @@ interface FlyerPdfProps {
   listing: ListingData;
   mapImage: ImageFile | null;
   galleryImages: ImageFile[];
+  galvenaisFoto: ImageFile | null;
   agentImage: ImageFile | null;
   baseUrl?: string;
 }
@@ -58,7 +60,7 @@ const formatPrice = (value: string) => {
   return '€' + num.toLocaleString();
 };
 
-export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage, baseUrl = '' }: FlyerPdfProps) {
+export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFoto, agentImage, baseUrl = '' }: FlyerPdfProps) {
   const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
   const priceSubtext = [
     listing.areaSize && `${parseFloat(listing.areaSize).toLocaleString()} m²`,
@@ -141,6 +143,12 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage,
                 })
               )}
             </View>
+
+            {galvenaisFoto && (
+              <View style={styles.galvenaisFotoWrapper}>
+                <Image src={galvenaisFoto.preview} style={{ width: 249, height: 80, objectFit: 'cover' }} />
+              </View>
+            )}
           </View>
         </View>
 

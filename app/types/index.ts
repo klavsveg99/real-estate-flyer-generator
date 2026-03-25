@@ -28,6 +28,7 @@ export interface FormState {
   listing: ListingData;
   mapImage: ImageFile | null;
   galleryImages: ImageFile[];
+  galvenaisFoto: ImageFile | null;
   agentImage: ImageFile | null;
 }
 
