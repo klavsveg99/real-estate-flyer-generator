@@ -144,7 +144,6 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
                 })}
               </View>
             )}
-            </View>
 
             {galvenaisFoto && (
               <View style={styles.galvenaisFotoWrapper}>
