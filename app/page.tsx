@@ -316,20 +316,20 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
     <div className="space-y-6">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Karte (Google Maps)</label>
-        <div className="border border-gray-300 rounded-lg p-4 overflow-x-auto">
-          <div className="flex gap-2 mb-3 min-w-0">
+        <div className="border border-gray-300 rounded-lg p-4">
+          <div className="flex flex-col sm:flex-row gap-2 mb-3">
             <input
               type="text"
               value={mapAddress}
               onChange={(e) => setMapAddress(e.target.value)}
               placeholder="Ievadiet īpašuma adresi"
-              className="flex-1 min-w-0 px-3 py-2 border border-gray-300 rounded-lg text-sm"
-              style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm w-full"
             />
             <button
               onClick={fetchMapImage}
               disabled={isLoadingMap || !mapAddress.trim()}
-              style={{ background: '#285854', color: 'white', padding: '8px 16px', borderRadius: '6px', fontSize: '14px', fontWeight: 500, flexShrink: 0 }}
+              style={{ background: '#285854', color: 'white', padding: '8px 16px', borderRadius: '6px', fontSize: '14px', fontWeight: 500 }}
+              className="whitespace-nowrap"
             >
               {isLoadingMap ? 'Loading...' : 'Iegūt karti'}
             </button>
