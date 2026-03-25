@@ -125,9 +125,8 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
               ) : (
                 galleryItems.map((img, i) => {
                   const isSecondInPair = i % 2 === 1;
-                  const hasNextInPair = i + 1 < galleryItems.length;
-                  const isFullWidth = isSecondInPair && !hasNextInPair;
-                  const isFirstInPair = i % 2 === 0;
+                  const hasPreviousInPair = i - 1 >= 0;
+                  const isFullWidth = isSecondInPair && !hasPreviousInPair;
                   const itemStyle = isFullWidth 
                     ? styles.galleryItemFull 
                     : isSecondInPair 
@@ -151,7 +150,9 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
         <View style={styles.footer} wrap={false}>
           <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: 20 }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Image src={agentImage?.preview ? agentImage.preview : '/images/favicon.jpg'} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
+              <View style={{ width: 40, height: 40, borderRadius: 20, overflow: 'hidden', marginRight: 10 }}>
+                <Image src={agentImage?.preview ? agentImage.preview : '/images/favicon.jpg'} style={{ width: 40, height: 40 }} />
+              </View>
               <View>
                 <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
                 {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
