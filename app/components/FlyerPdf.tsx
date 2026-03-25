@@ -121,16 +121,9 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
               )}
             </View>
 
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
-              {galleryItems.length === 0 ? (
-                <>
-                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 1</Text></View>
-                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 2</Text></View>
-                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 3</Text></View>
-                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 4</Text></View>
-                </>
-              ) : (
-                galleryItems.map((img, i) => {
+            {galleryItems.length > 0 && (
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
+                {galleryItems.map((img, i) => {
                   const isLast = i === galleryItems.length - 1;
                   const isOdd = galleryItems.length % 2 === 1;
                   const isFullWidth = isLast && isOdd;
@@ -145,8 +138,9 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
                       <Image src={img.preview} style={imgStyle} />
                     </View>
                   );
-                })
-              )}
+                })}
+              </View>
+            )}
             </View>
 
             {galvenaisFoto && (
