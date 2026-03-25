@@ -387,17 +387,17 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/images/favicon.jpg" alt="Logo" className="w-8 h-8 rounded-lg" />
-            <h1 className="text-xl font-bold text-gray-900">PDF mārketinga ģenerators</h1>
+        <div className="max-w-7xl mx-auto px-3 md:px-4 py-3 md:py-0 md:h-16 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 md:gap-3 min-w-0">
+            <img src="/images/favicon.jpg" alt="Logo" className="w-8 h-8 rounded-lg flex-shrink-0" />
+            <h1 className="text-lg md:text-xl font-bold text-gray-900 truncate md:truncate-none">PDF mārketinga ģenerators</h1>
           </div>
-          <button onClick={handleGeneratePdf} disabled={!isFormValid(formState.listing) || isGenerating} className={`px-5 py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 ${isFormValid(formState.listing) && !isGenerating ? '' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`} style={isFormValid(formState.listing) && !isGenerating ? { background: '#285854', color: 'white' } : {}}>
+          <button onClick={handleGeneratePdf} disabled={!isFormValid(formState.listing) || isGenerating} className={`px-3 md:px-5 py-2 md:py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 whitespace-nowrap ${isFormValid(formState.listing) && !isGenerating ? '' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`} style={isFormValid(formState.listing) && !isGenerating ? { background: '#285854', color: 'white' } : {}}>
             {isGenerating ? 'Veidojas...' : 'Lejupielādēt PDF'}
           </button>
         </div>
       </header>
-      <main className="max-w-7xl mx-auto px-4 py-4 md:py-8">
+      <main className="max-w-7xl mx-auto px-3 md:px-4 py-4 md:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           <div className="space-y-4 lg:space-y-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
