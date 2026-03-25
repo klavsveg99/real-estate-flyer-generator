@@ -1,14 +1,16 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { FormState, defaultListing, ImageFile, ListingData } from '@/app/types';
 import { isFormValid, generatePdfFilename } from '@/app/lib/utils';
 import { pdf } from '@react-pdf/renderer';
 import { FlyerPdfDocument } from './components/FlyerPdf';
 
-function PreviewSection({ formState }: { formState: FormState }) {
+function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormState; windowWidth?: number }) {
   const { listing, mapImage, galleryImages, agentImage } = formState;
   const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
+
+  const isMobile = windowWidth < 767;
 
   const formatPrice = (value: string) => {
     const num = parseFloat(value.replace(/[^0-9.]/g, ''));
@@ -88,7 +90,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
       </div>
 
         <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '15px', marginTop: 'auto' }}>
-        <div style={{ backgroundColor: '#285854', padding: '16px', borderRadius: '6px', display: 'flex', flexDirection: 'column', gap: '12px' }} className="md:flex-row md:items-center md:gap-40">
+        <div style={{ backgroundColor: '#285854', padding: '16px', borderRadius: '6px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', gap: isMobile ? '12px' : '40px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {agentImage && (
               <img src={agentImage.preview} alt="Agent" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
@@ -98,7 +100,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
               <p className="text-white text-sm">{listing.agentTitle}</p>
             </div>
           </div>
-          <div style={{ flex: 1 }}>
+          <div style={{ flex: 1, alignItems: isMobile ? 'flex-start' : 'flex-end' }}>
             <p className="text-white font-medium">{listing.mobile}</p>
             <p className="text-white text-sm">{listing.email}</p>
           </div>
@@ -358,6 +360,14 @@ export default function Home() {
   const [formState, setFormState] = useState<FormState>({ listing: defaultListing, mapImage: null, galleryImages: [], agentImage: { id: 'agent', file: null, preview: '/images/roberts.jpg', name: 'roberts.jpg' } });
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<'property' | 'images' | 'agent'>('property');
+  const [windowWidth, setWindowWidth] = useState(1024);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const updateListing = useCallback((listing: ListingData) => setFormState(prev => ({ ...prev, listing })), []);
   const updateMapImage = useCallback((mapImage: ImageFile | null) => setFormState(prev => ({ ...prev, mapImage })), []);
@@ -398,7 +408,7 @@ export default function Home() {
         </div>
       </header>
       <main className="max-w-7xl mx-auto px-3 md:px-4 py-4 md:py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+        <div style={{ display: 'grid', gridTemplateColumns: windowWidth >= 1024 ? '1fr 1fr' : '1fr', gap: windowWidth >= 1024 ? '32px' : '24px' }}>
           <div className="space-y-4 lg:space-y-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
               <div className="border-b border-gray-200 overflow-x-auto">
@@ -419,7 +429,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="lg:sticky lg:top-24">
+          <div style={{ position: windowWidth >= 1024 ? 'sticky' : 'static', top: windowWidth >= 1024 ? '96px' : 'auto' }}>
             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
               <div className="p-2 md:p-3 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
                 <span className="text-sm font-medium text-gray-700">Priekšskats</span>
@@ -427,7 +437,7 @@ export default function Home() {
               </div>
               <div className="p-2 md:p-4 bg-gray-100 overflow-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
                 <div className="flex justify-center">
-                  <PreviewSection formState={formState} />
+                  <PreviewSection formState={formState} windowWidth={windowWidth} />
                 </div>
               </div>
             </div>
