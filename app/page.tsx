@@ -11,8 +11,11 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 
 function stripHtml(html: string): string {
+  let text = html.replace(/<br\s*\/?>/gi, '\n');
+  text = text.replace(/<\/p>/gi, '\n\n');
+  text = text.replace(/<p[^>]*>/gi, '');
   const tmp = document.createElement('div');
-  tmp.innerHTML = html;
+  tmp.innerHTML = text;
   return tmp.textContent || tmp.innerText || '';
 }
 

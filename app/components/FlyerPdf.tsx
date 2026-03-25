@@ -61,7 +61,11 @@ const formatPrice = (value: string) => {
 };
 
 const stripHtml = (html: string): string => {
-  return html.replace(/<[^>]*>/g, '').trim();
+  let text = html.replace(/<br\s*\/?>/gi, '\n');
+  text = text.replace(/<\/p>/gi, '\n\n');
+  text = text.replace(/<p[^>]*>/gi, '');
+  text = text.replace(/<[^>]*>/g, '');
+  return text.trim();
 };
 
 export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFoto, agentImage, baseUrl = '' }: FlyerPdfProps) {
