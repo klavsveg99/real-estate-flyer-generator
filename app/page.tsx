@@ -32,7 +32,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
         <span style={{ backgroundColor: '#285854', color: 'white', padding: '8px 16px', fontSize: '12px', fontWeight: 600 }}>{listing.listingId}</span>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '50% 50%', gap: '30px', marginBottom: '45px', flex: 1 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px', marginBottom: '30px', flex: 1 }} className="md:grid-cols-2 md:gap-[30px] md:mb-[45px]">
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <h1 className="font-bold text-gray-900" style={{ fontSize: '32px', marginBottom: '8px', lineHeight: 1.2 }}>{listing.title || 'Īpašuma nosaukums'}</h1>
           <p className="text-gray-500" style={{ fontSize: '18px', marginBottom: '20px' }}>{listing.address || 'Īpašuma adrese'}</p>
@@ -397,14 +397,14 @@ export default function Home() {
           </button>
         </div>
       </header>
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-6">
+      <main className="max-w-7xl mx-auto px-4 py-4 md:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+          <div className="space-y-4 lg:space-y-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-              <div className="border-b border-gray-200">
-                <nav className="flex">
+              <div className="border-b border-gray-200 overflow-x-auto">
+                <nav className="flex min-w-max">
                   {(['property', 'images', 'agent'] as const).map(tab => (
-                    <button key={tab} onClick={() => setActiveTab(tab)} className={`px-6 py-4 text-sm font-medium border-b-2 ${activeTab === tab ? 'border-[#285854] text-[#285854]' : 'border-transparent text-gray-500'}`}>
+                    <button key={tab} onClick={() => setActiveTab(tab)} className={`px-4 md:px-6 py-3 md:py-4 text-sm font-medium border-b-2 whitespace-nowrap ${activeTab === tab ? 'border-[#285854] text-[#285854]' : 'border-transparent text-gray-500'}`}>
                       {tab === 'property' && 'Īpašums'}
                       {tab === 'images' && 'Attēli'}
                       {tab === 'agent' && 'Aģents'}
@@ -412,7 +412,7 @@ export default function Home() {
                   ))}
                 </nav>
               </div>
-              <div className="p-6">
+              <div className="p-4 md:p-6">
                 {activeTab === 'property' && <PropertyForm data={formState.listing} onChange={updateListing} />}
                 {activeTab === 'images' && <ImageSection formState={formState} updateMapImage={updateMapImage} updateGalleryImages={updateGalleryImages} />}
                 {activeTab === 'agent' && <AgentForm data={formState.listing} onChange={updateListing} agentImage={formState.agentImage} updateAgentImage={updateAgentImage} />}
@@ -421,11 +421,11 @@ export default function Home() {
           </div>
           <div className="lg:sticky lg:top-24">
             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-              <div className="p-3 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+              <div className="p-2 md:p-3 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
                 <span className="text-sm font-medium text-gray-700">Priekšskats</span>
                 <span className="text-xs text-gray-400">A4</span>
               </div>
-              <div className="p-4 bg-gray-100 overflow-auto" style={{ maxHeight: 'calc(100vh - 180px)' }}>
+              <div className="p-2 md:p-4 bg-gray-100 overflow-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
                 <div className="flex justify-center">
                   <PreviewSection formState={formState} />
                 </div>

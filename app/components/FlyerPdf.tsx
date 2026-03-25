@@ -128,9 +128,12 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
                   const isFullWidth = !hasPair;
                   const isSecondInPair = i % 2 === 1;
                   const itemStyle = isFullWidth ? styles.galleryItemFull : (isSecondInPair ? styles.galleryItemHalfLast : styles.galleryItemHalf);
+                  const imgStyle = isFullWidth 
+                    ? { width: 249, height: 70, objectFit: 'cover' as const }
+                    : { width: 121, height: 62, objectFit: 'cover' as const };
                   return (
                     <View key={img.id} style={[itemStyle, isFullWidth ? { marginTop: 6 } : {}]}>
-                      <Image src={img.preview} style={[itemStyle, { objectFit: 'cover' }]} />
+                      <Image src={img.preview} style={imgStyle} />
                     </View>
                   );
                 })
