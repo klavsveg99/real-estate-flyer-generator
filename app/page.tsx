@@ -11,12 +11,10 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 
 function stripHtml(html: string): string {
-  let text = html.replace(/<br\s*\/?>/gi, '\n');
-  text = text.replace(/<\/p>/gi, '\n\n');
-  text = text.replace(/<p[^>]*>/gi, '');
-  const tmp = document.createElement('div');
-  tmp.innerHTML = text;
-  return tmp.textContent || tmp.innerText || '';
+  let text = html.split('<br>').join('\n');
+  text = text.split('</p>').join('\n\n');
+  text = text.split(/<[^>]+>/g).join('');
+  return text;
 }
 
 function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormState; windowWidth?: number }) {

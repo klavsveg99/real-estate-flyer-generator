@@ -61,10 +61,9 @@ const formatPrice = (value: string) => {
 };
 
 const stripHtml = (html: string): string => {
-  let text = html.replace(/<br\s*\/?>/gi, '\n');
-  text = text.replace(/<\/p>/gi, '\n\n');
-  text = text.replace(/<p[^>]*>/gi, '');
-  text = text.replace(/<[^>]*>/g, '');
+  let text = html.split('<br>').join('\n');
+  text = text.split('</p>').join('\n\n');
+  text = text.split(/<[^>]+>/g).join('');
   return text.trim();
 };
 
