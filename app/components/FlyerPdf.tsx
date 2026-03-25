@@ -125,7 +125,8 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
               ) : (
                 galleryItems.map((img, i) => {
                   const isSecondInPair = i % 2 === 1;
-                  const isFullWidth = isSecondInPair && i + 1 >= galleryItems.length;
+                  const hasNextInPair = i + 1 < galleryItems.length;
+                  const isFullWidth = isSecondInPair && !hasNextInPair;
                   const isFirstInPair = i % 2 === 0;
                   const itemStyle = isFullWidth 
                     ? styles.galleryItemFull 
@@ -135,9 +136,9 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
                   const imgStyle = isFullWidth 
                     ? { width: 249, height: 70, objectFit: 'cover' as const }
                     : { width: 121, height: 62, objectFit: 'cover' as const };
-                  const needsMarginBottom = isFullWidth && i > 0;
+                  const rowGap = (i === 1 || i === 2) ? { marginTop: 6 } : {};
                   return (
-                    <View key={img.id} style={[itemStyle, isFirstInPair && galleryItems.length > 1 ? { marginBottom: 6 } : {}, isFullWidth && i > 0 ? { marginTop: 6 } : {}]}>
+                    <View key={img.id} style={[itemStyle, rowGap]}>
                       <Image src={img.preview} style={imgStyle} />
                     </View>
                   );
@@ -150,9 +151,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
         <View style={styles.footer} wrap={false}>
           <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: 20 }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10, overflow: 'hidden' }}>
-                <Image src={agentImage?.preview || '/images/favicon.jpg'} style={{ width: 40, height: 40 }} />
-              </View>
+              <Image src={agentImage?.preview ? agentImage.preview : '/images/favicon.jpg'} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
               <View>
                 <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
                 {listing.agentTitle && <Text style={styles.agentTitle}>{listing.agentTitle}</Text>}
