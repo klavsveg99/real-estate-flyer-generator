@@ -49,6 +49,7 @@ interface FlyerPdfProps {
   mapImage: ImageFile | null;
   galleryImages: ImageFile[];
   agentImage: ImageFile | null;
+  baseUrl?: string;
 }
 
 const formatPrice = (value: string) => {
@@ -57,7 +58,7 @@ const formatPrice = (value: string) => {
   return '€' + num.toLocaleString();
 };
 
-export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage }: FlyerPdfProps) {
+export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage, baseUrl = '' }: FlyerPdfProps) {
   const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
   const priceSubtext = [
     listing.areaSize && `${parseFloat(listing.areaSize).toLocaleString()} m²`,
@@ -147,7 +148,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
           <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: 20 }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <View style={{ width: 40, height: 40, borderRadius: 20, overflow: 'hidden', marginRight: 10 }}>
-                <Image src={agentImage?.preview ? agentImage.preview : '/images/favicon.jpg'} style={{ width: 40, height: 40 }} />
+                <Image src={agentImage?.preview ? (agentImage.preview.startsWith('/') ? baseUrl + agentImage.preview : agentImage.preview) : baseUrl + '/images/favicon.jpg'} style={{ width: 40, height: 40 }} />
               </View>
               <View>
                 <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>

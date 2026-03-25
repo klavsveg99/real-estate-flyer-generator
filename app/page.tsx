@@ -376,7 +376,7 @@ export default function Home() {
     if (!isFormValid(formState.listing)) { alert('Lūdzu, aizpildiet visus obligātos laukus.'); return; }
     setIsGenerating(true);
     try {
-      const doc = <FlyerPdfDocument listing={formState.listing} mapImage={formState.mapImage} galleryImages={formState.galleryImages} agentImage={formState.agentImage} />;
+      const doc = <FlyerPdfDocument listing={formState.listing} mapImage={formState.mapImage} galleryImages={formState.galleryImages} agentImage={formState.agentImage} baseUrl={typeof window !== 'undefined' ? window.location.origin : ''} />;
       const blob = await pdf(doc).toBlob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
