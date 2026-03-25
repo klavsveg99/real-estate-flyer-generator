@@ -92,9 +92,7 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
         <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '15px', marginTop: 'auto' }}>
         <div style={{ backgroundColor: '#285854', padding: '16px', borderRadius: '6px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', gap: isMobile ? '12px' : '40px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            {agentImage && (
-              <img src={agentImage.preview} alt="Agent" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
-            )}
+            <img src={agentImage?.preview || '/images/favicon.jpg'} alt="Agent" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
             <div>
               <p className="font-semibold text-white">{listing.agentName || 'Agent Name'}</p>
               <p className="text-white text-sm">{listing.agentTitle}</p>
