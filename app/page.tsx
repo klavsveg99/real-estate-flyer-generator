@@ -34,7 +34,7 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
         <span style={{ backgroundColor: '#285854', color: 'white', padding: '8px 16px', fontSize: '12px', fontWeight: 600 }}>{listing.listingId}</span>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px', marginBottom: '30px', flex: 1 }} className="md:grid-cols-2 md:gap-[30px] md:mb-[45px]">
+      <div style={{ display: 'grid', gridTemplateColumns: windowWidth >= 768 ? '1fr 1fr' : '1fr', gap: windowWidth >= 768 ? '30px' : '20px', marginBottom: windowWidth >= 768 ? '45px' : '30px', flex: 1 }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <h1 className="font-bold text-gray-900" style={{ fontSize: '32px', marginBottom: '8px', lineHeight: 1.2 }}>{listing.title || 'Īpašuma nosaukums'}</h1>
           <p className="text-gray-500" style={{ fontSize: '18px', marginBottom: '20px' }}>{listing.address || 'Īpašuma adrese'}</p>
