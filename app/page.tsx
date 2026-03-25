@@ -88,7 +88,7 @@ function PreviewSection({ formState }: { formState: FormState }) {
       </div>
 
         <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '15px', marginTop: 'auto' }}>
-        <div style={{ backgroundColor: '#285854', padding: '16px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '40px' }}>
+        <div style={{ backgroundColor: '#285854', padding: '16px', borderRadius: '6px', display: 'flex', flexDirection: 'column', gap: '12px' }} className="md:flex-row md:items-center md:gap-40">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {agentImage && (
               <img src={agentImage.preview} alt="Agent" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
