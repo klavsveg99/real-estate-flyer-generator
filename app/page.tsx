@@ -68,18 +68,18 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
             )}
           </div>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
             {galleryImages.length === 0 ? (
               [...Array(4)].map((_, i) => (
-                <div key={`placeholder-${i}`} style={{ width: 'calc(50% - 8px)', height: '75px', marginRight: i % 2 === 0 ? '15px' : '0', marginTop: i >= 2 ? '6px' : '0', marginBottom: '6px', backgroundColor: '#e5e7eb', borderRadius: '4px' }} />
+                <div key={`placeholder-${i}`} style={{ width: 'calc(50% - 3px)', height: '75px', marginTop: i >= 2 ? '6px' : '0', backgroundColor: '#e5e7eb', borderRadius: '4px' }} />
               ))
             ) : (
               galleryImages.map((img, i) => {
-                const isFirstInPair = i % 2 === 0;
-                const hasPair = i + 1 < galleryImages.length;
-                const isFullWidth = !hasPair;
+                const isLast = i === galleryImages.length - 1;
+                const isOdd = galleryImages.length % 2 === 1;
+                const isFullWidth = isLast && isOdd;
                 return (
-                  <div key={img.id} style={{ width: hasPair ? 'calc(50% - 8px)' : '100%', marginRight: isFirstInPair ? '15px' : '0', marginTop: isFullWidth ? '6px' : '0', marginBottom: '6px', height: '75px' }}>
+                  <div key={img.id} style={{ width: isFullWidth ? '100%' : 'calc(50% - 3px)', marginTop: i >= 2 ? '6px' : '0', height: '75px' }}>
                     <img src={img.preview} alt={`Gallery ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
                   </div>
                 );

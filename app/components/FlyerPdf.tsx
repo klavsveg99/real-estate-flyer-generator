@@ -29,8 +29,7 @@ const styles = StyleSheet.create({
   mapWrapper: { width: '100%', height: 150, backgroundColor: '#f3f4f6', borderRadius: 4, marginBottom: 12, overflow: 'hidden' },
   mapText: { fontSize: 12, color: '#9ca3af' },
   galleryRow: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 4 },
-  galleryItemHalf: { width: 121, height: 62, marginRight: 6, borderRadius: 4, overflow: 'hidden' },
-  galleryItemHalfLast: { width: 121, height: 62, borderRadius: 4, overflow: 'hidden' },
+  galleryItemHalf: { width: 121, height: 62, borderRadius: 4, overflow: 'hidden' },
   galleryItemFull: { width: 249, height: 70, borderRadius: 4, overflow: 'hidden' },
   footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 10, marginTop: 'auto' },
   footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
@@ -114,30 +113,28 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
               )}
             </View>
 
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
               {galleryItems.length === 0 ? (
                 <>
-                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 1</Text></View>
-                  <View style={styles.galleryItemHalfLast}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 2</Text></View>
+                  <View style={[styles.galleryItemHalf, { marginTop: 0 }]}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 1</Text></View>
+                  <View style={[styles.galleryItemHalf, { marginTop: 0 }]}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 2</Text></View>
                   <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 3</Text></View>
-                  <View style={styles.galleryItemHalfLast}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 4</Text></View>
+                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 4</Text></View>
                 </>
               ) : (
                 galleryItems.map((img, i) => {
-                  const isSecondInPair = i % 2 === 1;
-                  const hasPreviousInPair = i - 1 >= 0;
-                  const isFullWidth = isSecondInPair && !hasPreviousInPair;
+                  const isLast = i === galleryItems.length - 1;
+                  const isOdd = galleryItems.length % 2 === 1;
+                  const isFullWidth = isLast && isOdd;
                   const itemStyle = isFullWidth 
                     ? styles.galleryItemFull 
-                    : isSecondInPair 
-                      ? styles.galleryItemHalfLast 
-                      : styles.galleryItemHalf;
+                    : styles.galleryItemHalf;
                   const imgStyle = isFullWidth 
                     ? { width: 249, height: 70, objectFit: 'cover' as const }
                     : { width: 121, height: 62, objectFit: 'cover' as const };
-                  const rowGap = (i === 1 || i === 2) ? { marginTop: 6 } : {};
+                  const marginTop = i >= 2 ? { marginTop: 6 } : {};
                   return (
-                    <View key={img.id} style={[itemStyle, rowGap]}>
+                    <View key={img.id} style={[itemStyle, marginTop]}>
                       <Image src={img.preview} style={imgStyle} />
                     </View>
                   );
