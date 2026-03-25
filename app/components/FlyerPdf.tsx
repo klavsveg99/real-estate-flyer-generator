@@ -116,8 +116,8 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
               {galleryItems.length === 0 ? (
                 <>
-                  <View style={[styles.galleryItemHalf, { marginTop: 0 }]}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 1</Text></View>
-                  <View style={[styles.galleryItemHalf, { marginTop: 0 }]}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 2</Text></View>
+                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 1</Text></View>
+                  <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 2</Text></View>
                   <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 3</Text></View>
                   <View style={styles.galleryItemHalf}><Text style={{ color: '#9ca3af', fontSize: 10, textAlign: 'center', marginTop: 20 }}>Attēls 4</Text></View>
                 </>
@@ -132,9 +132,8 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, agentImage 
                   const imgStyle = isFullWidth 
                     ? { width: 249, height: 70, objectFit: 'cover' as const }
                     : { width: 121, height: 62, objectFit: 'cover' as const };
-                  const marginTop = i >= 2 ? { marginTop: 6 } : {};
                   return (
-                    <View key={img.id} style={[itemStyle, marginTop]}>
+                    <View key={img.id} style={itemStyle}>
                       <Image src={img.preview} style={imgStyle} />
                     </View>
                   );
