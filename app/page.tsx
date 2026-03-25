@@ -26,12 +26,12 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
     >
       <div style={{ height: '11px', background: 'linear-gradient(90deg, #2d6b66 0%, #285854 100%)', borderRadius: '2px', marginBottom: '45px' }} />
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #e5e7eb', flexWrap: windowWidth < 480 ? 'wrap' : 'nowrap', gap: windowWidth < 480 ? '10px' : 0 }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <img src="/images/favicon.jpg" alt="Logo" style={{ width: '50px', height: '50px', objectFit: 'contain', objectPosition: 'left center' }} />
           <span style={{ marginLeft: '10px', fontSize: '16px', fontWeight: 700, color: '#000000' }}>PardodLaimigs.lv</span>
         </div>
-        <span style={{ backgroundColor: '#285854', color: 'white', padding: '8px 16px', fontSize: '12px', fontWeight: 600 }}>{listing.listingId}</span>
+        <span style={{ backgroundColor: '#285854', color: 'white', padding: '8px 16px', fontSize: '12px', fontWeight: 600, whiteSpace: 'nowrap' }}>{listing.listingId}</span>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: windowWidth >= 768 ? '1fr 1fr' : '1fr', gap: windowWidth >= 768 ? '30px' : '20px', marginBottom: windowWidth >= 768 ? '45px' : '30px', flex: 1 }}>
