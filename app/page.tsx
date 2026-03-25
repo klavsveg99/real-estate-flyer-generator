@@ -10,9 +10,16 @@ import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 
+function stripHtml(html: string): string {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || '';
+}
+
 function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormState; windowWidth?: number }) {
   const { listing, mapImage, galleryImages, galvenaisFoto, agentImage } = formState;
-  const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
+  const plainText = stripHtml(listing.description);
+  const paragraphs = plainText.split('\n\n').filter(p => p.trim());
 
   const isMobile = windowWidth < 767;
 

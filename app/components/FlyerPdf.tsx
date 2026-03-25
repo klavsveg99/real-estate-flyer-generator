@@ -60,8 +60,13 @@ const formatPrice = (value: string) => {
   return '€' + num.toLocaleString();
 };
 
+const stripHtml = (html: string): string => {
+  return html.replace(/<[^>]*>/g, '').trim();
+};
+
 export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFoto, agentImage, baseUrl = '' }: FlyerPdfProps) {
-  const paragraphs = listing.description.split('\n\n').filter(p => p.trim());
+  const plainText = stripHtml(listing.description);
+  const paragraphs = plainText.split('\n\n').filter(p => p.trim());
   const priceSubtext = [
     listing.areaSize && `${parseFloat(listing.areaSize).toLocaleString()} m²`,
     listing.pricePerSqm && `${formatPrice(listing.pricePerSqm)}/m²`,
