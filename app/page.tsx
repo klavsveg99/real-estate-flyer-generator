@@ -353,7 +353,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
             </div>
           )}
           {!formState.mapImage && (
-            <div className="w-full h-40 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-sm" style={{ paddingLeft: '20px', paddingRight: '20px', textAlign: 'center' }}>
+            <div className="w-full h-40 bg-gray-100 rounded-lg flex text-gray-400 text-sm" style={{ padding: '0 20px', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
               Ievadiet adresi un klikšķiniet "Iegūt karti"
             </div>
           )}
