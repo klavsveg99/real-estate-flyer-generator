@@ -159,17 +159,17 @@ function PropertyForm({ data, onChange }: { data: ListingData; onChange: (d: Lis
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Datums</label><input type="text" name="listingDate" value={data.listingDate} onChange={handleChange} placeholder="Piemēram: Marts 2026" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Apraksts</label>
-        <div className="bg-white">
+        <div className="bg-white mb-6">
           <ReactQuill 
             theme="snow" 
             value={data.description} 
             onChange={(value) => onChange({ ...data, description: value })} 
             modules={quillModules}
-            className="h-40 mb-12"
+            className="h-40"
           />
         </div>
       </div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">CTA Poga</label><input type="text" name="ctaText" value={data.ctaText} onChange={handleChange} placeholder="Sazināties" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div className="mt-6"><label className="block text-sm font-medium text-gray-700 mb-1">CTA Poga</label><input type="text" name="ctaText" value={data.ctaText} onChange={handleChange} placeholder="Sazināties" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
     </div>
   );
 }
