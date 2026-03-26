@@ -145,7 +145,7 @@ function PropertyForm({ data, onChange }: { data: ListingData; onChange: (d: Lis
   };
 
   return (
-    <div className="space-y-4">
+      <div className="flex flex-col gap-4">
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Nosaukums *</label><input type="text" name="title" value={data.title} onChange={handleChange} placeholder="Piemēram: Moderns dzīvoklis Centrā" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Adrese *</label><input type="text" name="address" value={data.address} onChange={handleChange} placeholder="Piemēram: Brīvības iela 15, Rīga" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div className="grid grid-cols-2 gap-4">
@@ -159,7 +159,7 @@ function PropertyForm({ data, onChange }: { data: ListingData; onChange: (d: Lis
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Datums</label><input type="text" name="listingDate" value={data.listingDate} onChange={handleChange} placeholder="Piemēram: Marts 2026" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Apraksts</label>
-        <div className="bg-white">
+        <div className="bg-white overflow-visible" style={{ height: 'auto' }}>
           <ReactQuill 
             theme="snow" 
             value={data.description} 
@@ -169,8 +169,8 @@ function PropertyForm({ data, onChange }: { data: ListingData; onChange: (d: Lis
           />
         </div>
       </div>
-      <div className="mt-8"><label className="block text-sm font-medium text-gray-700 mb-1">CTA Poga</label><input type="text" name="ctaText" value={data.ctaText} onChange={handleChange} placeholder="Sazināties" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-    </div>
+      <div><label className="block text-sm font-medium text-gray-700 mb-1">CTA Poga</label><input type="text" name="ctaText" value={data.ctaText} onChange={handleChange} placeholder="Sazināties" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      </div>
   );
 }
 

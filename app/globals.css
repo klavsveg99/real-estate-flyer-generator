@@ -26,20 +26,3 @@ body {
 input:focus, textarea:focus, select:focus {
   @apply outline-none ring-2 ring-purple-500 border-transparent;
 }
-
-.ql-container {
-  min-height: 120px;
-}
-
-.ql-toolbar {
-  position: relative;
-}
-
-.ql-container.ql-snow {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-}
-
-.ql-editor {
-  min-height: 100px;
-}
