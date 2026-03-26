@@ -464,7 +464,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-visible">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-3 md:px-4 py-3 md:py-0 md:h-16 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 md:gap-3 min-w-0">
@@ -477,7 +477,7 @@ export default function Home() {
         </div>
       </header>
       <main className="max-w-7xl mx-auto px-3 md:px-4 py-4 md:py-8">
-        <div style={{ display: 'grid', gridTemplateColumns: windowWidth >= 1024 ? '1fr 1fr' : '1fr', gap: windowWidth >= 1024 ? '32px' : '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: windowWidth >= 1024 ? '1fr 1fr' : '1fr', gap: windowWidth >= 1024 ? '32px' : '24px' }} className="overflow-visible">
           <div className="space-y-4 lg:space-y-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-visible">
               <div className="border-b border-gray-200 overflow-x-auto">
@@ -491,7 +491,7 @@ export default function Home() {
                   ))}
                 </nav>
               </div>
-              <div className="p-4 md:p-6">
+              <div className="p-4 md:p-6 overflow-visible">
                 {activeTab === 'property' && <PropertyForm data={formState.listing} onChange={updateListing} />}
                 {activeTab === 'images' && <ImageSection formState={formState} updateMapImage={updateMapImage} updateGalleryImages={updateGalleryImages} updateGalvenaisFoto={updateGalvenaisFoto} />}
                 {activeTab === 'agent' && <AgentForm data={formState.listing} onChange={updateListing} agentImage={formState.agentImage} updateAgentImage={updateAgentImage} />}
