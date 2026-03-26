@@ -479,7 +479,7 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-3 md:px-4 py-4 md:py-8">
         <div style={{ display: 'grid', gridTemplateColumns: windowWidth >= 1024 ? '1fr 1fr' : '1fr', gap: windowWidth >= 1024 ? '32px' : '24px' }}>
           <div className="space-y-4 lg:space-y-6">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-visible">
               <div className="border-b border-gray-200 overflow-x-auto">
                 <nav className="flex min-w-max">
                   {(['property', 'images', 'agent'] as const).map(tab => (
