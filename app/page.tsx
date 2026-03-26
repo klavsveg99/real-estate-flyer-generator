@@ -60,7 +60,7 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
           </div>
           <div style={{ flex: 1, marginBottom: '20px', overflow: 'hidden' }}>
             {paragraphs.slice(0, 3).map((para, i) => (
-              <p key={i} className="text-gray-600" style={{ fontSize: '14px', lineHeight: 1.6, marginBottom: '12px' }}>{para}</p>
+              <p key={i} className="text-gray-600" style={{ fontSize: '14px', lineHeight: 1.6, marginBottom: '12px', wordBreak: 'break-word' }}>{para}</p>
             ))}
           </div>
           <a
