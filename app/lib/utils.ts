@@ -20,6 +20,18 @@ export function isFormValid(listing: ListingData): boolean {
   return required.every((field) => listing[field].trim() !== '');
 }
 
+export function getMissingFields(listing: ListingData): string[] {
+  const required: (keyof ListingData)[] = ['title', 'address', 'price', 'listingId', 'agentName'];
+  const fieldNames: Record<string, string> = {
+    title: 'Nosaukums',
+    address: 'Adrese',
+    price: 'Cena',
+    listingId: 'Sludinājuma ID',
+    agentName: 'Aģenta vārds',
+  };
+  return required.filter((field) => listing[field].trim() === '').map((field) => fieldNames[field] || field);
+}
+
 export function generatePdfFilename(listingId: string): string {
   const sanitizedId = listingId.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
   return `listing-${sanitizedId}.pdf`;

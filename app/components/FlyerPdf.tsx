@@ -103,7 +103,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
             </View>
 
             <View style={styles.description}>
-              {paragraphs.slice(0, 3).map((para, i) => (
+              {paragraphs.map((para, i) => (
                 <Text key={i} style={styles.descriptionText}>{para}</Text>
               ))}
             </View>

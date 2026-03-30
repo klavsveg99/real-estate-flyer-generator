@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { FormState, defaultListing, ImageFile, ListingData } from '@/app/types';
-import { isFormValid, generatePdfFilename } from '@/app/lib/utils';
+import { isFormValid, generatePdfFilename, getMissingFields } from '@/app/lib/utils';
 import { pdf } from '@react-pdf/renderer';
 import { FlyerPdfDocument } from './components/FlyerPdf';
 import dynamic from 'next/dynamic';
@@ -59,7 +59,7 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
             </div>
           </div>
           <div style={{ flex: 1, marginBottom: '20px', overflow: 'hidden' }}>
-            {paragraphs.slice(0, 3).map((para, i) => (
+            {paragraphs.map((para, i) => (
               <p key={i} className="text-gray-600" style={{ fontSize: '14px', lineHeight: 1.6, marginBottom: '12px', wordBreak: 'break-word' }}>{para}</p>
             ))}
           </div>
@@ -429,6 +429,7 @@ export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<'property' | 'images' | 'agent'>('property');
   const [windowWidth, setWindowWidth] = useState(1024);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -471,9 +472,20 @@ export default function Home() {
             <img src="/images/favicon.jpg" alt="Logo" className="w-8 h-8 rounded-lg flex-shrink-0" />
             <h1 className="text-lg md:text-xl font-bold text-gray-900 truncate md:truncate-none">PDF mārketinga ģenerators</h1>
           </div>
-          <button onClick={handleGeneratePdf} disabled={!isFormValid(formState.listing) || isGenerating} className={`px-3 md:px-5 py-2 md:py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 whitespace-nowrap ${isFormValid(formState.listing) && !isGenerating ? '' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`} style={isFormValid(formState.listing) && !isGenerating ? { background: '#285854', color: 'white' } : {}}>
-            {isGenerating ? 'Veidojas...' : 'Lejupielādēt PDF'}
-          </button>
+          <div className="relative">
+            <button onClick={handleGeneratePdf} onMouseEnter={() => !isFormValid(formState.listing) && setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)} disabled={!isFormValid(formState.listing) || isGenerating} className={`px-3 md:px-5 py-2 md:py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 whitespace-nowrap ${isFormValid(formState.listing) && !isGenerating ? '' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`} style={isFormValid(formState.listing) && !isGenerating ? { background: '#285854', color: 'white' } : {}}>
+              {isGenerating ? 'Veidojas...' : 'Lejupielādēt PDF'}
+            </button>
+            {showTooltip && !isFormValid(formState.listing) && (
+              <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-2 px-3 whitespace-nowrap z-50">
+                <div className="font-semibold mb-1">Jāaizpilda:</div>
+                {getMissingFields(formState.listing).map((field, i) => (
+                  <div key={i} className="text-red-300">• {field}</div>
+                ))}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800" />
+              </div>
+            )}
+          </div>
         </div>
       </header>
       <main className="max-w-7xl mx-auto px-3 md:px-4 py-4 md:py-8">
