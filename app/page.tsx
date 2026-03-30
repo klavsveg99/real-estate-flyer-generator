@@ -130,9 +130,13 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
   );
 }
 
-function PropertyForm({ data, onChange }: { data: ListingData; onChange: (d: ListingData) => void }) {
+function PropertyForm({ data, onChange, missingFields = [] }: { data: ListingData; onChange: (d: ListingData) => void; missingFields?: string[] }) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     onChange({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const getInputClass = (fieldName: string) => {
+    return `w-full px-3 py-2 border rounded-lg ${missingFields.includes(fieldName) ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-[#285854] focus:ring-[#285854]'}`;
   };
 
   const quillModules = {
@@ -146,15 +150,15 @@ function PropertyForm({ data, onChange }: { data: ListingData; onChange: (d: Lis
 
   return (
       <div className="flex flex-col gap-4">
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Nosaukums *</label><input type="text" name="title" value={data.title} onChange={handleChange} placeholder="Piemēram: Moderns dzīvoklis Centrā" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Adrese *</label><input type="text" name="address" value={data.address} onChange={handleChange} placeholder="Piemēram: Brīvības iela 15, Rīga" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className={`block text-sm font-medium mb-1 ${missingFields.includes('title') ? 'text-red-500' : 'text-gray-700'}`}>Nosaukums *</label><input type="text" name="title" value={data.title} onChange={handleChange} placeholder="Piemēram: Moderns dzīvoklis Centrā" className={getInputClass('title')} /></div>
+      <div><label className={`block text-sm font-medium mb-1 ${missingFields.includes('address') ? 'text-red-500' : 'text-gray-700'}`}>Adrese *</label><input type="text" name="address" value={data.address} onChange={handleChange} placeholder="Piemēram: Brīvības iela 15, Rīga" className={getInputClass('address')} /></div>
       <div className="grid grid-cols-2 gap-4">
-        <div><label className="block text-sm font-medium text-gray-700 mb-1">Cena *</label><input type="text" name="price" value={data.price} onChange={handleChange} placeholder="Piemēram: 150,000" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+        <div><label className={`block text-sm font-medium mb-1 ${missingFields.includes('price') ? 'text-red-500' : 'text-gray-700'}`}>Cena *</label><input type="text" name="price" value={data.price} onChange={handleChange} placeholder="Piemēram: 150,000" className={getInputClass('price')} /></div>
         <div><label className="block text-sm font-medium text-gray-700 mb-1">Cena par m²</label><input type="text" name="pricePerSqm" value={data.pricePerSqm} onChange={handleChange} placeholder="Piemēram: 1,500" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div><label className="block text-sm font-medium text-gray-700 mb-1">Platība (m²)</label><input type="text" name="areaSize" value={data.areaSize} onChange={handleChange} placeholder="Piemēram: 85" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
-        <div><label className="block text-sm font-medium text-gray-700 mb-1">Sludinājuma ID *</label><input type="text" name="listingId" value={data.listingId} onChange={handleChange} placeholder="Piemēram: ML-2847" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+        <div><label className={`block text-sm font-medium mb-1 ${missingFields.includes('listingId') ? 'text-red-500' : 'text-gray-700'}`}>Sludinājuma ID *</label><input type="text" name="listingId" value={data.listingId} onChange={handleChange} placeholder="Piemēram: ML-2847" className={getInputClass('listingId')} /></div>
       </div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Datums</label><input type="text" name="listingDate" value={data.listingDate} onChange={handleChange} placeholder="Piemēram: Marts 2026" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div>
@@ -174,10 +178,15 @@ function PropertyForm({ data, onChange }: { data: ListingData; onChange: (d: Lis
   );
 }
 
-function AgentForm({ data, onChange, agentImage, updateAgentImage }: { data: ListingData; onChange: (d: ListingData) => void; agentImage: ImageFile | null; updateAgentImage: (img: ImageFile | null) => void }) {
+function AgentForm({ data, onChange, agentImage, updateAgentImage, missingFields = [] }: { data: ListingData; onChange: (d: ListingData) => void; agentImage: ImageFile | null; updateAgentImage: (img: ImageFile | null) => void; missingFields?: string[] }) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ ...data, [e.target.name]: e.target.value });
   };
+
+  const getInputClass = (fieldName: string) => {
+    return `w-full px-3 py-2 border rounded-lg ${missingFields.includes(fieldName) ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-[#285854] focus:ring-[#285854]'}`;
+  };
+
   return (
     <div className="space-y-4">
       <div>
@@ -210,7 +219,7 @@ function AgentForm({ data, onChange, agentImage, updateAgentImage }: { data: Lis
           </div>
         </div>
       </div>
-      <div><label className="block text-sm font-medium text-gray-700 mb-1">Aģenta vārds *</label><input type="text" name="agentName" value={data.agentName} onChange={handleChange} placeholder="Piemēram: Roberts Evarsons" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
+      <div><label className={`block text-sm font-medium mb-1 ${missingFields.includes('agentName') ? 'text-red-500' : 'text-gray-700'}`}>Aģenta vārds *</label><input type="text" name="agentName" value={data.agentName} onChange={handleChange} placeholder="Piemēram: Roberts Evarsons" className={getInputClass('agentName')} /></div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Aģenta amats</label><input type="text" name="agentTitle" value={data.agentTitle} onChange={handleChange} placeholder="Piemēram: Nekustamo īpašumu konsultants" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">Tālrunis</label><input type="text" name="mobile" value={data.mobile} onChange={handleChange} placeholder="Piemēram: +371 2492 2942" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
       <div><label className="block text-sm font-medium text-gray-700 mb-1">E-pasts</label><input type="email" name="email" value={data.email} onChange={handleChange} placeholder="Piemēram: info@pardodlaimigs.lv" className="w-full px-3 py-2 border border-gray-300 rounded-lg" /></div>
@@ -429,6 +438,7 @@ export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<'property' | 'images' | 'agent'>('property');
   const [windowWidth, setWindowWidth] = useState(1024);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -475,15 +485,26 @@ export default function Home() {
             <img src={`/images/favicon.jpg?${CACHE_BUST}`} alt="Logo" className="w-8 h-8 rounded-lg flex-shrink-0" />
             <h1 className="text-lg md:text-xl font-bold text-gray-900 truncate md:truncate-none">PDF mārketinga ģenerators</h1>
           </div>
-          <div className="relative flex items-center gap-2">
-            {!isFormValid(formState.listing) && !isGenerating && (
-              <span className="text-xs text-red-500 font-medium whitespace-nowrap">
-                {getMissingFields(formState.listing).length} lauks(-i) jāaizpilda
-              </span>
-            )}
-            <button onClick={handleGeneratePdf} disabled={!isFormValid(formState.listing) || isGenerating} className={`px-3 md:px-5 py-2 md:py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 whitespace-nowrap ${isFormValid(formState.listing) && !isGenerating ? '' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`} style={isFormValid(formState.listing) && !isGenerating ? { background: '#285854', color: 'white' } : {}}>
+          <div className="relative">
+            <button 
+              onClick={handleGeneratePdf} 
+              onMouseEnter={() => !isFormValid(formState.listing) && setShowTooltip(true)} 
+              onMouseLeave={() => setShowTooltip(false)}
+              disabled={!isFormValid(formState.listing) || isGenerating} 
+              className={`px-3 md:px-5 py-2 md:py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 whitespace-nowrap ${isFormValid(formState.listing) && !isGenerating ? '' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`} 
+              style={isFormValid(formState.listing) && !isGenerating ? { background: '#285854', color: 'white' } : {}}
+            >
               {isGenerating ? 'Veidojas...' : 'Lejupielādēt PDF'}
             </button>
+            {showTooltip && !isFormValid(formState.listing) && (
+              <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-2 px-3 whitespace-nowrap z-50 min-w-[140px]">
+                <div className="font-semibold mb-1">Jāaizpilda:</div>
+                {getMissingFields(formState.listing).map((field, i) => (
+                  <div key={i} className="text-red-300">• {field}</div>
+                ))}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800" />
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -503,9 +524,9 @@ export default function Home() {
                 </nav>
               </div>
               <div className="p-4 md:p-6 overflow-visible">
-                {activeTab === 'property' && <PropertyForm data={formState.listing} onChange={updateListing} />}
+                {activeTab === 'property' && <PropertyForm data={formState.listing} onChange={updateListing} missingFields={getMissingFields(formState.listing)} />}
                 {activeTab === 'images' && <ImageSection formState={formState} updateMapImage={updateMapImage} updateGalleryImages={updateGalleryImages} updateGalvenaisFoto={updateGalvenaisFoto} />}
-                {activeTab === 'agent' && <AgentForm data={formState.listing} onChange={updateListing} agentImage={formState.agentImage} updateAgentImage={updateAgentImage} />}
+                {activeTab === 'agent' && <AgentForm data={formState.listing} onChange={updateListing} agentImage={formState.agentImage} updateAgentImage={updateAgentImage} missingFields={getMissingFields(formState.listing)} />}
               </div>
             </div>
           </div>
