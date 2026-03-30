@@ -429,7 +429,6 @@ export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<'property' | 'images' | 'agent'>('property');
   const [windowWidth, setWindowWidth] = useState(1024);
-  const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -445,7 +444,11 @@ export default function Home() {
   const updateAgentImage = useCallback((agentImage: ImageFile | null) => setFormState(prev => ({ ...prev, agentImage })), []);
 
   const handleGeneratePdf = async () => {
-    if (!isFormValid(formState.listing)) { alert('Lūdzu, aizpildiet visus obligātos laukus.'); return; }
+    if (!isFormValid(formState.listing)) { 
+      const missing = getMissingFields(formState.listing);
+      alert(`Lūdzu, aizpildiet obligātos laukus:\n\n• ${missing.join('\n• ')}`); 
+      return; 
+    }
     setIsGenerating(true);
     try {
       const doc = <FlyerPdfDocument listing={formState.listing} mapImage={formState.mapImage} galleryImages={formState.galleryImages} galvenaisFoto={formState.galvenaisFoto} agentImage={formState.agentImage} baseUrl={typeof window !== 'undefined' ? window.location.origin : ''} />;
@@ -472,19 +475,15 @@ export default function Home() {
             <img src={`/images/favicon.jpg?${CACHE_BUST}`} alt="Logo" className="w-8 h-8 rounded-lg flex-shrink-0" />
             <h1 className="text-lg md:text-xl font-bold text-gray-900 truncate md:truncate-none">PDF mārketinga ģenerators</h1>
           </div>
-          <div className="relative">
-            <button onClick={handleGeneratePdf} onMouseEnter={() => !isFormValid(formState.listing) && setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)} disabled={!isFormValid(formState.listing) || isGenerating} className={`px-3 md:px-5 py-2 md:py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 whitespace-nowrap ${isFormValid(formState.listing) && !isGenerating ? '' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`} style={isFormValid(formState.listing) && !isGenerating ? { background: '#285854', color: 'white' } : {}}>
+          <div className="relative flex items-center gap-2">
+            {!isFormValid(formState.listing) && !isGenerating && (
+              <span className="text-xs text-red-500 font-medium whitespace-nowrap">
+                {getMissingFields(formState.listing).length} lauks(-i) jāaizpilda
+              </span>
+            )}
+            <button onClick={handleGeneratePdf} disabled={!isFormValid(formState.listing) || isGenerating} className={`px-3 md:px-5 py-2 md:py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 whitespace-nowrap ${isFormValid(formState.listing) && !isGenerating ? '' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`} style={isFormValid(formState.listing) && !isGenerating ? { background: '#285854', color: 'white' } : {}}>
               {isGenerating ? 'Veidojas...' : 'Lejupielādēt PDF'}
             </button>
-            {showTooltip && !isFormValid(formState.listing) && (
-              <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-2 px-3 whitespace-nowrap z-50">
-                <div className="font-semibold mb-1">Jāaizpilda:</div>
-                {getMissingFields(formState.listing).map((field, i) => (
-                  <div key={i} className="text-red-300">• {field}</div>
-                ))}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800" />
-              </div>
-            )}
           </div>
         </div>
       </header>
