@@ -24,6 +24,10 @@ export function isFormValid(listing: ListingData): boolean {
 
 export function getMissingFields(listing: ListingData): string[] {
   const required: (keyof ListingData)[] = ['title', 'address', 'price', 'listingId', 'agentName'];
+  return required.filter((field) => listing[field].trim() === '');
+}
+
+export function getFieldDisplayName(field: string): string {
   const fieldNames: Record<string, string> = {
     title: 'Nosaukums',
     address: 'Adrese',
@@ -31,7 +35,7 @@ export function getMissingFields(listing: ListingData): string[] {
     listingId: 'Sludinājuma ID',
     agentName: 'Aģenta vārds',
   };
-  return required.filter((field) => listing[field].trim() === '').map((field) => fieldNames[field] || field);
+  return fieldNames[field] || field;
 }
 
 export function generatePdfFilename(listingId: string): string {

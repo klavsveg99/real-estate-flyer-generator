@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { FormState, defaultListing, ImageFile, ListingData } from '@/app/types';
-import { isFormValid, generatePdfFilename, getMissingFields, CACHE_BUST } from '@/app/lib/utils';
+import { isFormValid, generatePdfFilename, getMissingFields, getFieldDisplayName, CACHE_BUST } from '@/app/lib/utils';
 import { pdf } from '@react-pdf/renderer';
 import { FlyerPdfDocument } from './components/FlyerPdf';
 import dynamic from 'next/dynamic';
@@ -455,7 +455,7 @@ export default function Home() {
 
   const handleGeneratePdf = async () => {
     if (!isFormValid(formState.listing)) { 
-      const missing = getMissingFields(formState.listing);
+      const missing = getMissingFields(formState.listing).map(getFieldDisplayName);
       alert(`Lūdzu, aizpildiet obligātos laukus:\n\n• ${missing.join('\n• ')}`); 
       return; 
     }
@@ -500,7 +500,7 @@ export default function Home() {
               <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-2 px-3 whitespace-nowrap z-50 min-w-[140px]">
                 <div className="font-semibold mb-1">Jāaizpilda:</div>
                 {getMissingFields(formState.listing).map((field, i) => (
-                  <div key={i} className="text-red-300">• {field}</div>
+                  <div key={i} className="text-red-300">• {getFieldDisplayName(field)}</div>
                 ))}
                 <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800" />
               </div>
