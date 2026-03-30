@@ -1,5 +1,7 @@
 import { ListingData } from '@/app/types';
 
+export const CACHE_BUST = `v=${Date.now()}`;
+
 export function formatPrice(value: string): string {
   const num = parseFloat(value.replace(/[^0-9.]/g, ''));
   if (isNaN(num)) return '$' + value;

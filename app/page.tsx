@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { FormState, defaultListing, ImageFile, ListingData } from '@/app/types';
-import { isFormValid, generatePdfFilename, getMissingFields } from '@/app/lib/utils';
+import { isFormValid, generatePdfFilename, getMissingFields, CACHE_BUST } from '@/app/lib/utils';
 import { pdf } from '@react-pdf/renderer';
 import { FlyerPdfDocument } from './components/FlyerPdf';
 import dynamic from 'next/dynamic';
@@ -40,7 +40,7 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #e5e7eb', flexWrap: 'wrap', gap: '10px' }}>
         <div style={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
-          <img src="/images/favicon.jpg" alt="Logo" style={{ width: '40px', height: '40px', objectFit: 'contain', objectPosition: 'left center', flexShrink: 0 }} />
+          <img src={`/images/favicon.jpg?${CACHE_BUST}`} alt="Logo" style={{ width: '40px', height: '40px', objectFit: 'contain', objectPosition: 'left center', flexShrink: 0 }} />
           <span style={{ marginLeft: '8px', fontSize: '14px', fontWeight: 700, color: '#000000', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>PardodLaimigs.lv</span>
         </div>
         <span style={{ backgroundColor: '#285854', color: 'white', padding: '6px 12px', fontSize: '11px', fontWeight: 600, whiteSpace: 'nowrap', flexShrink: 0 }}>{listing.listingId}</span>
@@ -110,7 +110,7 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
         <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '15px', marginTop: 'auto' }}>
         <div style={{ backgroundColor: '#285854', padding: '16px', borderRadius: '6px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', gap: isMobile ? '12px' : '40px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <img src={agentImage?.preview || '/images/favicon.jpg'} alt="Agent" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
+            <img src={agentImage?.preview ? `${agentImage.preview}?${CACHE_BUST}` : `/images/favicon.jpg?${CACHE_BUST}`} alt="Agent" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
             <div>
               <p className="font-semibold text-white">{listing.agentName || 'Agent Name'}</p>
               <p className="text-white text-sm">{listing.agentTitle}</p>
@@ -469,7 +469,7 @@ export default function Home() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-3 md:px-4 py-3 md:py-0 md:h-16 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 md:gap-3 min-w-0">
-            <img src="/images/favicon.jpg" alt="Logo" className="w-8 h-8 rounded-lg flex-shrink-0" />
+            <img src={`/images/favicon.jpg?${CACHE_BUST}`} alt="Logo" className="w-8 h-8 rounded-lg flex-shrink-0" />
             <h1 className="text-lg md:text-xl font-bold text-gray-900 truncate md:truncate-none">PDF mārketinga ģenerators</h1>
           </div>
           <div className="relative">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Document, Page, Text, View, Image, StyleSheet, Font, Link } from '@react-pdf/renderer';
 import { ListingData, ImageFile } from '@/app/types';
+import { CACHE_BUST } from '@/app/lib/utils';
 
 Font.register({
   family: 'DejaVuSans',
@@ -84,7 +85,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
 
         <View style={styles.header}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image src="/images/favicon.jpg" style={{ width: 40, height: 40 }} />
+            <Image src={`/images/favicon.jpg?${CACHE_BUST}`} style={{ width: 40, height: 40 }} />
             <Text style={{ marginLeft: 8, fontSize: 12, fontWeight: 'bold', color: '#000000' }}>PardodLaimigs.lv</Text>
           </View>
           <Text style={styles.listingId}>{listing.listingId}</Text>
@@ -157,7 +158,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
           <View style={[styles.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: 20 }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <View style={{ width: 40, height: 40, borderRadius: 20, overflow: 'hidden', marginRight: 10 }}>
-                <Image src={agentImage?.preview ? (agentImage.preview.startsWith('/') ? baseUrl + agentImage.preview : agentImage.preview) : baseUrl + '/images/favicon.jpg'} style={{ width: 40, height: 40 }} />
+                <Image src={agentImage?.preview ? (agentImage.preview.startsWith('/') ? baseUrl + agentImage.preview + '?' + CACHE_BUST : agentImage.preview + '?' + CACHE_BUST) : baseUrl + '/images/favicon.jpg?' + CACHE_BUST} style={{ width: 40, height: 40 }} />
               </View>
               <View>
                 <Text style={styles.agentName}>{listing.agentName || 'Agent Name'}</Text>
