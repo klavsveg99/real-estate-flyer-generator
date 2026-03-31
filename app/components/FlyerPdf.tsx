@@ -154,9 +154,8 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
           {galleryItems.length > 0 && (
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
               {galleryItems.map((img, i) => {
-                const cols3 = galleryItems.length % 3 === 0;
-                const isLast = i === galleryItems.length - 1;
-                const isFullWidth = isLast && !cols3;
+                const remainder = galleryItems.length % 3;
+                const isFullWidth = remainder === 1 && i === galleryItems.length - 1 && galleryItems.length > 6;
                 let itemStyle;
                 let imgStyle;
                 if (isFullWidth) {
