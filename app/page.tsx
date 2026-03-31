@@ -83,7 +83,7 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '15px' }}>
           {galleryImages.length === 0 ? (
             [...Array(6)].map((_, i) => (
-              <div key={`placeholder-${i}`} style={{ width: 'calc(33.333% - 4px)', height: '120px', backgroundColor: '#e5e7eb', borderRadius: '4px' }} />
+              <div key={`placeholder-${i}`} style={{ flex: '0 0 calc(33.333% - 4px)', height: '120px', backgroundColor: '#e5e7eb', borderRadius: '4px' }} />
             ))
           ) : (
             galleryImages.map((img, i) => {
@@ -91,7 +91,7 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
               const cols3 = galleryImages.length % 3 === 0;
               const isFullWidth = isLast && !cols3 && galleryImages.length > 6;
               return (
-                <div key={img.id} style={{ width: isFullWidth ? '100%' : 'calc(33.333% - 4px)', height: '120px' }}>
+                <div key={img.id} style={{ flex: isFullWidth ? '0 0 100%' : '0 0 calc(33.333% - 4px)', height: '120px' }}>
                   <img src={img.preview} alt={`Gallery ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
                 </div>
               );
