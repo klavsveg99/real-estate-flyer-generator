@@ -18,7 +18,7 @@ function stripHtml(html: string): string {
 }
 
 function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormState; windowWidth?: number }) {
-  const { listing, mapImage, galleryImages, galvenaisFoto, agentImage } = formState;
+  const { listing, mapImage, galleryImages, galvenaisFoto, agentImage, singleColumnLayout } = formState;
   const plainText = stripHtml(listing.description);
   const paragraphs = plainText.split('\n\n').filter(p => p.trim());
 
@@ -29,6 +29,104 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
     if (isNaN(num)) return '€' + value;
     return '€' + num.toLocaleString();
   };
+
+  if (singleColumnLayout) {
+    return (
+      <div
+        id="flyer-template"
+        className="bg-white shadow-lg"
+        style={{ padding: '45px', fontFamily: 'Inter, system-ui, sans-serif', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}
+      >
+        <div style={{ height: '11px', background: 'linear-gradient(90deg, #2d6b66 0%, #285854 100%)', borderRadius: '2px', marginBottom: '45px' }} />
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #e5e7eb', flexWrap: 'wrap', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
+            <img src={`/images/favicon.jpg?${CACHE_BUST}`} alt="Logo" style={{ width: '40px', height: '40px', objectFit: 'contain', objectPosition: 'left center', flexShrink: 0 }} />
+            <span style={{ marginLeft: '8px', fontSize: '14px', fontWeight: 700, color: '#000000', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>PardodLaimigs.lv</span>
+          </div>
+          <span style={{ backgroundColor: '#285854', color: 'white', padding: '6px 12px', fontSize: '11px', fontWeight: 600, whiteSpace: 'nowrap', flexShrink: 0 }}>{listing.listingId}</span>
+        </div>
+
+        <h1 className="font-bold text-gray-900" style={{ fontSize: '32px', marginBottom: '8px', lineHeight: 1.2 }}>{listing.title || 'Īpašuma nosaukums'}</h1>
+        <p className="text-gray-500" style={{ fontSize: '18px', marginBottom: '20px' }}>{listing.address || 'Īpašuma adrese'}</p>
+        
+        <div className="bg-gray-50 rounded-lg border border-gray-200" style={{ padding: '12px', marginBottom: '20px' }}>
+          <div className="font-bold text-gray-900" style={{ fontSize: '32px' }}>{formatPrice(listing.price) || '€0'}</div>
+          <div className="text-gray-500" style={{ fontSize: '14px', marginTop: '4px' }}>
+            {listing.areaSize && `${parseFloat(listing.areaSize).toLocaleString()} m²`}
+            {listing.areaSize && listing.pricePerSqm && ' • '}
+            {listing.pricePerSqm && `${formatPrice(listing.pricePerSqm)}/m²`}
+          </div>
+        </div>
+
+        <div style={{ marginBottom: '20px', overflow: 'hidden' }}>
+          {paragraphs.map((para, i) => (
+            <p key={i} className="text-gray-600" style={{ fontSize: '14px', lineHeight: 1.6, marginBottom: '12px', wordBreak: 'break-word' }}>{para}</p>
+          ))}
+        </div>
+
+        <a
+          href="https://pardodlaimigs.lv"
+          style={{ background: '#285854', color: 'white', borderRadius: '6px', padding: '16px', fontSize: '16px', fontWeight: 600, textTransform: 'uppercase', textAlign: 'center', letterSpacing: '0.5px', display: 'block', textDecoration: 'none', marginBottom: '30px' }}
+        >
+          {listing.ctaText || 'Sazināties'}
+        </a>
+
+        <div style={{ width: '100%', height: '180px', backgroundColor: '#e5e7eb', borderRadius: '4px', overflow: 'hidden', marginBottom: '15px' }}>
+          {mapImage?.preview ? (
+            <img src={mapImage.preview} alt="Map" style={{ width: '100%', height: '180px', objectFit: 'cover', maxWidth: '100%' }} />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-gray-400" style={{ fontSize: '14px' }}>Map Image</div>
+          )}
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '15px' }}>
+          {galleryImages.length === 0 ? (
+            [...Array(4)].map((_, i) => (
+              <div key={`placeholder-${i}`} style={{ width: 'calc(50% - 3px)', height: '100px', backgroundColor: '#e5e7eb', borderRadius: '4px' }} />
+            ))
+          ) : (
+            galleryImages.map((img, i) => {
+              const isLast = i === galleryImages.length - 1;
+              const isOdd = galleryImages.length % 2 === 1;
+              const isFullWidth = isLast && isOdd;
+              return (
+                <div key={img.id} style={{ width: isFullWidth ? '100%' : 'calc(50% - 3px)', height: '100px' }}>
+                  <img src={img.preview} alt={`Gallery ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
+                </div>
+              );
+            })
+          )}
+        </div>
+
+        {galvenaisFoto && (
+          <div style={{ width: '100%', height: '180px', marginBottom: '30px', borderRadius: '4px', overflow: 'hidden' }}>
+            <img src={galvenaisFoto.preview} alt="Galvenais foto" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        )}
+
+        <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '15px', marginTop: 'auto' }}>
+          <div style={{ backgroundColor: '#285854', padding: '16px', borderRadius: '6px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', gap: isMobile ? '12px' : '40px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <img src={agentImage?.preview ? `${agentImage.preview}?${CACHE_BUST}` : `/images/favicon.jpg?${CACHE_BUST}`} alt="Agent" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
+              <div>
+                <p className="font-semibold text-white">{listing.agentName || 'Agent Name'}</p>
+                <p className="text-white text-sm">{listing.agentTitle}</p>
+              </div>
+            </div>
+            <div style={{ flex: 1, alignItems: isMobile ? 'flex-start' : 'flex-end' }}>
+              <p className="text-white font-medium">{listing.mobile}</p>
+              <p className="text-white text-sm">{listing.email}</p>
+            </div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #f3f4f6' }}>
+            <span className="text-gray-400" style={{ fontSize: '11px' }}>{listing.listingDate}</span>
+            <span className="text-gray-400" style={{ fontSize: '11px' }}>© pardodlaimigs.lv</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -434,7 +532,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
 }
 
 export default function Home() {
-  const [formState, setFormState] = useState<FormState>({ listing: defaultListing, mapImage: null, galleryImages: [], galvenaisFoto: null, agentImage: { id: 'agent', file: null, preview: '/images/roberts-2.jpg', name: 'roberts-2.jpg' } });
+  const [formState, setFormState] = useState<FormState>({ listing: defaultListing, mapImage: null, galleryImages: [], galvenaisFoto: null, agentImage: { id: 'agent', file: null, preview: '/images/roberts-2.jpg', name: 'roberts-2.jpg' }, singleColumnLayout: false });
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<'property' | 'images' | 'agent'>('property');
   const [windowWidth, setWindowWidth] = useState(1024);
@@ -461,7 +559,7 @@ export default function Home() {
     }
     setIsGenerating(true);
     try {
-      const doc = <FlyerPdfDocument listing={formState.listing} mapImage={formState.mapImage} galleryImages={formState.galleryImages} galvenaisFoto={formState.galvenaisFoto} agentImage={formState.agentImage} baseUrl={typeof window !== 'undefined' ? window.location.origin : ''} />;
+      const doc = <FlyerPdfDocument listing={formState.listing} mapImage={formState.mapImage} galleryImages={formState.galleryImages} galvenaisFoto={formState.galvenaisFoto} agentImage={formState.agentImage} baseUrl={typeof window !== 'undefined' ? window.location.origin : ''} singleColumnLayout={formState.singleColumnLayout} />;
       const blob = await pdf(doc).toBlob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -535,6 +633,17 @@ export default function Home() {
               <div className="p-2 md:p-3 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
                 <span className="text-sm font-medium text-gray-700">Priekšskats</span>
                 <span className="text-xs text-gray-400">A4</span>
+              </div>
+              <div className="p-2 md:p-3 border-b border-gray-100">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formState.singleColumnLayout}
+                    onChange={(e) => setFormState(prev => ({ ...prev, singleColumnLayout: e.target.checked }))}
+                    className="w-4 h-4 text-[#285854] border-gray-300 rounded focus:ring-[#285854]"
+                  />
+                  <span className="text-sm text-gray-600">Vienas kolonnas izkārtojums (saturs pirmais)</span>
+                </label>
               </div>
               <div className="p-2 md:p-4 bg-gray-100 overflow-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
                 <div className="flex justify-center">

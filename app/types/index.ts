@@ -30,6 +30,7 @@ export interface FormState {
   galleryImages: ImageFile[];
   galvenaisFoto: ImageFile | null;
   agentImage: ImageFile | null;
+  singleColumnLayout: boolean;
 }
 
 export const defaultListing: ListingData = {

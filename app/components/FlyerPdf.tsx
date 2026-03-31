@@ -53,6 +53,7 @@ interface FlyerPdfProps {
   galvenaisFoto: ImageFile | null;
   agentImage: ImageFile | null;
   baseUrl?: string;
+  singleColumnLayout?: boolean;
 }
 
 const formatPrice = (value: string) => {
@@ -68,7 +69,7 @@ const stripHtml = (html: string): string => {
   return text.trim();
 };
 
-export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFoto, agentImage, baseUrl = '' }: FlyerPdfProps) {
+export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFoto, agentImage, baseUrl = '', singleColumnLayout = false }: FlyerPdfProps) {
   const plainText = stripHtml(listing.description);
   const paragraphs = plainText.split('\n\n').filter(p => p.trim());
   const priceSubtext = [
@@ -77,6 +78,133 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
   ].filter(Boolean).join(' • ');
 
   const galleryItems = galleryImages.slice(0, 6);
+
+  const stylesSingleCol = StyleSheet.create({
+    page: { padding: 40, fontFamily: 'DejaVuSans', backgroundColor: '#ffffff' },
+    purpleBar: { height: 6, backgroundColor: '#285854', borderRadius: 6, marginBottom: 15 },
+    header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' },
+    listingId: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 4, paddingHorizontal: 8, fontSize: 9, fontWeight: 'bold', borderRadius: 6 },
+    title: { fontSize: 20, fontWeight: 'bold', color: '#111827', marginBottom: 6 },
+    address: { fontSize: 14, color: '#6b7280', marginBottom: 14 },
+    priceBox: { backgroundColor: '#f9fafb', borderWidth: 1, borderColor: '#e5e7eb', borderRadius: 6, padding: 14, marginBottom: 14 },
+    price: { fontSize: 30, fontWeight: 'bold', color: '#111827' },
+    priceSubtext: { fontSize: 12, color: '#6b7280', marginTop: 3 },
+    description: { marginBottom: 14 },
+    descriptionText: { fontSize: 12, color: '#4b5563', lineHeight: 1.5, marginBottom: 8 },
+    cta: { backgroundColor: '#285854', color: '#ffffff', paddingVertical: 14, paddingHorizontal: 24, fontSize: 14, fontWeight: 'bold', textAlign: 'center', borderRadius: 6, textTransform: 'uppercase', letterSpacing: 0.5, textDecoration: 'none', marginBottom: 20 },
+    mapWrapper: { width: '100%', height: 180, backgroundColor: '#f3f4f6', borderRadius: 4, marginBottom: 12, overflow: 'hidden' },
+    mapText: { fontSize: 12, color: '#9ca3af' },
+    galleryRow: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 4 },
+    galleryItemHalf: { width: 245, height: 100, borderRadius: 4, overflow: 'hidden' },
+    galleryItemFull: { width: 497, height: 120, borderRadius: 4, overflow: 'hidden' },
+    galvenaisFotoWrapper: { width: '100%', height: 180, borderRadius: 4, overflow: 'hidden', marginBottom: 20 },
+    footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 10, marginTop: 'auto' },
+    footerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
+    agentBox: { backgroundColor: '#285854', padding: 16, borderRadius: 6 },
+    agentName: { fontWeight: 'bold', color: '#ffffff', fontSize: 12 },
+    agentTitle: { color: '#ffffff', fontSize: 10, marginTop: 2 },
+    agentPhone: { color: '#ffffff', fontSize: 11, fontWeight: 'bold', marginTop: 4 },
+    agentEmail: { color: '#ffffff', fontSize: 10, marginTop: 2 },
+    rightInfo: { textAlign: 'right', fontSize: 10 },
+    website: { color: '#285854', fontWeight: 'bold' },
+    footerBar: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 8, paddingTop: 6, borderTopWidth: 1, borderTopColor: '#f3f4f6' },
+    footerText: { fontSize: 9, color: '#9ca3af' },
+  });
+
+  if (singleColumnLayout) {
+    return (
+      <Document>
+        <Page size="A4" style={stylesSingleCol.page}>
+          <View style={stylesSingleCol.purpleBar} />
+
+          <View style={stylesSingleCol.header}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image src={`/images/favicon.jpg?${CACHE_BUST}`} style={{ width: 40, height: 40 }} />
+              <Text style={{ marginLeft: 8, fontSize: 12, fontWeight: 'bold', color: '#000000' }}>PardodLaimigs.lv</Text>
+            </View>
+            <Text style={stylesSingleCol.listingId}>{listing.listingId}</Text>
+          </View>
+
+          <Text style={stylesSingleCol.title}>{listing.title || 'Īpašuma nosaukums'}</Text>
+          <Text style={stylesSingleCol.address}>{listing.address || 'Īpašuma adrese'}</Text>
+
+          <View style={stylesSingleCol.priceBox}>
+            <Text style={stylesSingleCol.price}>{formatPrice(listing.price) || '€0'}</Text>
+            {priceSubtext && <Text style={stylesSingleCol.priceSubtext}>{priceSubtext}</Text>}
+          </View>
+
+          <View style={stylesSingleCol.description}>
+            {paragraphs.map((para, i) => (
+              <Text key={i} style={stylesSingleCol.descriptionText}>{para}</Text>
+            ))}
+          </View>
+
+          <Link src="https://pardodlaimigs.lv" style={{ textDecoration: 'none' }}>
+            <Text style={stylesSingleCol.cta}>{listing.ctaText || 'Sazināties'}</Text>
+          </Link>
+
+          <View style={stylesSingleCol.mapWrapper}>
+            {mapImage?.preview ? (
+              <Image src={mapImage.preview} style={{ width: 497, height: 180, objectFit: 'cover' }} />
+            ) : (
+              <View style={{ width: 497, height: 180, justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={stylesSingleCol.mapText}>Karte</Text>
+              </View>
+            )}
+          </View>
+
+          {galleryItems.length > 0 && (
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
+              {galleryItems.map((img, i) => {
+                const isLast = i === galleryItems.length - 1;
+                const isOdd = galleryItems.length % 2 === 1;
+                const isFullWidth = isLast && isOdd;
+                const itemStyle = isFullWidth 
+                  ? stylesSingleCol.galleryItemFull 
+                  : stylesSingleCol.galleryItemHalf;
+                const imgStyle = isFullWidth 
+                  ? { width: 497, height: 120, objectFit: 'cover' as const }
+                  : { width: 245, height: 100, objectFit: 'cover' as const };
+                return (
+                  <View key={img.id} style={itemStyle}>
+                    <Image src={img.preview} style={imgStyle} />
+                  </View>
+                );
+              })}
+            </View>
+          )}
+
+          {galvenaisFoto && (
+            <View style={stylesSingleCol.galvenaisFotoWrapper}>
+              <Image src={galvenaisFoto.preview} style={{ width: 497, height: 180, objectFit: 'cover' }} />
+            </View>
+          )}
+
+          <View style={stylesSingleCol.footer} wrap={false}>
+            <View style={[stylesSingleCol.agentBox, { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: 20 }]}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{ width: 40, height: 40, borderRadius: 20, overflow: 'hidden', marginRight: 10 }}>
+                  <Image src={agentImage?.preview ? (agentImage.preview.startsWith('/') ? baseUrl + agentImage.preview + '?' + CACHE_BUST : agentImage.preview + '?' + CACHE_BUST) : baseUrl + '/images/favicon.jpg?' + CACHE_BUST} style={{ width: 40, height: 40 }} />
+                </View>
+                <View>
+                  <Text style={stylesSingleCol.agentName}>{listing.agentName || 'Agent Name'}</Text>
+                  {listing.agentTitle && <Text style={stylesSingleCol.agentTitle}>{listing.agentTitle}</Text>}
+                </View>
+              </View>
+              <View style={{ alignItems: 'flex-end', paddingTop: 2 }}>
+                {listing.mobile && <Text style={stylesSingleCol.agentPhone}>{listing.mobile}</Text>}
+                {listing.email && <Text style={stylesSingleCol.agentEmail}>{listing.email}</Text>}
+              </View>
+            </View>
+            <View style={stylesSingleCol.footerBar}>
+              <Text style={stylesSingleCol.footerText}>{listing.listingDate}</Text>
+              <Text style={stylesSingleCol.footerText}>© pardodlaimigs.lv</Text>
+            </View>
+          </View>
+        </Page>
+      </Document>
+    );
+  }
 
   return (
     <Document>
