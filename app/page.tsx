@@ -634,16 +634,19 @@ export default function Home() {
                 <span className="text-sm font-medium text-gray-700">Priekšskats</span>
                 <span className="text-xs text-gray-400">A4</span>
               </div>
-              <div className="p-2 md:p-3 border-b border-gray-100">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={formState.singleColumnLayout}
-                    onChange={(e) => setFormState(prev => ({ ...prev, singleColumnLayout: e.target.checked }))}
-                    className="w-4 h-4 text-[#285854] border-gray-300 rounded focus:ring-[#285854]"
-                  />
-                  <span className="text-sm text-gray-600">Vienas kolonnas izkārtojums (saturs pirmais)</span>
-                </label>
+              <div className="p-2 md:p-3 border-b border-gray-100 flex items-center gap-2">
+                <button
+                  onClick={() => setFormState(prev => ({ ...prev, singleColumnLayout: false }))}
+                  className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${!formState.singleColumnLayout ? 'bg-[#285854] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                >
+                  2 kol
+                </button>
+                <button
+                  onClick={() => setFormState(prev => ({ ...prev, singleColumnLayout: true }))}
+                  className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${formState.singleColumnLayout ? 'bg-[#285854] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                >
+                  1 kol
+                </button>
               </div>
               <div className="p-2 md:p-4 bg-gray-100 overflow-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
                 <div className="flex justify-center">
