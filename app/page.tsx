@@ -537,6 +537,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'property' | 'images' | 'agent'>('property');
   const [windowWidth, setWindowWidth] = useState(1024);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [showLayoutTooltip, setLayoutTooltip] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -587,6 +588,8 @@ export default function Home() {
             <div className="relative">
               <button
                 onClick={() => setFormState(prev => ({ ...prev, singleColumnLayout: !prev.singleColumnLayout }))}
+                onMouseEnter={() => setLayoutTooltip(true)}
+                onMouseLeave={() => setLayoutTooltip(false)}
                 className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
               >
                 {formState.singleColumnLayout ? (
@@ -598,9 +601,11 @@ export default function Home() {
                   </div>
                 )}
               </button>
-              <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap z-50">
-                {formState.singleColumnLayout ? 'Vienas kolonnas izkārtojums' : 'Divu kolonnu izkārtojums'}
-              </div>
+              {showLayoutTooltip && (
+                <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap z-50">
+                  {formState.singleColumnLayout ? 'Vienas kolonnas izkārtojums' : 'Divu kolonnu izkārtojums'}
+                </div>
+              )}
             </div>
             <button 
               onClick={handleGeneratePdf} 
