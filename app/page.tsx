@@ -581,9 +581,30 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-3 md:px-4 py-3 md:py-0 md:h-16 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 md:gap-3 min-w-0">
             <img src={`/images/favicon.jpg?${CACHE_BUST}`} alt="Logo" className="w-8 h-8 rounded-lg flex-shrink-0" />
-            <h1 className="text-lg md:text-xl font-bold text-gray-900 truncate md:truncate-none">PDF mārketinga ģenerators</h1>
+            <h1 className="hidden md:block text-lg md:text-xl font-bold text-gray-900 truncate md:truncate-none">PDF mārketinga ģenerators</h1>
           </div>
-          <div className="relative">
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <button
+                onClick={() => setFormState(prev => ({ ...prev, singleColumnLayout: !prev.singleColumnLayout }))}
+                className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+                title={formState.singleColumnLayout ? 'Divu kolonnu izkārtojums' : 'Vienas kolonnas izkārtojums'}
+              >
+                {formState.singleColumnLayout ? (
+                  <svg className="w-5 h-5 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                  </svg>
+                ) : (
+                  <div className="flex gap-0.5">
+                    <div className="w-4 h-5 bg-gray-400 rounded-sm" />
+                    <div className="w-4 h-5 bg-gray-400 rounded-sm" />
+                  </div>
+                )}
+              </button>
+              <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap z-50">
+                {formState.singleColumnLayout ? 'Vienas kolonnas izkārtojums' : 'Divu kolonnu izkārtojums'}
+              </div>
+            </div>
             <button 
               onClick={handleGeneratePdf} 
               onMouseEnter={() => !isFormValid(formState.listing) && setShowTooltip(true)} 
@@ -633,20 +654,6 @@ export default function Home() {
               <div className="p-2 md:p-3 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
                 <span className="text-sm font-medium text-gray-700">Priekšskats</span>
                 <span className="text-xs text-gray-400">A4</span>
-              </div>
-              <div className="p-2 md:p-3 border-b border-gray-100 flex items-center gap-2">
-                <button
-                  onClick={() => setFormState(prev => ({ ...prev, singleColumnLayout: false }))}
-                  className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${!formState.singleColumnLayout ? 'bg-[#285854] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-                >
-                  2 kol
-                </button>
-                <button
-                  onClick={() => setFormState(prev => ({ ...prev, singleColumnLayout: true }))}
-                  className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${formState.singleColumnLayout ? 'bg-[#285854] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-                >
-                  1 kol
-                </button>
               </div>
               <div className="p-2 md:p-4 bg-gray-100 overflow-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
                 <div className="flex justify-center">
