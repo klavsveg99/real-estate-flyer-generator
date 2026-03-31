@@ -588,12 +588,9 @@ export default function Home() {
               <button
                 onClick={() => setFormState(prev => ({ ...prev, singleColumnLayout: !prev.singleColumnLayout }))}
                 className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-                title={formState.singleColumnLayout ? 'Divu kolonnu izkārtojums' : 'Vienas kolonnas izkārtojums'}
               >
                 {formState.singleColumnLayout ? (
-                  <svg className="w-5 h-5 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                  </svg>
+                  <div className="w-5 h-5 bg-gray-400 rounded-sm" />
                 ) : (
                   <div className="flex gap-0.5">
                     <div className="w-4 h-5 bg-gray-400 rounded-sm" />
@@ -601,7 +598,7 @@ export default function Home() {
                   </div>
                 )}
               </button>
-              <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap z-50">
+              <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap z-50">
                 {formState.singleColumnLayout ? 'Vienas kolonnas izkārtojums' : 'Divu kolonnu izkārtojums'}
               </div>
             </div>
