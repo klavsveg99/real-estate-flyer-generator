@@ -96,6 +96,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
     mapText: { fontSize: 12, color: '#9ca3af' },
     galleryRow: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 4 },
     galleryItemHalf: { width: 245, height: 100, borderRadius: 4, overflow: 'hidden' },
+    galleryItemThird: { width: 161, height: 100, borderRadius: 4, overflow: 'hidden' },
     galleryItemFull: { width: 497, height: 120, borderRadius: 4, overflow: 'hidden' },
     galvenaisFotoWrapper: { width: '100%', height: 180, borderRadius: 4, overflow: 'hidden', marginBottom: 20 },
     footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 10, marginTop: 'auto' },
@@ -152,15 +153,18 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
           {galleryItems.length > 0 && (
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
               {galleryItems.map((img, i) => {
+                const cols3 = galleryItems.length % 3 === 0;
                 const isLast = i === galleryItems.length - 1;
-                const isOdd = galleryItems.length % 2 === 1;
-                const isFullWidth = isLast && isOdd;
-                const itemStyle = isFullWidth 
-                  ? stylesSingleCol.galleryItemFull 
-                  : stylesSingleCol.galleryItemHalf;
-                const imgStyle = isFullWidth 
-                  ? { width: 497, height: 120, objectFit: 'cover' as const }
-                  : { width: 245, height: 100, objectFit: 'cover' as const };
+                const isFullWidth = isLast && !cols3;
+                let itemStyle;
+                let imgStyle;
+                if (isFullWidth) {
+                  itemStyle = stylesSingleCol.galleryItemFull;
+                  imgStyle = { width: 497, height: 120, objectFit: 'cover' as const };
+                } else {
+                  itemStyle = stylesSingleCol.galleryItemThird;
+                  imgStyle = { width: 161, height: 100, objectFit: 'cover' as const };
+                }
                 return (
                   <View key={img.id} style={itemStyle}>
                     <Image src={img.preview} style={imgStyle} />

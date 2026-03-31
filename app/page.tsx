@@ -82,16 +82,16 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '15px' }}>
           {galleryImages.length === 0 ? (
-            [...Array(4)].map((_, i) => (
-              <div key={`placeholder-${i}`} style={{ width: 'calc(50% - 3px)', height: '100px', backgroundColor: '#e5e7eb', borderRadius: '4px' }} />
+            [...Array(6)].map((_, i) => (
+              <div key={`placeholder-${i}`} style={{ width: 'calc(33.333% - 4px)', height: '120px', backgroundColor: '#e5e7eb', borderRadius: '4px' }} />
             ))
           ) : (
             galleryImages.map((img, i) => {
               const isLast = i === galleryImages.length - 1;
-              const isOdd = galleryImages.length % 2 === 1;
-              const isFullWidth = isLast && isOdd;
+              const cols3 = galleryImages.length % 3 === 0;
+              const isFullWidth = isLast && !cols3 && galleryImages.length > 6;
               return (
-                <div key={img.id} style={{ width: isFullWidth ? '100%' : 'calc(50% - 3px)', height: '100px' }}>
+                <div key={img.id} style={{ width: isFullWidth ? '100%' : 'calc(33.333% - 4px)', height: '120px' }}>
                   <img src={img.preview} alt={`Gallery ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
                 </div>
               );
@@ -397,7 +397,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
 
   const handleGalleryFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    const remaining = 6 - formState.galleryImages.length;
+    const remaining = 12 - formState.galleryImages.length;
     const filesToAdd = files.slice(0, remaining);
     
     let loadedCount = 0;
@@ -485,7 +485,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
               <span className="absolute bottom-1 left-1 bg-black bg-opacity-50 text-white text-xs px-1 rounded">{i + 1}</span>
             </div>
           ))}
-          {formState.galleryImages.length < 6 && (
+          {formState.galleryImages.length < 12 && (
             <label className="border-2 border-dashed border-gray-300 rounded-lg aspect-square flex flex-col items-center justify-center cursor-pointer hover:border-[#285854] hover:bg-[#285854]/10 transition-colors">
               <input type="file" accept="image/*" multiple className="hidden" onChange={handleGalleryFiles} />
               <div style={{ color: '#285854' }}>
@@ -495,7 +495,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
             </label>
           )}
         </div>
-        <div className="mt-2 text-xs text-gray-400">{formState.galleryImages.length}/6 attēlu augšupielādēts</div>
+        <div className="mt-2 text-xs text-gray-400">{formState.galleryImages.length}/12 attēlu augšupielādēts</div>
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Galvenais foto</label>
