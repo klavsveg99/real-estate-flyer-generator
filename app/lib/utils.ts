@@ -1,6 +1,6 @@
 import { ListingData } from '@/app/types';
 
-export const CACHE_BUST = 'v=12';
+export const CACHE_BUST = 'v=13';
 
 export function formatPrice(value: string): string {
   const num = parseFloat(value.replace(/[^0-9.]/g, ''));

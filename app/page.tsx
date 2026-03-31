@@ -471,7 +471,6 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Attēli - Velciet, lai mainītu kārtību</label>
         <div className="grid grid-cols-3 gap-3" title="Velciet, lai mainītu kārtību">
-        <div className="grid grid-cols-3 gap-3">
           {formState.galleryImages.map((img, i) => (
             <div
               key={img.id}
