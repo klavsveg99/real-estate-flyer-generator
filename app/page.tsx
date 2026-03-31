@@ -80,15 +80,15 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
           )}
         </div>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '15px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '15px', width: '100%' }}>
           {galleryImages.length === 0 ? (
             [...Array(12)].map((_, i) => (
-              <div key={`placeholder-${i}`} style={{ flex: '0 0 calc(33.333% - 4px)', height: '120px', backgroundColor: '#e5e7eb', borderRadius: '4px' }} />
+              <div key={`placeholder-${i}`} style={{ width: 'calc(33.333% - 4px)', height: '120px', backgroundColor: '#e5e7eb', borderRadius: '4px', boxSizing: 'border-box' }} />
             ))
           ) : (
             galleryImages.map((img, i) => {
               return (
-                <div key={img.id} style={{ flex: '0 0 calc(33.333% - 4px)', height: '120px' }}>
+                <div key={img.id} style={{ width: 'calc(33.333% - 4px)', height: '120px', boxSizing: 'border-box' }}>
                   <img src={img.preview} alt={`Gallery ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
                 </div>
               );
