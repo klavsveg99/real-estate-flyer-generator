@@ -470,6 +470,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Attēli - Velciet, lai mainītu kārtību</label>
+        <div className="grid grid-cols-3 gap-3" title="Velciet, lai mainītu kārtību">
         <div className="grid grid-cols-3 gap-3">
           {formState.galleryImages.map((img, i) => (
             <div
@@ -496,7 +497,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
             </label>
           )}
         </div>
-        <div className="mt-2 text-xs text-gray-400">Maks. {formState.singleColumnLayout ? 12 : 6} attēli</div>
+        <div className="mt-2 text-xs text-gray-400">{formState.galleryImages.length}/{formState.singleColumnLayout ? 12 : 6} attēli pievienoti</div>
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Galvenais foto</label>
