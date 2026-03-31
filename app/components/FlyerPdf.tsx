@@ -143,15 +143,11 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
             <Text style={stylesSingleCol.cta}>{listing.ctaText || 'Sazināties'}</Text>
           </Link>
 
-          <View style={stylesSingleCol.mapWrapper}>
-            {mapImage?.preview ? (
+          {mapImage?.preview && (
+            <View style={stylesSingleCol.mapWrapper}>
               <Image src={mapImage.preview} style={{ width: 497, height: 180, objectFit: 'cover' }} />
-            ) : (
-              <View style={{ width: 497, height: 180, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={stylesSingleCol.mapText}>Karte</Text>
-              </View>
-            )}
-          </View>
+            </View>
+          )}
 
           {galleryItems.length > 0 && (
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
@@ -243,15 +239,11 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
           </View>
 
           <View style={styles.rightCol}>
-            <View style={styles.mapWrapper}>
-              {mapImage?.preview ? (
+            {mapImage?.preview && (
+              <View style={styles.mapWrapper}>
                 <Image src={mapImage.preview} style={{ width: 249, height: 150, objectFit: 'cover' }} />
-              ) : (
-                <View style={{ width: 249, height: 150, justifyContent: 'center', alignItems: 'center' }}>
-                  <Text style={styles.mapText}>Karte</Text>
-                </View>
-              )}
-            </View>
+              </View>
+            )}
 
             {galleryItems.length > 0 && (
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
