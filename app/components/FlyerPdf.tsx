@@ -77,7 +77,8 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
     listing.pricePerSqm && `${formatPrice(listing.pricePerSqm)}/m²`,
   ].filter(Boolean).join(' • ');
 
-  const galleryItems = galleryImages.slice(0, 6);
+  const maxImages = singleColumnLayout ? 12 : 6;
+  const galleryItems = galleryImages.slice(0, maxImages);
 
   const stylesSingleCol = StyleSheet.create({
     page: { padding: 40, fontFamily: 'DejaVuSans', backgroundColor: '#ffffff' },

@@ -397,7 +397,8 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
 
   const handleGalleryFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    const remaining = 12 - formState.galleryImages.length;
+    const maxImages = formState.singleColumnLayout ? 12 : 6;
+    const remaining = maxImages - formState.galleryImages.length;
     const filesToAdd = files.slice(0, remaining);
     
     let loadedCount = 0;
@@ -468,7 +469,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
         </div>
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Attēli (līdz 6) - Velciet, lai mainītu kārtību</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Attēli - Velciet, lai mainītu kārtību</label>
         <div className="grid grid-cols-3 gap-3">
           {formState.galleryImages.map((img, i) => (
             <div
@@ -485,7 +486,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
               <span className="absolute bottom-1 left-1 bg-black bg-opacity-50 text-white text-xs px-1 rounded">{i + 1}</span>
             </div>
           ))}
-          {formState.galleryImages.length < 12 && (
+          {formState.galleryImages.length < (formState.singleColumnLayout ? 12 : 6) && (
             <label className="border-2 border-dashed border-gray-300 rounded-lg aspect-square flex flex-col items-center justify-center cursor-pointer hover:border-[#285854] hover:bg-[#285854]/10 transition-colors">
               <input type="file" accept="image/*" multiple className="hidden" onChange={handleGalleryFiles} />
               <div style={{ color: '#285854' }}>
@@ -495,7 +496,7 @@ function ImageSection({ formState, updateMapImage, updateGalleryImages, updateGa
             </label>
           )}
         </div>
-        <div className="mt-2 text-xs text-gray-400">{formState.galleryImages.length}/12 attēlu augšupielādēts</div>
+        <div className="mt-2 text-xs text-gray-400">Maks. {formState.singleColumnLayout ? 12 : 6} attēli</div>
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Galvenais foto</label>
