@@ -87,10 +87,8 @@ function PreviewSection({ formState, windowWidth = 1024 }: { formState: FormStat
             ))
           ) : (
             galleryImages.map((img, i) => {
-              const remainder = galleryImages.length % 3;
-              const isFullWidth = remainder === 1 && i === galleryImages.length - 1;
               return (
-                <div key={img.id} style={{ flex: isFullWidth ? '0 0 100%' : '0 0 calc(33.333% - 4px)', height: '120px' }}>
+                <div key={img.id} style={{ flex: '0 0 calc(33.333% - 4px)', height: '120px' }}>
                   <img src={img.preview} alt={`Gallery ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
                 </div>
               );
