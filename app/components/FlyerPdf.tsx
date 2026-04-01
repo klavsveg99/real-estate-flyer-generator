@@ -97,7 +97,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
     mapText: { fontSize: 12, color: '#9ca3af' },
     galleryRow: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 4 },
     galleryItemHalf: { width: 245, height: 100, borderRadius: 4, overflow: 'hidden' },
-    galleryItemThird: { width: 170, height: 100, borderRadius: 4, overflow: 'hidden' },
+    galleryItemThird: { width: 167, height: 100, borderRadius: 4, overflow: 'hidden' },
     galleryItemFull: { width: 522, height: 120, borderRadius: 4, overflow: 'hidden' },
     galvenaisFotoWrapper: { width: '100%', height: 180, borderRadius: 4, overflow: 'hidden', marginBottom: 20 },
     footer: { borderTopWidth: 1, borderTopColor: '#e5e7eb', paddingTop: 10, marginTop: 'auto' },
@@ -157,7 +157,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
                 let itemStyle;
                 let imgStyle;
                 itemStyle = stylesSingleCol.galleryItemThird;
-                imgStyle = { width: 170, height: 100, objectFit: 'cover' as const };
+                imgStyle = { width: 167, height: 100, objectFit: 'cover' as const };
                 return (
                   <View key={img.id} style={itemStyle}>
                     <Image src={img.preview} style={imgStyle} />
