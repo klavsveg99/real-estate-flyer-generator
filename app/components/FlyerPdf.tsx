@@ -152,7 +152,7 @@ export function FlyerPdfDocument({ listing, mapImage, galleryImages, galvenaisFo
           )}
 
           {galleryItems.length > 0 && (
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 6 }}>
               {galleryItems.map((img, i) => {
                 let itemStyle;
                 let imgStyle;
